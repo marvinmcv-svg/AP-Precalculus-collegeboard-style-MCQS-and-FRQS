@@ -309,6 +309,65 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
 .gloss div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.93rem}
 .gloss b{display:block;font-family:var(--display)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:30;width:100%;height:100%}
+
+/* ---------- 3D tilt cards ---------- */
+.tilt{transform-style:preserve-3d;transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0);transition:transform .25s ease,box-shadow .25s ease,border-color .2s;position:relative;will-change:transform}
+.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.35),transparent 55%);opacity:0;transition:opacity .25s}
+.tilt.hov::after{opacity:1}
+.tilt.hov{box-shadow:0 18px 40px -18px rgba(20,35,46,.45)}
+.feat svg,.vthumb{transform:translateZ(30px)}
+.feat:hover{transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-3px)}
+
+/* ---------- topic thumbnails & level map ---------- */
+details.topic summary{grid-template-columns:56px 1fr auto}
+.ticon{width:56px;height:56px;border-radius:12px;background:var(--paper);border:1px solid var(--line)}
+.ttl .tnum{display:inline-block;margin-right:4px;font-size:.78rem;vertical-align:2px}
+details.topic summary:hover .ticon{transform:rotate(-4deg) scale(1.06);transition:transform .25s}
+.lmap{position:relative;display:flex;gap:10px;overflow-x:auto;padding:8px 4px 16px;margin-bottom:12px;scrollbar-width:thin}
+.lmap::before{content:"";position:absolute;left:24px;right:24px;top:30px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--line) 0 10px,transparent 10px 16px)}
+.lnode{position:relative;flex:none;width:46px;height:46px;border-radius:50%;border:2.5px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--mono);font-size:.78rem;font-weight:600;display:grid;place-items:center;transition:transform .2s}
+.lnode:hover{transform:translateY(-4px) scale(1.08)}
+.lnode.done{background:var(--good);border-color:var(--good);color:#fff;animation:pulse 2.6s ease-in-out infinite}
+.unit2 .lnode.done{background:var(--u2);border-color:var(--u2)}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(29,138,85,.18)}}
+.rv{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv:not(.rv-in){transform:translateY(18px)}
+
+/* ---------- video cards ---------- */
+.vrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:6px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.vcard{display:grid;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px;overflow:hidden}
+.vcard:hover{border-color:var(--bad)}
+.vthumb{position:relative;display:block;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,var(--u1),#0f3f86)}
+.vthumb.full{background:linear-gradient(135deg,var(--u2),#4a2185)}
+.vthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.vthumb.ok img{opacity:1}
+.vposter{position:absolute;left:10px;bottom:6px;font-family:var(--display);font-weight:800;font-size:1.9rem;color:rgba(255,255,255,.9);letter-spacing:-.02em}
+.vthumb.ok .vposter{display:none}
+.vplay{position:absolute;left:50%;top:50%;width:48px;height:34px;margin:-17px 0 0 -24px;border-radius:10px;background:#e62117;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .2s}
+.vplay::after{content:"";position:absolute;left:19px;top:9px;border-left:13px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.vcard:hover .vplay{transform:scale(1.15)}
+.vdur{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.78);color:#fff;font-family:var(--mono);font-size:.72rem;padding:2px 6px;border-radius:5px}
+.vmeta{display:grid;gap:2px;padding:0 4px 4px}
+.vmeta b{font-family:var(--display);font-size:.95rem;line-height:1.25}
+.vmeta small{color:var(--muted);font-size:.8rem}
+.vkind{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bad)}
+.vcard.sm .vmeta b{font-size:.88rem}
+.vlegend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.vlegend .note{display:grid;gap:4px}
+.vtopics{display:grid;gap:22px}
+.vtopic h4{font-family:var(--display);font-size:1.1rem;margin-bottom:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.vtopic h4 button{font-size:.8rem}
+.vmodal{position:fixed;inset:0;z-index:40;background:rgba(10,16,22,.78);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:.001}}
+.vbox{width:min(960px,100%);background:var(--card);border-radius:16px;overflow:hidden;animation:pop .25s ease}
+.vbar{display:flex;gap:12px;align-items:center;padding:10px 14px}
+.vbar b{flex:1;min-width:0;font-family:var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vbar a{color:var(--blue);font-weight:700;font-size:.9rem;white-space:nowrap}
+.vbar button{background:none;border:0;color:var(--muted);font-size:1.5rem;line-height:1}
+.vframe{aspect-ratio:16/9;max-width:100%;background:#000}
+.vframe iframe{width:100%;height:100%;border:0;display:block}
+@media (prefers-reduced-motion: reduce){.tilt{transform:none!important}.lnode.done{animation:none}.rv:not(.rv-in){transform:none}}
 @media (prefers-reduced-motion: reduce){.marvinhero svg.big{animation:none}.page.on{animation:none}}
 </style>
 
@@ -323,6 +382,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
       <a href="#flashcards" data-to="flashcards">Flashcards</a>
       <a href="#practice" data-to="practice">MCQ Arena</a>
       <a href="#frq" data-to="frq">FRQ Gym</a>
+      <a href="#videos" data-to="videos">Videos</a>
       <a href="#resources" data-to="resources">Resources</a>
       <a href="#tutor" data-to="tutor">Mr Marvin</a>
     </div>
@@ -359,6 +419,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
     <a class="feat" href="#visuals"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--blue-soft)"/><circle cx="16" cy="30" r="4" fill="var(--blue)"/><circle cx="34" cy="16" r="4" fill="var(--blue)"/><path d="M8 36 L40 10" stroke="var(--bad)" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>Visual Lab</b><span>7 interactive graphs you can drag, play and break.</span></a>
     <a class="feat" href="#practice"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--good-soft)"/><path d="M14 25 l7 7 l13 -15" fill="none" stroke="var(--good)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><b>MCQ Arena</b><span>90 College Board style questions with explanations.</span></a>
     <a class="feat" href="#frq"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--marker)"/><path d="M14 14 h20 M14 22 h20 M14 30 h12" stroke="var(--marker-ink)" stroke-width="3" stroke-linecap="round"/></svg><b>FRQ Gym</b><span>11 scored free-response questions, 5 per unit plus a mixed one.</span></a>
+    <a class="feat" href="#videos"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--bad-soft)"/><rect x="11" y="14" width="26" height="20" rx="6" fill="var(--bad)"/><path d="M21 19 l8 5 l-8 5 z" fill="#fff"/></svg><b>Video library</b><span>A short video and a full lesson for every topic, 1.1 to 2.15.</span></a>
     <a class="feat" href="#tutor"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg><b>Ask Mr Marvin</b><span>An AI tutor for any Unit 1 or Unit 2 question, day or night.</span></a>
   </div>
 </header>
@@ -380,6 +441,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
     <p>Open a level, read the idea, study the worked example, dodge the trap, and answer the quick check. Getting it right marks the level mastered.</p>
   </div>
   <div class="prog"><div class="bar"><i id="bar1"></i></div><span id="lbl1">0 / 14 mastered</span></div>
+  <div class="lmap" id="lmap1" aria-label="Unit 1 level map"></div>
   <div class="topics" id="topics1"></div>
 </section>
 
@@ -390,6 +452,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
     <p>Unit 2 is all about <b>multiplying</b> instead of adding. Once that clicks, logs are just exponents asking a question backwards.</p>
   </div>
   <div class="prog"><div class="bar"><i id="bar2"></i></div><span id="lbl2">0 / 15 mastered</span></div>
+  <div class="lmap" id="lmap2" aria-label="Unit 2 level map"></div>
   <div class="topics" id="topics2"></div>
 </section>
 
@@ -695,6 +758,26 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   </div>
 </section>
 
+<section id="videosSec" class="page" data-page="videos">
+  <div class="sec-head">
+    <p class="eyebrow">Watch, then practice</p>
+    <h2>Video library</h2>
+    <p>Every topic from 1.1 to 2.15, numbered exactly like the College Board course, so each video matches a level in this guide. Start with the <b>quick</b> video (under 3 minutes). If it still feels fuzzy, watch the <b>full lesson</b> with notes and examples.</p>
+  </div>
+  <div class="vlegend">
+    <div class="note"><span class="vkind">Quick · under 3 min</span><b>Maximum Insight</b><span class="mini">Fast, animated recaps of one topic. Great before a quiz or as a refresher.</span></div>
+    <div class="note"><span class="vkind" style="color:var(--u2)">Full lesson</span><b>The Algebros</b><span class="mini">Teacher-led notes and worked examples that follow the CED topic by topic.</span></div>
+  </div>
+  <h3 style="margin:28px 0 12px">Big-picture reviews</h3>
+  <div class="vgrid" id="vReviews"></div>
+  <div class="arena-top" style="margin-top:32px"><div class="seg" role="group" aria-label="Unit" id="vUnits">
+    <button type="button" data-vu="1" aria-pressed="true">Unit 1</button>
+    <button type="button" data-vu="2" aria-pressed="false">Unit 2</button>
+  </div></div>
+  <div id="vTopics" class="vtopics"></div>
+  <p class="mini" style="margin-top:20px">These videos are made by independent AP teachers on YouTube, not by the College Board. They open on YouTube or in a player on this page.</p>
+</section>
+
 <section id="tutorSec" class="page" data-page="tutor">
   <div class="tutorpage">
     <div class="marvinhero">
@@ -715,6 +798,8 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
 </section>
 
 </main>
+
+<div class="vmodal" id="vmodal" role="dialog" aria-label="Video player" hidden><div class="vbox"><div class="vbar"><b id="vmTitle"></b><a id="vmLink" href="#" target="_blank" rel="noopener">Open on YouTube</a><button type="button" id="vmClose" aria-label="Close video">×</button></div><div class="vframe" id="vmFrame"></div></div></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="marvinFace" viewBox="0 0 48 48">
@@ -977,6 +1062,24 @@ var T2=[
   q:"Data looks linear on a semi-log plot. The original data is:",o:["Exponential","Linear","Logarithmic"],a:0,w:"Taking the log of exponential data makes it linear."}
 ];
 
+/* YouTube tutorials that follow the College Board topic numbering.
+   Q = Maximum Insight "in under 3 mins" (quick), L = The Algebros full lessons. */
+var VQ={"1.1":["Dj8LGTNt6Ok","1:32"],"1.2":["zCEuVGipk9s","1:10"],"1.3":["ljSj2UgkRs0","1:24"],"1.4":["EU-89rNE3ZQ","1:44"],"1.5":["nqATJjpMKPE","2:36"],"1.6":["uc1o8TFLIDo","2:21"],"1.7":["lNEGp0BPCmE","1:42"],"1.8":["a4f5BkqxlWw","1:05"],"1.9":["AaXIlkHaeb4","1:10"],"1.10":["Dxpr1RweHkc","0:51"],"1.11":["O7czW57SffU","1:58"],"1.12":["kjBxQgesgPM","1:41"],"1.13":["_zUsUxtBqKY","1:51"],"1.14":["-dQECx-Dn50","2:58"],
+ "2.1":["2wYJ7z071iY","2:02"],"2.2":["Ks1ABJUk5Q0","2:03"],"2.3":["6HwcjoF-h-U","2:16"],"2.4":["xDEIohDwC0I","1:59"],"2.5":["E9hYB5yy6m0","1:58"],"2.6":["C20f1Ws7PpI","1:45"],"2.7":["xXdizE1i248","1:21"],"2.8":["PqWW0Hb9S24","1:47"],"2.9":["sZh3Kf-wMiw","1:45"],"2.10":["ZEwp5HAy5To","1:21"],"2.11":["u7GN8Uo1Vdw","1:23"],"2.12":["hb4E4zXRFls","1:50"],"2.13":["W_hCgMhbC5Q","1:26"],"2.14":["-qPrqztDYsE","1:32"],"2.15":["AUxtA2pxnyc","1:20"]};
+var VL={"1.1":[["Rj8LjMUpUhs","15:39",""]],"1.2":[["T7tBWrn1jX4","17:47",""]],"1.3":[["JR1LNsU4_Kw","16:59",""]],"1.4":[["zYTxU_75dkU","16:56",""]],"1.5":[["EnyGjoVH2es","27:48","Part A: complex zeros"],["Bk8GxEPbKZU","13:32","Part B: even & odd functions"]],"1.6":[["LLRM_15XeLk","16:05",""]],"1.7":[["5r5H07fqwvQ","13:34","Part A"],["JkQEXlpJi50","18:23","Part B"]],"1.9":[["s81rEiuZdXc","15:41",""]],"1.10":[["BPZzSxt9pTo","11:54",""]],"1.11":[["J7NAFRaouv8","21:39","Part A: binomial theorem"],["23fq5uiTCyw","13:11","Part B: long division & slant asymptotes"]],"1.12":[["QROmAGZMUEo","13:01","Part A: translations"],["AGHgCsa7dD0","15:09","Part B: dilations"]],"1.13":[["rfLO4hi3gPs","15:59",""]],"1.14":[["eLQacOk4hJo","20:11",""]],
+ "2.1":[["sp98RQid_So","15:03",""]],"2.2":[["nltVAfRYHJ0","16:15",""]],"2.3":[["FzofPpE0ihc","12:38",""]],"2.4":[["cvQpASIDPv0","15:57",""]],"2.5":[["mMvZejeLuDI","15:03","Part A"],["AnL1FeVQ760","11:52","Part B"]],"2.6":[["Ss8ISg_YHdM","11:02",""]],"2.7":[["YnzIFGw7Lyg","7:26","Part A"],["QFrpbcgAZig","9:57","Part B"]],"2.8":[["I28yDL5j7gc","23:20",""]],"2.9":[["UcR2HKuAbV4","16:01",""]],"2.10":[["6Esv4t-AOH0","14:58",""]],"2.11":[["QLSR6Kx-KBQ","24:50",""]],"2.12":[["l2G5PSt1KbE","13:31",""]],"2.13":[["RsoS0jvhgcc","13:42","Part A"],["I3fAt1vWUSk","9:14","Part B"]],"2.14":[["tH4oBrTgknc","13:57",""]],"2.15":[["ZJvnn1N5cjw","11:34",""]]};
+var VREVIEW=[["82pUuLgGtJo","20:19","Unit 1 full review","Maximum Insight","Polynomial & rational functions in one sitting."],["2aQR3ihj59M","22:16","Unit 2 full review","Maximum Insight","Exponentials and logs in one sitting."],["sVNkO9Tq0hs","5:44","FRQ 1 walkthrough","Maximum Insight","How Function Concepts FRQs are scored."],["2wNGKJoIZTo","5:50","FRQ 2 walkthrough","Maximum Insight","How the modeling FRQ is scored."],["W5OTF9M1O4Q","14:07","FRQ #1 worked example","The Algebros","A full Function Concepts FRQ, solved step by step."]];
+function vcard(id,dur,title,chan,kind,tn,compact){
+  return '<a class="vcard tilt'+(compact?" sm":"")+'" href="https://www.youtube.com/watch?v='+id+'" target="_blank" rel="noopener" data-vid="'+id+'" data-title="'+esc(title)+'">'+
+    '<span class="vthumb'+(kind==="full"?" full":"")+'"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/'+id+'/mqdefault.jpg" onload="this.parentNode.classList.add(\'ok\')" onerror="this.remove()"><span class="vposter" aria-hidden="true">'+(tn||"")+'</span><span class="vplay" aria-hidden="true"></span><span class="vdur">'+dur+'</span></span>'+
+    '<span class="vmeta"><span class="vkind">'+(kind==="full"?"Full lesson":kind==="quick"?"Quick · under 3 min":"Review")+'</span><b>'+title+'</b><small>'+chan+'</small></span></a>';
+}
+function videoCards(n,compact){
+  var out="";var t=T1.concat(T2).filter(function(x){return x.n===n})[0],nm=t?plain(t.t):"";
+  if(VQ[n])out+=vcard(VQ[n][0],VQ[n][1],n+" "+nm+" in under 3 minutes","Maximum Insight","quick",n,compact);
+  (VL[n]||[]).forEach(function(v){out+=vcard(v[0],v[1],"AP Precalculus "+n+" "+(v[2]||nm),"The Algebros","full",n,compact);});
+  return out;
+}
 var VIZMAP={"1.2":"v-secant","1.3":"v-secant","1.4":"v-poly","1.5":"v-poly","1.6":"v-poly","1.7":"v-rat","1.8":"v-rat","1.9":"v-rat","1.10":"v-rat","1.11":"v-rat","1.12":"v-trans","2.2":"v-race","2.3":"v-race","2.5":"v-race","2.8":"v-mirror","2.9":"v-mirror","2.10":"v-mirror","2.11":"v-mirror","2.15":"v-semilog"};
 function plain(html){var d=document.createElement("div");d.innerHTML=String(html).replace(/<\/(td|th)>/g," | ").replace(/<\/tr>/g,"\n").replace(/<sub>/g,"_").replace(/<br\s*\/?>/g,"\n");return d.textContent.replace(/[ \t]+\n/g,"\n").trim();}
 function shuffleIdx(n,seed){var a=[];for(var i=0;i<n;i++)a.push(i);var s=seed;for(var j=n-1;j>0;j--){s=(s*9301+49297)%233280;var r=Math.floor(s/233280*(j+1));var t=a[j];a[j]=a[r];a[r]=t;}return a;}
@@ -985,13 +1088,15 @@ function buildTopics(list,box,unit){
   list.forEach(function(t,ti){
     var d=el("details","topic"+(S.mastered[t.n]?" mastered":""));
     var sum=el("summary");
-    sum.innerHTML='<span class="tnum">'+t.n+'</span><span class="ttl">'+t.t+'<small>'+t.s+'</small></span><span class="check" aria-label="mastered">✓</span>';
+    d.id="topic-"+t.n.replace(".","-");
+    sum.innerHTML='<canvas class="ticon" data-n="'+t.n+'" width="56" height="56" aria-hidden="true"></canvas><span class="ttl"><span class="tnum">'+t.n+'</span> '+t.t+'<small>'+t.s+'</small></span><span class="check" aria-label="mastered">✓</span>';
     d.appendChild(sum);
     var b=el("div","tbody");
     b.innerHTML='<div><h4>The big idea</h4><p>'+t.idea+'</p></div>'+
       '<div><h4>Rules to remember</h4><ul>'+t.rules.map(function(r){return"<li>"+r+"</li>"}).join("")+'</ul></div>'+
       '<div class="ex"><h4>Worked example</h4>'+t.ex+'</div>'+
-      '<div class="trap"><b>Trap alert:</b> '+t.trap+'</div>';
+      '<div class="trap"><b>Trap alert:</b> '+t.trap+'</div>'+
+      '<div><h4>Watch it explained</h4><div class="vrow">'+videoCards(t.n,true)+'</div></div>';
     var qc=el("div","qc");
     qc.innerHTML='<h4>Quick check</h4><p>'+t.q+'</p>';
     var opts=el("div","opts"),fb=el("p","fb");
@@ -1494,7 +1599,7 @@ buildFrqTabs();
 /* =========================================================
    SITE: router, hero animation, progress rings, glossary
    ========================================================= */
-var PAGES=["home","unit1","unit2","visuals","flashcards","practice","frq","resources","tutor"];
+var PAGES=["home","unit1","unit2","visuals","flashcards","practice","frq","videos","resources","tutor"];
 var LEGACY={plan:"home",lab:"visuals",cards:"flashcards",arena:"practice",gym:"frq",sheet:"resources"};
 var curPage=null;
 function route(){
@@ -1815,6 +1920,128 @@ $("composer").addEventListener("submit",function(e){e.preventDefault();var v=$("
 $("chatIn").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("composer").requestSubmit?$("composer").requestSubmit():$("composer").dispatchEvent(new Event("submit"));}});
 $("chatIn").addEventListener("input",function(){this.style.height="";this.style.height=Math.min(120,this.scrollHeight)+"px";});
 document.querySelectorAll("[data-ask]").forEach(function(b){b.addEventListener("click",function(){askMarvin(b.dataset.ask)})});
+
+/* =========================================================
+   STUDENT-FRIENDLY VISUALS: topic thumbnails, level maps,
+   video library + player, 3D tilt, scroll reveal
+   ========================================================= */
+var ICON={
+ "1.1":{f:[function(x){return Math.sin(x*1.4)*0.7}]},
+ "1.2":{f:[function(x){return 0.15*x*x*x-0.6*x}],sec:[-1.6,1.7]},
+ "1.3":{f:[function(x){return 0.4*x*x-0.9}]},
+ "1.4":{f:[function(x){return 0.12*(x+2)*x*(x-2)}]},
+ "1.5":{f:[function(x){return 0.18*(x+1.6)*(x-1)*(x-1)}],dots:[[-1.6,0],[1,0]]},
+ "1.6":{f:[function(x){return 0.09*x*x*x*x-0.6*x*x}]},
+ "1.7":{f:[function(x){return 1/(x+0.0001)*0.5+0.9}],h:0.9,v:0},
+ "1.8":{f:[function(x){return (x+0.8)/(x-1.4)*0.5}],dots:[[-0.8,0]],v:1.4},
+ "1.9":{f:[function(x){return 0.4/x}],v:0,h:0},
+ "1.10":{f:[function(x){return 0.5*x+0.2}],hole:[1,0.7]},
+ "1.11":{f:[function(x){return 0.5*x+0.3+0.4/(x+0.3)}],v:-0.3,sl:[0.5,0.3]},
+ "1.12":{f:[function(x){return 0.4*x*x-1.2},function(x){return 0.4*(x-1)*(x-1)+0.1}],c2:true},
+ "1.13":{f:[function(x){return 0.3*x*x-0.8}],scat:[[-1.8,0.2],[-1,-0.4],[0,-0.9],[0.9,-0.5],[1.7,0.1]]},
+ "1.14":{f:[function(x){return x<0?-0.6*x-0.6:0.5*x*x-0.6}]},
+ "2.1":{scat:[[-1.8,-1.1],[-1,-0.9],[-0.2,-0.6],[0.6,-0.1],[1.4,0.7]],f:[]},
+ "2.2":{f:[function(x){return 0.4*x-0.3},function(x){return Math.pow(2,x)*0.35-0.9}],c2:true},
+ "2.3":{f:[function(x){return Math.pow(2.2,x)*0.3-1}],h:-1},
+ "2.4":{f:[function(x){return Math.pow(2,x+0.7)*0.25-1}],h:-1},
+ "2.5":{f:[function(x){return Math.pow(0.45,x)*0.35-1}],h:-1},
+ "2.6":{f:[function(){return 0}],scat:[[-1.7,0.4],[-1,-0.3],[-0.3,0.25],[0.4,-0.45],[1.1,0.3],[1.7,-0.2]]},
+ "2.7":{f:[function(x){return Math.sin(x*1.2)*0.5+0.3},function(x){return Math.sin(x*2.4)*0.3-0.6}],c2:true},
+ "2.8":{f:[function(x){return Math.pow(2,x)*0.4-1},function(x){return x>-0.99?Math.log2((x+1)/0.4):NaN}],c2:true,id:true},
+ "2.9":{f:[function(x){return x>-1.9?Math.log(x+2)*0.8-0.5:NaN}],v:-2},
+ "2.10":{f:[function(x){return Math.pow(2,x)*0.4-1},function(x){return x>-0.99?Math.log2((x+1)/0.4):NaN}],c2:true,id:true},
+ "2.11":{f:[function(x){return x>-1.95?Math.log(x+2)*0.9-0.3:NaN}],v:-2},
+ "2.12":{f:[function(x){return x>-1.95?Math.log(x+2)*0.6-0.2:NaN},function(x){return x>-1.95?Math.log(x+2)*1.1-0.6:NaN}],c2:true},
+ "2.13":{f:[function(x){return Math.pow(2,x)*0.35-1}],hl:0.2,dots:[[1.79,0.2]]},
+ "2.14":{f:[function(x){return x>-1.95?Math.log(x+2)*0.8-0.5:NaN}],scat:[[-1.5,-0.9],[-0.8,-0.2],[0,0.05],[0.9,0.35],[1.7,0.55]]},
+ "2.15":{f:[function(x){return 0.45*x}],scat:[[-1.6,-0.72],[-0.8,-0.36],[0,0],[0.8,0.36],[1.6,0.72]]}
+};
+function drawIcons(){
+  document.querySelectorAll("canvas.ticon").forEach(function(cv){
+    var spec=ICON[cv.dataset.n];if(!spec)return;var dpr=window.devicePixelRatio||1;cv.width=56*dpr;cv.height=56*dpr;
+    var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,56,56);
+    var X=function(x){return 28+x*12},Y=function(y){return 28-y*12};
+    var u2=cv.dataset.n.charAt(0)==="2",main=u2?css("--u2"):css("--u1");
+    c.strokeStyle=css("--line");c.lineWidth=1;c.beginPath();c.moveTo(4,28);c.lineTo(52,28);c.moveTo(28,4);c.lineTo(28,52);c.stroke();
+    c.setLineDash([3,3]);c.strokeStyle=css("--bad");c.lineWidth=1.2;
+    if(spec.h!=null){c.beginPath();c.moveTo(4,Y(spec.h));c.lineTo(52,Y(spec.h));c.stroke();}
+    if(spec.v!=null){c.beginPath();c.moveTo(X(spec.v),4);c.lineTo(X(spec.v),52);c.stroke();}
+    if(spec.hl!=null){c.strokeStyle=css("--good");c.beginPath();c.moveTo(4,Y(spec.hl));c.lineTo(52,Y(spec.hl));c.stroke();}
+    if(spec.sl){c.beginPath();c.moveTo(X(-2),Y(spec.sl[0]*-2+spec.sl[1]));c.lineTo(X(2),Y(spec.sl[0]*2+spec.sl[1]));c.stroke();}
+    if(spec.id){c.strokeStyle=css("--muted");c.beginPath();c.moveTo(X(-2),Y(-2));c.lineTo(X(2),Y(2));c.stroke();}
+    c.setLineDash([]);
+    spec.f.forEach(function(f,k){c.strokeStyle=k&&spec.c2?css("--good"):main;c.lineWidth=2.2;c.beginPath();var pen=false,prev=null;
+      for(var px=4;px<=52;px+=0.5){var x=(px-28)/12,y=f(x);if(!isFinite(y)||Math.abs(y)>2.2||(prev!==null&&Math.abs(y-prev)>1.2)){pen=false;prev=isFinite(y)?y:null;continue}if(!pen){c.moveTo(px,Y(y));pen=true}else c.lineTo(px,Y(y));prev=y;}c.stroke();});
+    if(spec.sec){var f0=spec.f[0],a=spec.sec[0],b=spec.sec[1],m=(f0(b)-f0(a))/(b-a);c.strokeStyle=css("--bad");c.lineWidth=1.5;c.beginPath();c.moveTo(X(-2),Y(f0(a)+m*(-2-a)));c.lineTo(X(2),Y(f0(a)+m*(2-a)));c.stroke();}
+    (spec.scat||[]).forEach(function(p){c.fillStyle=main;c.beginPath();c.arc(X(p[0]),Y(p[1]),2.4,0,7);c.fill();});
+    (spec.dots||[]).forEach(function(p){c.fillStyle=css("--good");c.beginPath();c.arc(X(p[0]),Y(p[1]),3,0,7);c.fill();});
+    if(spec.hole){c.fillStyle=css("--card");c.strokeStyle=main;c.lineWidth=1.8;c.beginPath();c.arc(X(spec.hole[0]),Y(spec.hole[1]),3.2,0,7);c.fill();c.stroke();}
+  });
+}
+drawIcons();
+new MutationObserver(drawIcons).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+if(window.matchMedia){var mqd=window.matchMedia("(prefers-color-scheme: dark)");if(mqd.addEventListener)mqd.addEventListener("change",drawIcons);}
+
+/* level maps */
+function buildMaps(){
+  [[T1,"lmap1"],[T2,"lmap2"]].forEach(function(pair){
+    var box=$(pair[1]);box.innerHTML="";
+    pair[0].forEach(function(t){var b=el("button","lnode"+(S.mastered[t.n]?" done":""),S.mastered[t.n]?"✓":t.n);b.type="button";b.title=t.n+" "+plain(t.t)+(S.mastered[t.n]?" (mastered)":"");b.setAttribute("aria-label",b.title);
+      b.addEventListener("click",function(){var d=$("topic-"+t.n.replace(".","-"));if(d){d.open=true;d.scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});}});
+      box.appendChild(b);});
+  });
+}
+buildMaps();
+var _upd=updateProg;updateProg=function(){_upd();buildMaps();};
+
+/* video library page */
+function buildVideos(){
+  $("vReviews").innerHTML=VREVIEW.map(function(v){return vcard(v[0],v[1],v[2],v[3]+" · "+v[4],"review","")}).join("");
+  renderVTopics("1");
+}
+function renderVTopics(u){
+  var list=u==="1"?T1:T2;
+  $("vTopics").innerHTML=list.map(function(t){return '<div class="vtopic rv"><h4><span class="tnum">'+t.n+'</span>'+t.t+' <button class="seebtn" type="button" data-goto="'+t.n+'">Open the level →</button></h4><div class="vrow">'+videoCards(t.n,false)+'</div></div>'}).join("");
+  $("vTopics").querySelectorAll("[data-goto]").forEach(function(b){b.addEventListener("click",function(){var n=b.dataset.goto;go(n.charAt(0)==="1"?"unit1":"unit2");setTimeout(function(){var d=$("topic-"+n.replace(".","-"));if(d){d.open=true;d.scrollIntoView({block:"start"});}},80);});});
+  wireDynamic($("vTopics"));
+}
+document.querySelectorAll("[data-vu]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-vu]").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");renderVTopics(b.dataset.vu);});});
+buildVideos();
+
+/* video player: embeds on the website, opens YouTube where embedding isn't allowed */
+var CAN_EMBED=!(window.claude&&typeof window.claude.use==="function")&&/^https?:$/.test(location.protocol);
+function openVideo(id,title){
+  $("vmTitle").textContent=title;$("vmLink").href="https://www.youtube.com/watch?v="+id;
+  $("vmFrame").innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="'+esc(title)+'" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  $("vmodal").hidden=false;$("vmClose").focus();addXP(2);
+}
+function closeVideo(){$("vmFrame").innerHTML="";$("vmodal").hidden=true;}
+$("vmClose").addEventListener("click",closeVideo);
+$("vmodal").addEventListener("click",function(e){if(e.target===this)closeVideo();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("vmodal").hidden)closeVideo();});
+document.addEventListener("click",function(e){
+  var a=e.target.closest&&e.target.closest("a.vcard");if(!a)return;
+  if(CAN_EMBED){e.preventDefault();openVideo(a.dataset.vid,a.dataset.title);}else{addXP(2);}
+});
+
+/* 3D tilt */
+function wireTilt(root){
+  if(reduceMotion||!window.matchMedia||!window.matchMedia("(hover: hover)").matches)return;
+  (root||document).querySelectorAll(".tilt:not([data-tw])").forEach(function(c){
+    c.dataset.tw="1";
+    c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+      c.style.setProperty("--ry",((px-.5)*12).toFixed(2)+"deg");c.style.setProperty("--rx",((.5-py)*10).toFixed(2)+"deg");
+      c.style.setProperty("--gx",(px*100).toFixed(0)+"%");c.style.setProperty("--gy",(py*100).toFixed(0)+"%");c.classList.add("hov");});
+    c.addEventListener("pointerleave",function(){c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg");c.classList.remove("hov");});
+  });
+}
+/* scroll reveal: content is visible at rest, it only slides into place */
+var rvObs=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("rv-in");rvObs.unobserve(e.target);}})},{rootMargin:"0px 0px -40px 0px"}):null;
+function wireReveal(root){(root||document).querySelectorAll(".rv:not(.rv-in)").forEach(function(n){if(rvObs&&!reduceMotion)rvObs.observe(n);else n.classList.add("rv-in");});}
+function wireDynamic(root){wireTilt(root);wireReveal(root);}
+document.querySelectorAll(".feat,.res a.note,.vlegend .note").forEach(function(n){n.classList.add("tilt")});
+document.querySelectorAll(".feat,.day,details.topic,.sheet .note,.tactic,.res a.note,.gloss div").forEach(function(n){n.classList.add("rv")});
+wireDynamic(document);
 greet();
 route();
 })();
