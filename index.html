@@ -1,0 +1,1021 @@
+<title>Santiago's Precalc Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: graph-paper notebook. Sticky tab bar on top, single readable column of "levels", tools (lab, arena, gym) as full-width panels. */
+:root{
+  --paper:#f3f6f8; --grid:#dfe7ec; --ink:#14232e; --muted:#566a78;
+  --card:#ffffff; --line:#cfdbe3;
+  --blue:#1f5fbf; --blue-soft:#e3ecfa;
+  --marker:#ffe066; --marker-ink:#4a3b00;
+  --good:#1d8a55; --good-soft:#dff3e8;
+  --bad:#c23b3b; --bad-soft:#fbe5e5;
+  --u1:#1f5fbf; --u2:#7a3fc2; --u2-soft:#efe6fa;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --shadow:0 1px 0 rgba(20,35,46,.06), 0 6px 18px -10px rgba(20,35,46,.25);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0f171d; --grid:#18242c; --ink:#e6eef3; --muted:#9db0bd;
+  --card:#16212a; --line:#27373f;
+  --blue:#7fb0ff; --blue-soft:#1a2c46;
+  --marker:#e8c93a; --marker-ink:#1d1700;
+  --good:#5fd39a; --good-soft:#123426;
+  --bad:#ff8a8a; --bad-soft:#3a1b1b;
+  --u1:#7fb0ff; --u2:#c49bff; --u2-soft:#2a1d3d;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 8px 20px -12px rgba(0,0,0,.7);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0f171d; --grid:#18242c; --ink:#e6eef3; --muted:#9db0bd;
+  --card:#16212a; --line:#27373f;
+  --blue:#7fb0ff; --blue-soft:#1a2c46;
+  --marker:#e8c93a; --marker-ink:#1d1700;
+  --good:#5fd39a; --good-soft:#123426;
+  --bad:#ff8a8a; --bad-soft:#3a1b1b;
+  --u1:#7fb0ff; --u2:#c49bff; --u2-soft:#2a1d3d;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 8px 20px -12px rgba(0,0,0,.7);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;letter-spacing:-.02em}
+h3{font-size:1.3rem;font-weight:700}
+p{margin:0}
+.m{font-family:var(--mono);font-size:.92em;white-space:nowrap}
+.hl{background:linear-gradient(transparent 55%,var(--marker) 55%);color:inherit;padding:0 2px}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--card);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:12px;padding-block:8px}
+.brand{font-family:var(--display);font-weight:800;white-space:nowrap}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.9rem;padding:6px 10px;border-radius:999px}
+.tabs a:hover{background:var(--blue-soft);color:var(--ink)}
+.xp{font-family:var(--mono);font-size:.8rem;white-space:nowrap;background:var(--marker);color:var(--marker-ink);padding:4px 10px;border-radius:999px;font-weight:600}
+
+section{padding-block:56px 8px}
+.sec-head{display:grid;gap:8px;margin-bottom:24px}
+.sec-head p{color:var(--muted);max-width:62ch}
+
+/* hero */
+.hero{padding-block:48px 16px}
+.hero h1{font-size:clamp(2.4rem,7vw,4.4rem);font-weight:800;letter-spacing:-.035em;max-width:16ch}
+.hero h1 .fx{font-family:var(--mono);font-weight:600;font-size:.55em;letter-spacing:0;display:block;color:var(--blue);margin-bottom:10px}
+.hero .lede{font-size:1.15rem;max-width:58ch;margin-top:18px}
+.examstrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:28px;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--card)}
+.examstrip div{padding:14px;border-right:1px dashed var(--line)}
+.examstrip div:last-child{border-right:0}
+.examstrip b{display:block;font-family:var(--display);font-size:1.6rem}
+.examstrip span{font-size:.85rem;color:var(--muted)}
+@media (max-width:640px){.examstrip{grid-template-columns:1fr 1fr}.examstrip div:nth-child(2){border-right:0}.examstrip div:nth-child(-n+2){border-bottom:1px dashed var(--line)}}
+
+.note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.letter{margin-top:28px;border-left:5px solid var(--marker)}
+.letter p+p{margin-top:10px}
+
+/* plan */
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px}
+.day label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.day input{width:20px;height:20px;margin-top:3px;accent-color:var(--good);flex:none}
+.day .d{font-family:var(--mono);font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day.done{background:var(--good-soft);border-color:var(--good)}
+.day small{color:var(--muted)}
+
+/* progress */
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.bar{flex:1;min-width:180px;height:12px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--good);transition:width .4s}
+.prog span{font-family:var(--mono);font-size:.85rem;color:var(--muted)}
+
+/* topic levels */
+.unitband{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:8px}
+.pill{font-family:var(--mono);font-size:.75rem;padding:3px 9px;border-radius:999px;border:1px solid currentColor}
+.u1{color:var(--u1)} .u2{color:var(--u2)}
+.topics{display:grid;gap:10px}
+details.topic{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details.topic[open]{box-shadow:var(--shadow)}
+details.topic summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;cursor:pointer}
+details.topic summary::-webkit-details-marker{display:none}
+.tnum{font-family:var(--mono);font-weight:600;font-size:.85rem;padding:4px 8px;border-radius:8px;background:var(--blue-soft);color:var(--u1)}
+.unit2 .tnum{background:var(--u2-soft);color:var(--u2)}
+.ttl{font-family:var(--display);font-weight:700;font-size:1.08rem}
+.ttl small{display:block;font-family:var(--body);font-weight:400;font-size:.88rem;color:var(--muted)}
+.check{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;color:transparent}
+details.topic.mastered .check{background:var(--good);border-color:var(--good);color:#fff}
+.tbody{padding:0 16px 18px;display:grid;gap:14px;border-top:1px dashed var(--line);padding-top:16px}
+.tbody h4{font-size:.8rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.tbody ul{margin:0;padding-left:20px}
+.tbody li+li{margin-top:4px}
+.ex{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto}
+.ex ol{margin:6px 0 0;padding-left:20px}
+.trap{background:var(--bad-soft);border-radius:10px;padding:10px 14px}
+.trap b{color:var(--bad)}
+.qc{border:2px dashed var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:8px}
+.qc .opts{display:flex;flex-wrap:wrap;gap:8px}
+.qc .opts button{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 12px}
+.qc .opts button.right{background:var(--good-soft);border-color:var(--good)}
+.qc .opts button.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.qc .fb{font-size:.95rem}
+.mbtn{justify-self:start;background:var(--ink);color:var(--paper);border:0;border-radius:10px;padding:8px 14px;font-weight:700}
+
+/* lab */
+.lab{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px}
+@media (max-width:760px){.lab{grid-template-columns:1fr}}
+.canvasbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px;aspect-ratio:1/1;max-width:100%}
+.canvasbox canvas{width:100%;height:100%;display:block}
+.ctrls{display:grid;gap:12px;align-content:start}
+.ctrls select{font:inherit;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%}
+.slider{display:grid;grid-template-columns:28px 1fr 52px;gap:10px;align-items:center}
+.slider b{font-family:var(--mono)}
+.slider output{font-family:var(--mono);text-align:right}
+.slider input{width:100%;accent-color:var(--blue)}
+.eq{font-family:var(--mono);font-size:1.05rem;background:var(--ink);color:var(--paper);border-radius:10px;padding:12px;overflow-x:auto;white-space:nowrap}
+.says{font-size:.95rem;display:grid;gap:4px}
+.says div::before{content:"→ ";color:var(--blue);font-weight:700}
+
+/* flashcards */
+.fc-stage{display:grid;place-items:center;gap:14px}
+.fcard{width:100%;max-width:560px;min-height:220px;perspective:1000px;cursor:pointer;background:none;border:0;padding:0;color:inherit}
+.fcard .in{position:relative;width:100%;min-height:220px;transition:transform .5s;transform-style:preserve-3d}
+.fcard.flip .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:24px;display:grid;place-items:center;text-align:center;font-size:1.15rem;border:2px solid var(--ink);background:var(--card)}
+.face.back{transform:rotateY(180deg);background:var(--marker);color:var(--marker-ink);border-color:var(--marker-ink)}
+.face .tag{position:absolute;top:10px;left:14px;font-family:var(--mono);font-size:.7rem;opacity:.7}
+.fc-ctrl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.btn{background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:10px;padding:8px 14px;font-weight:700}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:var(--card)}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* arena */
+.arena-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.seg{display:flex;border:1.5px solid var(--ink);border-radius:10px;overflow:hidden}
+.seg button{background:var(--card);border:0;padding:7px 12px;color:var(--ink);font-size:.9rem}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);display:grid;gap:14px}
+.qmeta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.calc{font-family:var(--mono);font-size:.72rem;padding:3px 8px;border-radius:6px;background:var(--marker);color:var(--marker-ink)}
+.calc.no{background:var(--line);color:var(--ink)}
+.qstem{font-size:1.08rem}
+.qstem table,.frq table{border-collapse:collapse;margin-top:8px;font-family:var(--mono);font-size:.92rem}
+.qstem td,.qstem th,.frq td,.frq th{border:1px solid var(--line);padding:5px 12px;text-align:center}
+.tablewrap{overflow-x:auto}
+.choices{display:grid;gap:8px}
+.choice{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink)}
+.choice .L{font-family:var(--display);font-weight:800;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--card);border:1.5px solid var(--line)}
+.choice:hover:not(:disabled){border-color:var(--blue)}
+.choice.right{background:var(--good-soft);border-color:var(--good)}
+.choice.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.choice:disabled{cursor:default}
+.why{border-radius:10px;padding:12px 14px;background:var(--blue-soft)}
+.why b.ok{color:var(--good)} .why b.no{color:var(--bad)}
+.qnav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+.dots button{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--line);background:var(--card);font-family:var(--mono);font-size:.7rem;color:var(--muted);padding:0}
+.dots button.cur{border-color:var(--ink);color:var(--ink)}
+.dots button.r{background:var(--good);border-color:var(--good);color:#fff}
+.dots button.w{background:var(--bad);border-color:var(--bad);color:#fff}
+.score{font-family:var(--mono);font-size:.9rem}
+.timer{font-family:var(--mono);font-size:.9rem;padding:6px 10px;border-radius:8px;background:var(--line)}
+
+/* frq */
+.frq{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.frq + .frq{margin-top:18px}
+.frq .part{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:10px}
+.frq textarea{width:100%;min-height:80px;font:inherit;font-size:.95rem;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);resize:vertical}
+.sol{background:var(--good-soft);border-radius:10px;padding:12px 14px;display:grid;gap:6px}
+.rub{display:flex;gap:10px;align-items:flex-start}
+.rub input{width:20px;height:20px;accent-color:var(--good);flex:none;margin-top:3px}
+.pts{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.frqscore{font-family:var(--display);font-weight:800;font-size:1.2rem}
+.frqtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+
+/* cheat sheet */
+.sheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.sheet .note h3{margin-bottom:8px;font-size:1.05rem}
+.sheet ul{margin:0;padding-left:18px;font-size:.95rem}
+.sheet li+li{margin-top:5px}
+.tactics{display:grid;gap:10px;counter-reset:t}
+.tactic{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.tactic::before{counter-increment:t;content:counter(t);font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--blue);text-align:center}
+footer{padding-block:48px;color:var(--muted);font-size:.9rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .35s;z-index:20;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <span class="brand">f(Santiago)</span>
+    <div class="tabs">
+      <a href="#plan">Game plan</a>
+      <a href="#unit1">Unit 1</a>
+      <a href="#unit2">Unit 2</a>
+      <a href="#lab">Graph Lab</a>
+      <a href="#cards">Flashcards</a>
+      <a href="#arena">MCQ Arena</a>
+      <a href="#gym">FRQ Gym</a>
+      <a href="#sheet">Cheat sheet</a>
+    </div>
+    <span class="xp" id="xp" title="XP earned on this device">0 XP</span>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">AP Precalculus · Units 1 &amp; 2 · built for Santiago A.</p>
+  <h1><span class="fx">lim<sub>study→∞</sub> score = A</span>The Precalc Playbook</h1>
+  <p class="lede">Every topic from the College Board's Unit 1 (Polynomial &amp; Rational Functions) and Unit 2 (Exponential &amp; Logarithmic Functions), broken into short levels. Read a level, try its quick check, then go win points in the MCQ Arena and FRQ Gym. Your progress saves on this device.</p>
+
+  <div class="examstrip" aria-label="AP exam format">
+    <div><b>29</b><span>MCQ, no calculator · 65 min</span></div>
+    <div><b>13</b><span>MCQ, graphing calculator · 40 min</span></div>
+    <div><b>62.5%</b><span>of the AP score is multiple choice</span></div>
+    <div><b>4</b><span>FRQs · Q1, Q2 &amp; Q4 use Units 1–2</span></div>
+  </div>
+
+  <div class="note letter">
+    <p><b>Hey Santiago.</b> I know there's a lot going on right now, and this course looks like a mountain. Here's the truth: Units 1 and 2 boil down to about <span class="hl">10 big ideas</span> that keep coming back in different outfits. You don't need to study for hours. You need short, focused sessions and a lot of practice questions.</p>
+    <p>The rule for this guide: <b>25 minutes on, 5 minutes off.</b> One level at a time. If a day is rough, do one quick check and call it a win. Small and steady beats huge and stressed.</p>
+  </div>
+</header>
+
+<section id="plan">
+  <div class="sec-head">
+    <p class="eyebrow">Start here</p>
+    <h2>Your 7-day game plan</h2>
+    <p>Each day is about 45–60 minutes. Tick them off as you go. If you have fewer days, do days 1, 3, 5 and 7.</p>
+  </div>
+  <div class="plan" id="planList"></div>
+</section>
+
+<section id="unit1" class="unit1">
+  <div class="sec-head">
+    <p class="eyebrow">Unit 1 · about 30–40% of the AP exam</p>
+    <h2>Polynomial &amp; Rational Functions</h2>
+    <p>Open a level, read the idea, study the worked example, dodge the trap, and answer the quick check. Getting it right marks the level mastered.</p>
+  </div>
+  <div class="prog"><div class="bar"><i id="bar1"></i></div><span id="lbl1">0 / 14 mastered</span></div>
+  <div class="topics" id="topics1"></div>
+</section>
+
+<section id="unit2" class="unit2">
+  <div class="sec-head">
+    <p class="eyebrow">Unit 2 · about 27–40% of the AP exam</p>
+    <h2>Exponential &amp; Logarithmic Functions</h2>
+    <p>Unit 2 is all about <b>multiplying</b> instead of adding. Once that clicks, logs are just exponents asking a question backwards.</p>
+  </div>
+  <div class="prog"><div class="bar"><i id="bar2"></i></div><span id="lbl2">0 / 15 mastered</span></div>
+  <div class="topics" id="topics2"></div>
+</section>
+
+<section id="lab">
+  <div class="sec-head">
+    <p class="eyebrow">Topic 1.12 in action</p>
+    <h2>Graph Lab</h2>
+    <p>Every transformation question is the same pattern: <span class="m">g(x) = a·f(b(x − h)) + k</span>. Drag the sliders and watch what each letter does. Then the MCQs about shifts and stretches become free points.</p>
+  </div>
+  <div class="lab">
+    <div class="canvasbox"><canvas id="cv" width="600" height="600" aria-label="Graph of the transformed function"></canvas></div>
+    <div class="ctrls">
+      <label for="parent" class="eyebrow">Parent function f(x)</label>
+      <select id="parent">
+        <option value="sq">x² (quadratic)</option>
+        <option value="cube">x³ (cubic)</option>
+        <option value="recip">1/x (rational)</option>
+        <option value="exp">2ˣ (exponential)</option>
+        <option value="ln">ln x (logarithmic)</option>
+      </select>
+      <div class="slider"><b>a</b><input id="sa" type="range" min="-3" max="3" step="0.5" value="1"><output id="oa">1</output></div>
+      <div class="slider"><b>b</b><input id="sb" type="range" min="-3" max="3" step="0.5" value="1"><output id="ob">1</output></div>
+      <div class="slider"><b>h</b><input id="sh" type="range" min="-5" max="5" step="1" value="0"><output id="oh">0</output></div>
+      <div class="slider"><b>k</b><input id="sk" type="range" min="-5" max="5" step="1" value="0"><output id="ok">0</output></div>
+      <div class="eq" id="eqn">g(x) = x²</div>
+      <div class="says" id="says"></div>
+      <button class="btn" id="labReset" type="button">Reset sliders</button>
+    </div>
+  </div>
+</section>
+
+<section id="cards">
+  <div class="sec-head">
+    <p class="eyebrow">Memory reps</p>
+    <h2>Flashcards</h2>
+    <p>Tap the card to flip it. Say the answer out loud before you flip, because saying it beats reading it. Mark the ones you knew; the deck keeps showing you the rest.</p>
+  </div>
+  <div class="fc-stage">
+    <div class="seg" role="group" aria-label="Deck">
+      <button type="button" data-deck="all" aria-pressed="true">All</button>
+      <button type="button" data-deck="1" aria-pressed="false">Unit 1</button>
+      <button type="button" data-deck="2" aria-pressed="false">Unit 2</button>
+    </div>
+    <button class="fcard" id="fcard" type="button" aria-label="Flashcard, tap to flip">
+      <div class="in"><div class="face front"><span class="tag" id="fcTag"></span><div id="fcFront"></div></div><div class="face back"><span class="tag">answer</span><div id="fcBack"></div></div></div>
+    </button>
+    <div class="fc-ctrl">
+      <button class="btn" id="fcAgain" type="button">Still learning</button>
+      <button class="btn primary" id="fcGot" type="button">Got it</button>
+    </div>
+    <span class="score" id="fcCount"></span>
+  </div>
+</section>
+
+<section id="arena">
+  <div class="sec-head">
+    <p class="eyebrow">College Board style · 4 choices · one best answer</p>
+    <h2>MCQ Arena</h2>
+    <p>Pick a mode. "Exam pace" gives you the real AP timing: about 2 min 15 s per no-calculator question and about 3 min per calculator question. Every wrong answer comes with an explanation, so wrong answers still teach you something.</p>
+  </div>
+  <div class="arena-top">
+    <div class="seg" role="group" aria-label="Question set">
+      <button type="button" data-set="all" aria-pressed="true">All 44</button>
+      <button type="button" data-set="1" aria-pressed="false">Unit 1</button>
+      <button type="button" data-set="2" aria-pressed="false">Unit 2</button>
+      <button type="button" data-set="miss" aria-pressed="false">My misses</button>
+    </div>
+    <div class="seg" role="group" aria-label="Pace">
+      <button type="button" data-pace="chill" aria-pressed="true">Chill</button>
+      <button type="button" data-pace="exam" aria-pressed="false">Exam pace</button>
+    </div>
+    <span class="timer" id="timer" hidden>0:00</span>
+  </div>
+  <div class="qcard" id="qcard"></div>
+  <div class="dots" id="dots" aria-label="Question map"></div>
+</section>
+
+<section id="gym">
+  <div class="sec-head">
+    <p class="eyebrow">Free response · show your work</p>
+    <h2>FRQ Gym</h2>
+    <p>These follow the official AP task models. Write your answer in the box (or on paper), then reveal the model solution and tick each rubric point you earned. Each question is worth 6 points, like on the real exam.</p>
+  </div>
+  <div class="frqtabs seg" role="group" aria-label="FRQ" id="frqTabs"></div>
+  <div id="frqBox"></div>
+</section>
+
+<section id="sheet">
+  <div class="sec-head">
+    <p class="eyebrow">Read this the night before</p>
+    <h2>One-page cheat sheet</h2>
+  </div>
+  <div class="sheet">
+    <div class="note"><h3 class="u1">Rates of change</h3><ul>
+      <li>Average rate of change on [a, b]: <span class="m">(f(b) − f(a)) / (b − a)</span></li>
+      <li>Linear ⇔ constant 1st differences</li>
+      <li>Quadratic ⇔ constant 2nd differences</li>
+      <li>Degree n ⇔ constant nth differences</li>
+      <li>Concave up ⇔ rate of change increasing</li>
+      <li>Concave down ⇔ rate of change decreasing</li>
+    </ul></div>
+    <div class="note"><h3 class="u1">Polynomials</h3><ul>
+      <li>Degree n ⇒ exactly n complex zeros (with multiplicity)</li>
+      <li>Complex zeros come in pairs: a + bi and a − bi</li>
+      <li>Odd multiplicity: graph crosses. Even: graph touches and bounces</li>
+      <li>Even degree: both ends the same way. Odd degree: ends opposite</li>
+      <li>Even function: f(−x) = f(x), symmetric about the y-axis</li>
+      <li>Odd function: f(−x) = −f(x), symmetric about the origin</li>
+    </ul></div>
+    <div class="note"><h3 class="u1">Rational functions</h3><ul>
+      <li>Factor first. Cancelled factor ⇒ <b>hole</b>. Leftover zero of denominator ⇒ <b>vertical asymptote</b></li>
+      <li>Zeros: zeros of the numerator that are in the domain</li>
+      <li>deg top &lt; deg bottom ⇒ HA y = 0</li>
+      <li>deg top = deg bottom ⇒ HA y = ratio of leading coefficients</li>
+      <li>deg top = deg bottom + 1 ⇒ slant asymptote (long division)</li>
+      <li>deg top &gt; deg bottom ⇒ no HA, behaves like the leading-term ratio</li>
+    </ul></div>
+    <div class="note"><h3 class="u1">Transformations</h3><ul>
+      <li><span class="m">a·f(x)</span>: vertical stretch by |a|, a &lt; 0 reflects over the x-axis</li>
+      <li><span class="m">f(bx)</span>: horizontal stretch by 1/|b|, b &lt; 0 reflects over the y-axis</li>
+      <li><span class="m">f(x − h)</span>: shift right h</li>
+      <li><span class="m">f(x) + k</span>: shift up k</li>
+      <li>Inside the parentheses does the opposite of what you'd guess</li>
+    </ul></div>
+    <div class="note"><h3 class="u2">Sequences &amp; exponentials</h3><ul>
+      <li>Arithmetic: <span class="m">aₙ = a₀ + dn</span> (add d)</li>
+      <li>Geometric: <span class="m">gₙ = g₀·rⁿ</span> (multiply by r)</li>
+      <li><span class="m">f(x) = a·bˣ</span>: b &gt; 1 growth, 0 &lt; b &lt; 1 decay</li>
+      <li>Growth by r% ⇒ b = 1 + r. Decay by r% ⇒ b = 1 − r</li>
+      <li><span class="m">b^(x+k) = bᵏ·bˣ</span> (a horizontal shift is a vertical stretch)</li>
+      <li>Change units: <span class="m">a·bᵗ = a·(b^(1/12))^(12t)</span></li>
+    </ul></div>
+    <div class="note"><h3 class="u2">Logarithms</h3><ul>
+      <li><span class="m">log_b(c) = a ⇔ bᵃ = c</span></li>
+      <li><span class="m">log(xy) = log x + log y</span></li>
+      <li><span class="m">log(x/y) = log x − log y</span></li>
+      <li><span class="m">log(xⁿ) = n·log x</span></li>
+      <li><span class="m">log_b x = ln x / ln b</span></li>
+      <li>Domain of <span class="m">log_b(x)</span>: x &gt; 0. VA at x = 0</li>
+      <li>Always check your solutions in the original log equation</li>
+    </ul></div>
+    <div class="note"><h3 class="u2">Composition &amp; inverses</h3><ul>
+      <li><span class="m">f(g(x))</span>: do g first, then f</li>
+      <li>Inverse: swap x and y, solve for y</li>
+      <li>(a, b) on f ⇔ (b, a) on f⁻¹; reflection over y = x</li>
+      <li>Only one-to-one functions have inverses; you may need to restrict the domain</li>
+      <li>Domain of f⁻¹ = range of f</li>
+    </ul></div>
+    <div class="note"><h3 class="u2">Semi-log plots</h3><ul>
+      <li>y-axis on a log scale makes exponential data look linear</li>
+      <li>If <span class="m">log y = mx + c</span>, then <span class="m">y = 10ᶜ·(10ᵐ)ˣ</span></li>
+      <li>If <span class="m">ln y = mx + c</span>, then <span class="m">y = eᶜ·(eᵐ)ˣ</span></li>
+    </ul></div>
+  </div>
+
+  <div class="sec-head" style="margin-top:40px">
+    <p class="eyebrow">Exam day</p>
+    <h3 style="font-size:1.6rem">Seven moves that save points</h3>
+  </div>
+  <div class="tactics">
+    <div class="tactic"><p><b>Never leave an MCQ blank.</b> There is no penalty for guessing. Cross out two wrong answers and guess between the last two.</p></div>
+    <div class="tactic"><p><b>Plug in the answer choices.</b> On "solve" questions, testing A–D in the original equation is often faster than solving.</p></div>
+    <div class="tactic"><p><b>Factor before you do anything else</b> with a rational function. Holes and asymptotes jump out once it's factored.</p></div>
+    <div class="tactic"><p><b>On FRQs, write the equation before the number.</b> "R(0) = 75 and R(3) = 70.84" earns a point by itself. A bare decimal often earns nothing.</p></div>
+    <div class="tactic"><p><b>Use units in every interpretation.</b> "On average, subscribers increased by 0.906 million per year from t = 1 to t = 3." Name the quantity, the units and the interval.</p></div>
+    <div class="tactic"><p><b>Give 3 decimal places</b> on calculator answers, and keep full precision in your calculator until the end.</p></div>
+    <div class="tactic"><p><b>Calculator in radian mode</b> for the AP exam. Check this before you start.</p></div>
+  </div>
+</section>
+
+</main>
+<footer class="wrap">Topic list and exam format follow the College Board AP Precalculus Course and Exam Description. Practice questions are original, written in the College Board style. Progress is saved only in this browser.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- storage ---------- */
+var KEY="santiago-precalc-v1";
+var S={xp:0,plan:{},mastered:{},misses:{},fcKnown:{},frq:{}};
+try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)S[k]=o[k];}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+var toastEl=document.getElementById("toast"),toastT;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove("show")},2200);}
+function addXP(n,msg){S.xp+=n;save();renderXP();if(msg)toast(msg+"  +"+n+" XP");}
+function renderXP(){document.getElementById("xp").textContent=S.xp+" XP";}
+renderXP();
+function $(id){return document.getElementById(id);}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+/* ---------- plan ---------- */
+var PLAN=[
+ ["Day 1","Rates of change &amp; polynomials","Levels 1.1–1.6. Then 8 Unit 1 questions in the Arena."],
+ ["Day 2","Rational functions","Levels 1.7–1.11. Practice factoring until holes vs. asymptotes is automatic."],
+ ["Day 3","Transformations &amp; modeling","Levels 1.12–1.14, 10 minutes in the Graph Lab, then FRQ: Polynomial Detective."],
+ ["Day 4","Sequences &amp; exponentials","Levels 2.1–2.6. Flashcards (Unit 2 deck) for 10 minutes."],
+ ["Day 5","Composition, inverses, logs","Levels 2.7–2.12. Do the log quick checks twice."],
+ ["Day 6","Equations, modeling, semi-log","Levels 2.13–2.15, FRQ: Exponential Growth and FRQ: Symbolic Manipulation."],
+ ["Day 7","Mock exam","All 44 MCQs on Exam pace, then redo \"My misses\". Read the cheat sheet. Sleep well."]
+];
+var planList=$("planList");
+PLAN.forEach(function(p,i){
+  var d=el("div","day"+(S.plan[i]?" done":""));
+  d.innerHTML='<span class="d">'+p[0]+'</span><label><input type="checkbox" id="plan'+i+'"'+(S.plan[i]?" checked":"")+'><span><b>'+p[1]+'</b><br><small>'+p[2]+'</small></span></label>';
+  d.querySelector("input").addEventListener("change",function(e){S.plan[i]=e.target.checked;d.classList.toggle("done",e.target.checked);save();if(e.target.checked)addXP(20,p[0]+" complete");});
+  planList.appendChild(d);
+});
+
+/* ---------- topics ---------- */
+var T1=[
+ {n:"1.1",t:"Change in Tandem",s:"How inputs and outputs move together",
+  idea:"A function maps each input to exactly one output. You read its behavior from left to right: where it is <b>increasing</b> or <b>decreasing</b>, where it is <b>concave up</b> (curving like a cup) or <b>concave down</b> (like a frown), its <b>zeros</b>, and its <b>max/min</b> points.",
+  rules:["Increasing on an interval: as x increases, f(x) increases.","Positive where the graph is above the x-axis; negative below.","A relative max is where f switches from increasing to decreasing.","A <b>point of inflection</b> is where concavity changes."],
+  ex:"The graph of f rises from x = −3 to x = 1, then falls from x = 1 to x = 4.<ol><li>f is increasing on (−3, 1) and decreasing on (1, 4).</li><li>So f has a relative maximum at x = 1.</li></ol>",
+  trap:"Increasing/decreasing describes x-intervals, not y-values. Write intervals of x.",
+  q:"f changes from decreasing to increasing at x = 2. What happens at x = 2?",o:["Relative minimum","Relative maximum","Point of inflection"],a:0,w:"Going down then up makes a valley, so x = 2 is a relative minimum."},
+ {n:"1.2",t:"Rates of Change",s:"Average rate of change = slope of a secant line",
+  idea:"The <b>average rate of change</b> of f on [a, b] is the slope of the line through (a, f(a)) and (b, f(b)). Its units are <i>output units per input unit</i>.",
+  rules:["<span class='m'>AROC = (f(b) − f(a)) / (b − a)</span>","Positive AROC: f went up on average. Negative: it went down.","The rate of change <i>at a point</i> can be estimated with AROC on a tiny interval around it."],
+  ex:"f(x) = x² − 3x on [1, 4].<ol><li>f(4) = 16 − 12 = 4, f(1) = 1 − 3 = −2</li><li>AROC = (4 − (−2)) / (4 − 1) = 6/3 = <b>2</b></li></ol>",
+  trap:"Subtract in the same order on top and bottom: f(b) − f(a) over b − a.",
+  q:"g(1) = 7 and g(5) = −1. Average rate of change of g on [1, 5]?",o:["−2","2","−8"],a:0,w:"(−1 − 7)/(5 − 1) = −8/4 = −2."},
+ {n:"1.3",t:"Rates of Change in Linear &amp; Quadratic Functions",s:"Constant vs. steadily changing rates",
+  idea:"Linear functions have a <b>constant</b> rate of change. Quadratic functions have a rate of change that changes at a constant rate, so their <b>second differences</b> are constant.",
+  rules:["Equal x-steps and constant 1st differences ⇒ linear.","Equal x-steps and constant 2nd differences ⇒ quadratic.","If AROCs over consecutive equal intervals are increasing, the graph is concave up."],
+  ex:"x: 0, 1, 2, 3 · y: 3, 5, 9, 15<ol><li>1st differences: 2, 4, 6</li><li>2nd differences: 2, 2 (constant)</li><li>So the data is quadratic, and concave up because the rates increase.</li></ol>",
+  trap:"Differences only work when the x-values are equally spaced. Check that first.",
+  q:"y-values 10, 7, 4, 1 at x = 0, 1, 2, 3. Model type?",o:["Linear","Quadratic","Exponential"],a:0,w:"1st differences are all −3, a constant, so it's linear."},
+ {n:"1.4",t:"Polynomial Functions &amp; Rates of Change",s:"Degree, extrema, and the shape of the graph",
+  idea:"A polynomial <span class='m'>p(x) = aₙxⁿ + … + a₀</span> has degree n and leading coefficient aₙ. Between two real zeros there must be a local max or min. A degree-n polynomial has at most n − 1 turning points.",
+  rules:["Relative extrema occur where the rate of change switches sign.","The <b>global</b> max/min is the greatest/least value on the whole domain.","Even-degree polynomials have either a global max or a global min; odd-degree polynomials have neither."],
+  ex:"How many turning points can a degree-5 polynomial have?<ol><li>At most 5 − 1 = <b>4</b>.</li><li>It could have 4, 2, or 0 (always an even number for odd degree).</li></ol>",
+  trap:"\"Relative max\" means a local peak. It is not always the highest point of the graph.",
+  q:"A degree-4 polynomial has at most how many relative extrema?",o:["3","4","5"],a:0,w:"Degree n gives at most n − 1 turning points: 4 − 1 = 3."},
+ {n:"1.5",t:"Polynomial Functions &amp; Complex Zeros",s:"Multiplicity, factors, and conjugate pairs",
+  idea:"If p(a) = 0, then (x − a) is a factor. A degree-n polynomial has exactly <b>n complex zeros</b> counting multiplicity. With real coefficients, non-real zeros come in <b>conjugate pairs</b>.",
+  rules:["Odd multiplicity (1, 3, …): the graph <b>crosses</b> the x-axis.","Even multiplicity (2, 4, …): the graph <b>touches and turns</b>.","If 2 + i is a zero, so is 2 − i."],
+  ex:"p(x) = (x − 2)²(x + 1)³<ol><li>x = 2 has multiplicity 2, so the graph bounces off the axis there.</li><li>x = −1 has multiplicity 3, so the graph crosses (flattening out a bit).</li><li>Degree = 2 + 3 = 5.</li></ol>",
+  trap:"Degree = sum of all multiplicities, not the number of distinct zeros.",
+  q:"Real-coefficient polynomial with zeros 4 and 3i. Which must also be a zero?",o:["−3i","−4","3"],a:0,w:"Non-real zeros come in conjugate pairs: 3i pairs with −3i."},
+ {n:"1.6",t:"Polynomial Functions &amp; End Behavior",s:"What happens as x → ±∞",
+  idea:"End behavior is decided by the <b>leading term</b> only. Use limit notation: <span class='m'>lim<sub>x→∞</sub> p(x) = ∞</span> means p increases without bound as x does.",
+  rules:["Even degree, positive leading coefficient: up on both ends.","Even degree, negative: down on both ends.","Odd degree, positive: down on the left, up on the right.","Odd degree, negative: up on the left, down on the right."],
+  ex:"p(x) = −2x⁵ + 100x² + 7<ol><li>Leading term −2x⁵: odd degree, negative.</li><li><span class='m'>lim<sub>x→−∞</sub> p(x) = ∞</span> and <span class='m'>lim<sub>x→∞</sub> p(x) = −∞</span>.</li></ol>",
+  trap:"Ignore the big-looking middle terms like 100x². For large |x| only the leading term matters.",
+  q:"lim as x → −∞ of 3x⁴ − x⁵ ?",o:["∞","−∞","0"],a:0,w:"Leading term is −x⁵. For a large negative x, x⁵ is negative, so −x⁵ is positive: the limit is ∞."},
+ {n:"1.7",t:"Rational Functions &amp; End Behavior",s:"Horizontal and slant asymptotes",
+  idea:"For <span class='m'>r(x) = p(x)/q(x)</span>, compare the degrees of top and bottom. The ratio of the <b>leading terms</b> tells you the end behavior.",
+  rules:["Top degree smaller: HA y = 0.","Degrees equal: HA y = (leading coef. top)/(leading coef. bottom).","Top degree exactly 1 bigger: slant asymptote, found by polynomial long division.","Top degree bigger by 2 or more: no horizontal or slant asymptote."],
+  ex:"r(x) = (6x² − 1)/(2x² + 5x)<ol><li>Degrees equal (2 and 2).</li><li>HA: y = 6/2 = <b>3</b>, so <span class='m'>lim<sub>x→±∞</sub> r(x) = 3</span>.</li></ol>",
+  trap:"Holes and vertical asymptotes don't affect end behavior. Only the leading terms do.",
+  q:"Horizontal asymptote of (5x + 2)/(x² − 9)?",o:["y = 0","y = 5","None"],a:0,w:"Top degree 1 is less than bottom degree 2, so y = 0."},
+ {n:"1.8",t:"Rational Functions &amp; Zeros",s:"Zeros come from the numerator",
+  idea:"The zeros of a rational function are the zeros of the <b>numerator</b> that are in the domain. If a zero also makes the denominator zero, it is a hole, not a zero.",
+  rules:["Solve numerator = 0.","Throw out any x that makes the denominator 0.","Sign charts work for rational inequalities: test each interval between zeros and asymptotes."],
+  ex:"r(x) = (x − 3)(x + 1)/((x − 3)(x + 2))<ol><li>Numerator zeros: x = 3, x = −1.</li><li>x = 3 also zeros the denominator, so it's excluded.</li><li>The only zero is <b>x = −1</b>.</li></ol>",
+  trap:"Don't list a hole as an x-intercept.",
+  q:"Zeros of (x² − 16)/(x − 4)?",o:["x = −4 only","x = 4 and x = −4","x = 4 only"],a:0,w:"(x − 4)(x + 4)/(x − 4): x = 4 is a hole, so the only zero is −4."},
+ {n:"1.9",t:"Rational Functions &amp; Vertical Asymptotes",s:"Zeros of the denominator that survive",
+  idea:"After cancelling common factors, any remaining zero of the denominator is a <b>vertical asymptote</b>. Near it, the function blows up to ±∞.",
+  rules:["Factor top and bottom, cancel what matches.","Leftover zeros of the bottom ⇒ VA.","Write it with limits: <span class='m'>lim<sub>x→a⁺</sub> r(x) = ∞</span> (or −∞)."],
+  ex:"r(x) = (x + 2)/(x − 1)<ol><li>VA at x = 1.</li><li>Just right of 1 (try 1.01): top ≈ 3, bottom tiny positive, so r → ∞.</li><li><span class='m'>lim<sub>x→1⁺</sub> r(x) = ∞</span>, <span class='m'>lim<sub>x→1⁻</sub> r(x) = −∞</span>.</li></ol>",
+  trap:"To find the sign of the infinite limit, plug in a number just to the side and check the signs of the top and bottom.",
+  q:"Vertical asymptote(s) of (x − 5)/((x − 5)(x + 3))?",o:["x = −3 only","x = 5 and x = −3","x = 5 only"],a:0,w:"(x − 5) cancels, leaving a hole at 5 and a VA at x = −3."},
+ {n:"1.10",t:"Rational Functions &amp; Holes",s:"Cancelled factors leave a missing point",
+  idea:"If (x − a) cancels completely, the graph has a <b>hole</b> at x = a. To find its y-value, plug a into the <b>simplified</b> function.",
+  rules:["Hole at x = a when the factor's multiplicity on top ≥ multiplicity on bottom.","y-value of hole = simplified function evaluated at a.","<span class='m'>lim<sub>x→a</sub> r(x)</span> equals that y-value even though r(a) is undefined."],
+  ex:"r(x) = (x² − 4)/(x² − x − 2) = (x − 2)(x + 2)/((x − 2)(x + 1))<ol><li>Cancel (x − 2): simplified r = (x + 2)/(x + 1).</li><li>Hole at x = 2, y = 4/3, so the point is <b>(2, 4/3)</b>.</li><li>VA at x = −1.</li></ol>",
+  trap:"Plug into the simplified version. The original gives 0/0.",
+  q:"Hole of (x² + 3x)/x?",o:["(0, 3)","(0, 0)","(−3, 0)"],a:0,w:"x(x + 3)/x = x + 3; at x = 0 it gives 3, so the hole is at (0, 3)."},
+ {n:"1.11",t:"Equivalent Representations",s:"Factor, expand, divide, binomial theorem",
+  idea:"The same function can be written in different forms. Each form shows something different: <b>factored</b> shows zeros, <b>standard</b> shows end behavior and the y-intercept, <b>divided</b> form shows slant asymptotes.",
+  rules:["Polynomial long division: p(x) = q(x)·d(x) + r(x).","<b>Binomial theorem</b>: coefficients of (a + b)ⁿ come from row n of Pascal's triangle.","Row 4 of Pascal's triangle: 1, 4, 6, 4, 1."],
+  ex:"(x² + 3x + 5)/(x + 1)<ol><li>Divide: x + 2 with remainder 3.</li><li>So r(x) = x + 2 + 3/(x + 1).</li><li>Slant asymptote: <b>y = x + 2</b>.</li></ol>",
+  trap:"In (x + 2)⁴, remember to raise the 2 to its power too: the x² term is 6·x²·2² = 24x².",
+  q:"Coefficient of x³ in (x + 1)⁴?",o:["4","6","1"],a:0,w:"Row 4: 1, 4, 6, 4, 1. The x³ term is 4x³·1¹ = 4x³."},
+ {n:"1.12",t:"Transformations of Functions",s:"g(x) = a·f(b(x − h)) + k",
+  idea:"Outside changes (a, k) act on outputs and work the way you expect. Inside changes (b, h) act on inputs and work <b>backwards</b>.",
+  rules:["f(x) + k: up k.","f(x − h): right h.","a·f(x): vertical stretch by |a|; a &lt; 0 flips over the x-axis.","f(bx): horizontal stretch by 1/|b|; b &lt; 0 flips over the y-axis."],
+  ex:"(4, 5) is on f. Where does it go on g(x) = f(2x) − 3?<ol><li>Inside: 2x = 4 ⇒ x = 2.</li><li>Outside: 5 − 3 = 2.</li><li>New point: <b>(2, 2)</b>.</li></ol>",
+  trap:"f(x + 3) moves LEFT 3, not right.",
+  q:"g(x) = f(x + 4) − 1. How is f moved?",o:["Left 4, down 1","Right 4, down 1","Left 4, up 1"],a:0,w:"x + 4 = x − (−4), so h = −4: left 4. Then −1: down 1."},
+ {n:"1.13",t:"Function Model Selection &amp; Assumptions",s:"Which function type fits the data?",
+  idea:"Pick a model by looking at how outputs change over equal input steps, and at the context. Then state the <b>assumptions</b> and <b>limitations</b> (like a domain that makes sense).",
+  rules:["Constant differences ⇒ linear.","Constant 2nd differences, or a single max/min ⇒ quadratic.","Several turning points ⇒ higher-degree polynomial.","Constant ratios ⇒ exponential (Unit 2).","Context can force restrictions: time ≥ 0, a count can't be negative."],
+  ex:"A ball's height rises, peaks, then falls.<ol><li>One maximum, symmetric shape ⇒ quadratic model.</li><li>Domain: from launch until it hits the ground, height ≥ 0.</li></ol>",
+  trap:"A model is only valid where the context makes sense. Say so with words like \"for 0 ≤ t ≤ 4.2 seconds\".",
+  q:"Revenue grows by the same dollar amount every year. Best model?",o:["Linear","Quadratic","Exponential"],a:0,w:"Same amount added per equal step means a constant rate of change, so linear."},
+ {n:"1.14",t:"Function Model Construction &amp; Application",s:"Build the model, then use it",
+  idea:"Use given points to set up equations and solve for the unknown parameters. Piecewise models use different formulas on different intervals. Then use the model to predict and to answer questions in context.",
+  rules:["Points → system of equations → parameters (use a calculator for regressions).","Piecewise: check which interval an input belongs to before plugging in.","Answer in context, with units."],
+  ex:"Quadratic through (0, 2), (1, 5), (2, 12): y = ax² + bx + c.<ol><li>c = 2.</li><li>a + b + 2 = 5 ⇒ a + b = 3.</li><li>4a + 2b + 2 = 12 ⇒ 2a + b = 5.</li><li>Subtract: a = 2, b = 1. <b>y = 2x² + x + 2</b>.</li></ol>",
+  trap:"Rounding too early ruins answers. Keep full calculator precision and round only at the end (3 decimals).",
+  q:"Piecewise f(x) = x² for x &lt; 2, and 3x − 1 for x ≥ 2. What is f(2)?",o:["5","4","6"],a:0,w:"x = 2 belongs to the x ≥ 2 piece: 3(2) − 1 = 5."}
+];
+var T2=[
+ {n:"2.1",t:"Arithmetic &amp; Geometric Sequences",s:"Add a constant vs. multiply by a constant",
+  idea:"An <b>arithmetic</b> sequence adds the same number d every step. A <b>geometric</b> sequence multiplies by the same ratio r every step.",
+  rules:["Arithmetic: <span class='m'>aₙ = a₀ + dn</span> or <span class='m'>aₙ = aₖ + d(n − k)</span>","Geometric: <span class='m'>gₙ = g₀·rⁿ</span> or <span class='m'>gₙ = gₖ·r^(n − k)</span>"],
+  ex:"Geometric: g₂ = 12, g₅ = 96.<ol><li>Three steps from term 2 to term 5: r³ = 96/12 = 8, so r = 2.</li><li>g₈ = 96·2³ = <b>768</b>.</li></ol>",
+  trap:"Arithmetic → linear functions. Geometric → exponential functions. That's the bridge to the rest of Unit 2.",
+  q:"Arithmetic: a₃ = 11, a₇ = 27. What is a₁₀?",o:["39","35","43"],a:0,w:"4d = 16 ⇒ d = 4. a₁₀ = 27 + 3·4 = 39."},
+ {n:"2.2",t:"Change in Linear &amp; Exponential Functions",s:"Additive vs. multiplicative change",
+  idea:"Over equal-length input intervals, a <b>linear</b> function's outputs change by equal <b>differences</b>, while an <b>exponential</b> function's outputs change by equal <b>ratios</b>.",
+  rules:["Linear: f(x + 1) − f(x) = constant.","Exponential: f(x + 1)/f(x) = constant.","Exponential growth eventually beats any polynomial."],
+  ex:"x: 0, 1, 2, 3 · y: 5, 15, 45, 135<ol><li>Ratios: 15/5 = 3, 45/15 = 3, 135/45 = 3.</li><li>Constant ratio ⇒ exponential: y = 5·3ˣ.</li></ol>",
+  trap:"Check ratios when the differences keep growing. Growing differences alone could mean quadratic.",
+  q:"Outputs 2, 6, 18, 54 over equally spaced inputs. Model?",o:["Exponential","Linear","Quadratic"],a:0,w:"Each output is 3 times the previous one, a constant ratio."},
+ {n:"2.3",t:"Exponential Functions",s:"f(x) = a·bˣ",
+  idea:"In <span class='m'>f(x) = a·bˣ</span>, a is the initial value (y-intercept) and b &gt; 0, b ≠ 1 is the base. b &gt; 1 means growth, 0 &lt; b &lt; 1 means decay.",
+  rules:["Domain: all real numbers. Range (a &gt; 0): y &gt; 0.","Horizontal asymptote y = 0 (or y = k after a shift).","Always increasing (growth) or always decreasing (decay); always concave up when a &gt; 0."],
+  ex:"f(x) = 4·(0.5)ˣ<ol><li>a = 4, b = 0.5 &lt; 1 ⇒ decay.</li><li><span class='m'>lim<sub>x→∞</sub> f(x) = 0</span>, <span class='m'>lim<sub>x→−∞</sub> f(x) = ∞</span>.</li></ol>",
+  trap:"−2ˣ is not (−2)ˣ. Negative bases are not allowed; the minus sign is a reflection.",
+  q:"Which is exponential decay?",o:["f(x) = 7(0.8)ˣ","f(x) = 0.8(7)ˣ","f(x) = 7x^0.8"],a:0,w:"Base 0.8 is between 0 and 1, so it's decay."},
+ {n:"2.4",t:"Exponential Function Manipulation",s:"Rewrite with exponent rules",
+  idea:"Exponent rules let you rewrite expressions to reveal growth factors, initial values, and equivalent forms. A horizontal shift of an exponential is the same as a vertical stretch.",
+  rules:["<span class='m'>bᵐ·bⁿ = b^(m+n)</span>, <span class='m'>bᵐ/bⁿ = b^(m−n)</span>, <span class='m'>(bᵐ)ⁿ = b^(mn)</span>","<span class='m'>b^(x+k) = bᵏ·bˣ</span>","<span class='m'>b^(1/n) = ⁿ√b</span>, <span class='m'>b^(−n) = 1/bⁿ</span>"],
+  ex:"Rewrite 8·4^(x+1) as a power of 2.<ol><li>8 = 2³, 4^(x+1) = 2^(2x+2).</li><li>2³·2^(2x+2) = <b>2^(2x+5)</b>.</li></ol>",
+  trap:"(bᵐ)ⁿ multiplies exponents; bᵐ·bⁿ adds them. Mixing these up is the #1 mistake.",
+  q:"3^(x+2) is equivalent to:",o:["9·3ˣ","3ˣ + 9","6·3ˣ"],a:0,w:"3^(x+2) = 3²·3ˣ = 9·3ˣ."},
+ {n:"2.5",t:"Exponential Context &amp; Data Modeling",s:"Growth rates, half-life, doubling",
+  idea:"Context tells you a and b. A <b>percent rate</b> r gives b = 1 + r (growth) or b = 1 − r (decay). Doubling and half-life models use base 2 or 1/2.",
+  rules:["Grows 6% per year: <span class='m'>A(t) = a(1.06)ᵗ</span>","Doubles every d hours: <span class='m'>N(t) = a·2^(t/d)</span>","Half-life h: <span class='m'>M(t) = a·(1/2)^(t/h)</span>","Exponential regression on calculator: y = a·bˣ"],
+  ex:"80 mg, half-life 5 days. Amount after 15 days?<ol><li>15/5 = 3 half-lives.</li><li>80·(1/2)³ = <b>10 mg</b>.</li></ol>",
+  trap:"Decreasing by 20% means b = 0.8, not 0.2.",
+  q:"A car loses 15% of its value each year. Base b?",o:["0.85","0.15","1.15"],a:0,w:"It keeps 100% − 15% = 85% each year, so b = 0.85."},
+ {n:"2.6",t:"Competing Function Model Validation",s:"Residuals decide the winner",
+  idea:"To compare models, look at <b>residuals</b>: residual = actual − predicted. A good model has residuals that are small and randomly scattered, with no pattern.",
+  rules:["Residual &gt; 0: the model underestimates.","Residual &lt; 0: the model overestimates.","A curved pattern in residuals means the wrong model type."],
+  ex:"Actual value 52, model predicts 49.5.<ol><li>Residual = 52 − 49.5 = <b>2.5</b>.</li><li>Positive, so the model underestimated.</li></ol>",
+  trap:"Residual is actual minus predicted, in that order.",
+  q:"Actual 30, predicted 34. The residual and its meaning:",o:["−4, overestimate","4, underestimate","−4, underestimate"],a:0,w:"30 − 34 = −4. Negative means the model predicted too high."},
+ {n:"2.7",t:"Composition of Functions",s:"f(g(x)): inside first",
+  idea:"<span class='m'>(f ∘ g)(x) = f(g(x))</span>: evaluate g first, then put the result into f. Composition is usually <b>not</b> commutative: f(g(x)) ≠ g(f(x)).",
+  rules:["Tables/graphs: find g(a), then look up f at that value.","Algebra: substitute the entire g(x) wherever x appears in f.","The identity function i(x) = x satisfies f(i(x)) = f(x)."],
+  ex:"f(x) = x² + 1, g(x) = 2x − 1. Find f(g(3)) and g(f(3)).<ol><li>g(3) = 5, f(5) = <b>26</b>.</li><li>f(3) = 10, g(10) = <b>19</b>. Different answers.</li></ol>",
+  trap:"Always work from the inside out.",
+  q:"f(x) = 3x, g(x) = x − 4. g(f(2)) = ?",o:["2","−6","−2"],a:0,w:"f(2) = 6, g(6) = 6 − 4 = 2."},
+ {n:"2.8",t:"Inverse Functions",s:"Undo the function",
+  idea:"The inverse f⁻¹ undoes f: if f(a) = b then f⁻¹(b) = a. Its graph is f reflected over <b>y = x</b>. Only one-to-one functions have inverses.",
+  rules:["Find f⁻¹: write y = f(x), swap x and y, solve for y.","f(f⁻¹(x)) = x and f⁻¹(f(x)) = x.","Domain of f⁻¹ = range of f. You may need to restrict the domain (e.g. x² on x ≥ 0)."],
+  ex:"f(x) = (2x − 3)/5<ol><li>Swap: x = (2y − 3)/5.</li><li>5x = 2y − 3 ⇒ <b>f⁻¹(x) = (5x + 3)/2</b>.</li></ol>",
+  trap:"f⁻¹(x) means inverse, not 1/f(x).",
+  q:"(2, 9) is on f. Which point is on f⁻¹?",o:["(9, 2)","(−2, −9)","(2, 1/9)"],a:0,w:"Inverses swap inputs and outputs."},
+ {n:"2.9",t:"Logarithmic Expressions",s:"A log is an exponent",
+  idea:"<span class='m'>log_b(c) = a</span> means <span class='m'>bᵃ = c</span>. The log asks \"what power of b gives c?\" ln means base e; log with no base means base 10.",
+  rules:["log_b(1) = 0, log_b(b) = 1, log_b(bˣ) = x.","Each +1 on a log scale means ×b in the actual value.","You can only take logs of positive numbers."],
+  ex:"log₂ 32 − log₃(1/9)<ol><li>2⁵ = 32 ⇒ 5.</li><li>3⁻² = 1/9 ⇒ −2.</li><li>5 − (−2) = <b>7</b>.</li></ol>",
+  trap:"log₃(1/9) is negative. Negative logs are fine; logs OF negative numbers are not.",
+  q:"log₄ 8 = ?",o:["3/2","2","1/2"],a:0,w:"4^(3/2) = (√4)³ = 8, so the answer is 3/2."},
+ {n:"2.10",t:"Inverses of Exponential Functions",s:"bˣ and log_b x undo each other",
+  idea:"<span class='m'>f(x) = bˣ</span> and <span class='m'>g(x) = log_b x</span> are inverses. Every exponential fact flips into a log fact.",
+  rules:["bˣ: domain all reals, range y &gt; 0, HA y = 0.","log_b x: domain x &gt; 0, range all reals, VA x = 0.","(0, 1) on bˣ ⇔ (1, 0) on log_b x."],
+  ex:"Find the inverse of f(x) = 2eˣ + 1.<ol><li>Swap: x = 2eʸ + 1 ⇒ eʸ = (x − 1)/2.</li><li><b>f⁻¹(x) = ln((x − 1)/2)</b>, domain x &gt; 1.</li></ol>",
+  trap:"The HA of the exponential becomes the VA of the log.",
+  q:"Inverse of f(x) = 10ˣ?",o:["log x","x¹⁰","1/10ˣ"],a:0,w:"The inverse of 10ˣ is log₁₀ x."},
+ {n:"2.11",t:"Logarithmic Function Graphs",s:"Slow growth with a vertical asymptote",
+  idea:"<span class='m'>f(x) = a·log_b(x − h) + k</span> has a vertical asymptote x = h and domain x &gt; h. For b &gt; 1, a &gt; 0 it's always increasing and concave down.",
+  rules:["<span class='m'>lim<sub>x→h⁺</sub> log_b(x − h) = −∞</span>","It grows without bound, but slowly.","Passes through (h + 1, k) because log_b(1) = 0."],
+  ex:"f(x) = ln(x − 3) + 2<ol><li>VA x = 3, domain x &gt; 3.</li><li>Point (4, 2).</li></ol>",
+  trap:"Log graphs have no horizontal asymptote. They keep rising forever, just slowly.",
+  q:"log_b x passes through (9, 2). What is b?",o:["3","9","4.5"],a:0,w:"b² = 9, so b = 3."},
+ {n:"2.12",t:"Logarithmic Function Manipulation",s:"Product, quotient, power rules",
+  idea:"Log rules turn multiplication into addition, which is why logs are useful.",
+  rules:["<span class='m'>log(xy) = log x + log y</span>","<span class='m'>log(x/y) = log x − log y</span>","<span class='m'>log(xⁿ) = n·log x</span>","Change of base: <span class='m'>log_b x = ln x / ln b</span>","Any log function is a horizontal dilation of another: log_b(kx) = log_b k + log_b x."],
+  ex:"2·log₅ 10 − log₅ 4<ol><li>= log₅ 100 − log₅ 4</li><li>= log₅(100/4) = log₅ 25 = <b>2</b>.</li></ol>",
+  trap:"log(x + y) is NOT log x + log y. There's no rule for logs of sums.",
+  q:"ln(x³/y) equals:",o:["3 ln x − ln y","ln(3x) − ln y","3(ln x − ln y)"],a:0,w:"Quotient rule then power rule: ln x³ − ln y = 3 ln x − ln y."},
+ {n:"2.13",t:"Exponential &amp; Logarithmic Equations &amp; Inequalities",s:"Same base, or take a log",
+  idea:"For exponential equations: rewrite with the <b>same base</b> or take a log of both sides. For log equations: combine logs, then rewrite in exponential form. <b>Check for extraneous solutions.</b>",
+  rules:["bᵘ = bᵛ ⇒ u = v.","Isolate the exponential, then take ln: <span class='m'>eˣ = 7 ⇒ x = ln 7</span>.","log_b u = c ⇒ u = bᶜ.","Reject solutions that make any log's argument ≤ 0."],
+  ex:"log₂ x + log₂(x − 2) = 3<ol><li>log₂(x(x − 2)) = 3 ⇒ x² − 2x = 8.</li><li>(x − 4)(x + 2) = 0 ⇒ x = 4 or −2.</li><li>log₂(−2) is undefined, so <b>x = 4</b>.</li></ol>",
+  trap:"Isolate the exponential term before taking logs: 2eˣ = 10 ⇒ eˣ = 5, then x = ln 5.",
+  q:"Solve 3^(2x) = 81^(x−1).",o:["x = 2","x = 1","x = 4"],a:0,w:"81 = 3⁴, so 2x = 4x − 4 ⇒ x = 2."},
+ {n:"2.14",t:"Logarithmic Context &amp; Data Modeling",s:"Fast early change that slows down",
+  idea:"Log models fit situations that rise quickly at first, then level off without a ceiling, like learning curves or sound levels. Use logarithmic regression on the calculator: <span class='m'>y = a + b·ln x</span>.",
+  rules:["Two data points ⇒ two equations ⇒ solve for a and b.","Inputs must be positive (shift with ln(t + 1) when t starts at 0)."],
+  ex:"R(t) = a + b·ln(t + 1), R(0) = 75, R(3) = 70.84<ol><li>R(0): a + b·ln 1 = 75 ⇒ a = 75.</li><li>75 + b·ln 4 = 70.84 ⇒ b = −4.16/ln 4 ≈ <b>−3.001</b>.</li></ol>",
+  trap:"Write both equations on FRQs. Each equation earns credit by itself.",
+  q:"In y = a + b·ln x, what is y when x = 1?",o:["a","b","0"],a:0,w:"ln 1 = 0, so y = a."},
+ {n:"2.15",t:"Semi-log Plots",s:"Make exponential data look straight",
+  idea:"On a <b>semi-log plot</b> the y-axis is logarithmic. Exponential data then lies on a <b>straight line</b>. The slope gives the growth factor; the intercept gives the initial value.",
+  rules:["If y = a·bˣ, then log y = log a + x·log b, a line.","Slope m ⇒ b = 10ᵐ (or eᵐ for ln).","Intercept c ⇒ a = 10ᶜ (or eᶜ)."],
+  ex:"Semi-log line: log y = 0.3x + 2.<ol><li>a = 10² = 100, b = 10^0.3 ≈ 1.995.</li><li><b>y ≈ 100(1.995)ˣ</b>, which nearly doubles each step.</li></ol>",
+  trap:"A straight line on a semi-log plot means exponential, not linear.",
+  q:"Data looks linear on a semi-log plot. The original data is:",o:["Exponential","Linear","Logarithmic"],a:0,w:"Taking the log of exponential data makes it linear."}
+];
+
+function shuffleIdx(n,seed){var a=[];for(var i=0;i<n;i++)a.push(i);var s=seed;for(var j=n-1;j>0;j--){s=(s*9301+49297)%233280;var r=Math.floor(s/233280*(j+1));var t=a[j];a[j]=a[r];a[r]=t;}return a;}
+function buildTopics(list,box,unit){
+  var c=$(box);
+  list.forEach(function(t,ti){
+    var d=el("details","topic"+(S.mastered[t.n]?" mastered":""));
+    var sum=el("summary");
+    sum.innerHTML='<span class="tnum">'+t.n+'</span><span class="ttl">'+t.t+'<small>'+t.s+'</small></span><span class="check" aria-label="mastered">✓</span>';
+    d.appendChild(sum);
+    var b=el("div","tbody");
+    b.innerHTML='<div><h4>The big idea</h4><p>'+t.idea+'</p></div>'+
+      '<div><h4>Rules to remember</h4><ul>'+t.rules.map(function(r){return"<li>"+r+"</li>"}).join("")+'</ul></div>'+
+      '<div class="ex"><h4>Worked example</h4>'+t.ex+'</div>'+
+      '<div class="trap"><b>Trap alert:</b> '+t.trap+'</div>';
+    var qc=el("div","qc");
+    qc.innerHTML='<h4>Quick check</h4><p>'+t.q+'</p>';
+    var opts=el("div","opts"),fb=el("p","fb");
+    var order=shuffleIdx(t.o.length,ti*7+unit*31+3);
+    order.forEach(function(oi){
+      var btn=el("button",null,t.o[oi]);btn.type="button";
+      btn.addEventListener("click",function(){
+        if(oi===t.a){btn.classList.add("right");fb.innerHTML="<b style='color:var(--good)'>Correct.</b> "+t.w;
+          opts.querySelectorAll("button").forEach(function(x){x.disabled=true});
+          if(!S.mastered[t.n]){S.mastered[t.n]=true;d.classList.add("mastered");addXP(10,"Level "+t.n+" mastered");updateProg();}
+        } else {btn.classList.add("wrong");btn.disabled=true;fb.innerHTML="<b style='color:var(--bad)'>Not quite.</b> Reread the rules above and try again.";}
+      });
+      opts.appendChild(btn);
+    });
+    qc.appendChild(opts);qc.appendChild(fb);
+    if(S.mastered[t.n]){fb.innerHTML="<b style='color:var(--good)'>Mastered.</b> "+t.w;}
+    b.appendChild(qc);
+    d.appendChild(b);
+    c.appendChild(d);
+  });
+}
+buildTopics(T1,"topics1",1);buildTopics(T2,"topics2",2);
+function updateProg(){
+  var a=T1.filter(function(t){return S.mastered[t.n]}).length,b=T2.filter(function(t){return S.mastered[t.n]}).length;
+  $("bar1").style.width=(a/T1.length*100)+"%";$("lbl1").textContent=a+" / "+T1.length+" mastered";
+  $("bar2").style.width=(b/T2.length*100)+"%";$("lbl2").textContent=b+" / "+T2.length+" mastered";
+}
+updateProg();
+
+/* ---------- graph lab ---------- */
+var cv=$("cv"),ctx=cv.getContext("2d");
+var P={sq:{f:function(x){return x*x},n:"x²",tex:function(u){return "("+u+")²"}},
+       cube:{f:function(x){return x*x*x},n:"x³",tex:function(u){return "("+u+")³"}},
+       recip:{f:function(x){return 1/x},n:"1/x",tex:function(u){return "1/("+u+")"}},
+       exp:{f:function(x){return Math.pow(2,x)},n:"2ˣ",tex:function(u){return "2^("+u+")"}},
+       ln:{f:function(x){return x>0?Math.log(x):NaN},n:"ln x",tex:function(u){return "ln("+u+")"}}};
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()||"#888";}
+function fmt(n){return (Math.round(n*100)/100).toString().replace("-","−");}
+function drawLab(){
+  var dpr=window.devicePixelRatio||1,r=cv.getBoundingClientRect(),W=Math.max(200,Math.round(r.width)),H=Math.max(200,Math.round(r.height));
+  cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+  var a=+$("sa").value,b=+$("sb").value,h=+$("sh").value,k=+$("sk").value,p=$("parent").value;
+  $("oa").textContent=fmt(a);$("ob").textContent=fmt(b);$("oh").textContent=fmt(h);$("ok").textContent=fmt(k);
+  var R=10,sx=W/(2*R),sy=H/(2*R);function X(x){return W/2+x*sx}function Y(y){return H/2-y*sy}
+  ctx.clearRect(0,0,W,H);
+  ctx.lineWidth=1;ctx.strokeStyle=css("--grid");
+  for(var i=-R;i<=R;i++){ctx.beginPath();ctx.moveTo(X(i),0);ctx.lineTo(X(i),H);ctx.stroke();ctx.beginPath();ctx.moveTo(0,Y(i));ctx.lineTo(W,Y(i));ctx.stroke();}
+  ctx.strokeStyle=css("--muted");ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(0,Y(0));ctx.lineTo(W,Y(0));ctx.stroke();ctx.beginPath();ctx.moveTo(X(0),0);ctx.lineTo(X(0),H);ctx.stroke();
+  ctx.fillStyle=css("--muted");ctx.font="11px "+css("--mono");
+  for(i=-R+2;i<R;i+=2){if(i===0)continue;ctx.fillText(i,X(i)-4,Y(0)+14);ctx.fillText(i,X(0)+5,Y(i)+4);}
+  var f=P[p].f;
+  function plot(fn,color,w,dash){
+    ctx.strokeStyle=color;ctx.lineWidth=w;ctx.setLineDash(dash||[]);ctx.beginPath();var pen=false,prev=null;
+    for(var px=0;px<=W;px+=1){var x=(px-W/2)/sx,y=fn(x);
+      if(!isFinite(y)||Math.abs(y)>60||(prev!==null&&Math.abs(y-prev)>40)){pen=false;prev=isFinite(y)?y:null;continue;}
+      if(!pen){ctx.moveTo(px,Y(y));pen=true}else ctx.lineTo(px,Y(y));prev=y;}
+    ctx.stroke();ctx.setLineDash([]);
+  }
+  // asymptotes
+  ctx.strokeStyle=css("--bad");ctx.lineWidth=1.5;ctx.setLineDash([6,5]);
+  if(p==="recip"||p==="exp"){ctx.beginPath();ctx.moveTo(0,Y(k));ctx.lineTo(W,Y(k));ctx.stroke();}
+  if((p==="recip"||p==="ln")&&b!==0){ctx.beginPath();ctx.moveTo(X(h),0);ctx.lineTo(X(h),H);ctx.stroke();}
+  ctx.setLineDash([]);
+  plot(f,css("--muted"),1.5,[4,4]);
+  if(b!==0)plot(function(x){return a*f(b*(x-h))+k},css("--blue"),3);
+  // equation
+  var inner=(b===1?"":(b===-1?"−":fmt(b)))+(h===0?"x":(b===1||b===-1?"(x "+(h>0?"− "+fmt(h):"+ "+fmt(-h))+")":"(x "+(h>0?"− "+fmt(h):"+ "+fmt(-h))+")"));
+  if(b!==1&&b!==-1&&h===0)inner=fmt(b)+"x";
+  var core=P[p].tex(inner);
+  if(p==="exp"&&inner==="x")core="2ˣ";if(p==="sq"&&inner==="x")core="x²";if(p==="cube"&&inner==="x")core="x³";if(p==="recip"&&inner==="x")core="1/x";if(p==="ln"&&inner==="x")core="ln x";
+  var eq="g(x) = "+(a===1?"":(a===-1?"−":fmt(a)+"·"))+core+(k===0?"":(k>0?" + "+fmt(k):" − "+fmt(-k)));
+  $("eqn").textContent=b===0?"b = 0 squashes the graph flat. Pick another b.":eq;
+  var s=[];
+  if(a<0)s.push("a &lt; 0: reflected over the x-axis");
+  if(Math.abs(a)!==1&&a!==0)s.push(Math.abs(a)>1?"Vertical stretch by "+fmt(Math.abs(a)):"Vertical compression by "+fmt(Math.abs(a)));
+  if(a===0)s.push("a = 0 flattens everything to y = k");
+  if(b<0)s.push("b &lt; 0: reflected over the y-axis");
+  if(Math.abs(b)!==1&&b!==0)s.push("Horizontal "+(Math.abs(b)>1?"compression":"stretch")+" by a factor of 1/"+fmt(Math.abs(b))+" = "+fmt(1/Math.abs(b)));
+  if(h!==0)s.push("Shifted "+(h>0?"right ":"left ")+Math.abs(h)+(h<0?" (that's the + sign inside)":""));
+  if(k!==0)s.push("Shifted "+(k>0?"up ":"down ")+Math.abs(k));
+  if(p==="exp")s.push("Horizontal asymptote: y = "+fmt(k));
+  if(p==="ln"&&b!==0)s.push("Vertical asymptote: x = "+fmt(h)+"; domain: x "+(b>0?"&gt; ":"&lt; ")+fmt(h));
+  if(p==="recip"&&b!==0)s.push("Asymptotes: x = "+fmt(h)+" and y = "+fmt(k));
+  if(!s.length)s.push("This is the parent function. Move a slider.");
+  $("says").innerHTML=s.map(function(x){return"<div>"+x+"</div>"}).join("");
+}
+["sa","sb","sh","sk","parent"].forEach(function(id){$(id).addEventListener("input",drawLab)});
+$("labReset").addEventListener("click",function(){$("sa").value=1;$("sb").value=1;$("sh").value=0;$("sk").value=0;drawLab();});
+var labXP=false;$("sa").addEventListener("change",function(){if(!labXP){labXP=true;addXP(5,"Graph Lab explored")}});
+window.addEventListener("resize",drawLab);
+if(window.matchMedia)window.matchMedia("(prefers-color-scheme: dark)").addEventListener&&window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",drawLab);
+new MutationObserver(drawLab).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+drawLab();
+
+/* ---------- flashcards ---------- */
+var FC=[
+ [1,"Average rate of change on [a, b]","(f(b) − f(a)) / (b − a)<br>the slope of the secant line"],
+ [1,"Constant 2nd differences mean…","A quadratic model"],
+ [1,"Concave down means the rate of change is…","Decreasing"],
+ [1,"Zero with even multiplicity","Graph touches the x-axis and turns around"],
+ [1,"Zero with odd multiplicity","Graph crosses the x-axis"],
+ [1,"Degree-n polynomial has how many complex zeros?","Exactly n, counting multiplicity"],
+ [1,"If 3 − 2i is a zero (real coefficients)…","3 + 2i is also a zero"],
+ [1,"End behavior of an odd-degree polynomial, positive leading coef.","Falls left (→ −∞), rises right (→ ∞)"],
+ [1,"Even function test","f(−x) = f(x); symmetric about the y-axis"],
+ [1,"Odd function test","f(−x) = −f(x); symmetric about the origin"],
+ [1,"Factor cancels in a rational function ⇒","A hole at that x"],
+ [1,"Leftover zero of the denominator ⇒","A vertical asymptote"],
+ [1,"HA when degrees of top and bottom are equal","y = ratio of the leading coefficients"],
+ [1,"Slant asymptote happens when…","Top degree = bottom degree + 1 (find it by long division)"],
+ [1,"f(x − 3) does what to the graph?","Shifts it RIGHT 3"],
+ [1,"−f(x) vs. f(−x)","−f(x): flip over the x-axis<br>f(−x): flip over the y-axis"],
+ [2,"Arithmetic sequence formula","aₙ = a₀ + dn (add d each step)"],
+ [2,"Geometric sequence formula","gₙ = g₀·rⁿ (multiply by r each step)"],
+ [2,"Constant ratios over equal intervals ⇒","An exponential model"],
+ [2,"Grows 4% per year: base b = ?","1.04"],
+ [2,"Decays 30% per year: base b = ?","0.70"],
+ [2,"b^(x + 2) rewritten","b²·bˣ (a horizontal shift = a vertical stretch)"],
+ [2,"Residual","Actual − predicted"],
+ [2,"f(g(x)) means…","Do g first, then f"],
+ [2,"How to find an inverse","Swap x and y, solve for y"],
+ [2,"log_b(c) = a means…","bᵃ = c"],
+ [2,"log(xy) =","log x + log y"],
+ [2,"log(xⁿ) =","n·log x"],
+ [2,"Change of base","log_b x = ln x / ln b"],
+ [2,"Domain of ln(x − 4)","x &gt; 4 (VA at x = 4)"],
+ [2,"Straight line on a semi-log plot means…","The data is exponential"],
+ [2,"Why check answers to log equations?","To reject extraneous solutions that make an argument ≤ 0"]
+];
+var deck="all",fcQueue=[],fcCur=null;
+function buildDeck(){fcQueue=FC.map(function(c,i){return i}).filter(function(i){return (deck==="all"||String(FC[i][0])===deck)&&!S.fcKnown[i]});
+  var o=shuffleIdx(fcQueue.length,Date.now()%233280);fcQueue=o.map(function(i){return fcQueue[i]});nextCard();}
+function nextCard(){
+  var card=$("fcard");card.classList.remove("flip");
+  var total=FC.filter(function(c){return deck==="all"||String(c[0])===deck}).length;
+  var known=FC.filter(function(c,i){return (deck==="all"||String(c[0])===deck)&&S.fcKnown[i]}).length;
+  $("fcCount").textContent=known+" / "+total+" known";
+  if(!fcQueue.length){fcCur=null;$("fcTag").textContent="deck cleared";$("fcFront").innerHTML="<b>Deck cleared.</b><br>Every card here is marked known.";$("fcBack").innerHTML="Tap Reset deck to go again.";
+    $("fcGot").disabled=true;$("fcAgain").textContent="Reset deck";return;}
+  $("fcGot").disabled=false;$("fcAgain").textContent="Still learning";
+  fcCur=fcQueue[0];
+  setTimeout(function(){$("fcTag").textContent="Unit "+FC[fcCur][0];$("fcFront").innerHTML=FC[fcCur][1];$("fcBack").innerHTML=FC[fcCur][2];},card.classList.contains("flip")?250:0);
+}
+$("fcard").addEventListener("click",function(){this.classList.toggle("flip")});
+$("fcGot").addEventListener("click",function(){if(fcCur===null)return;S.fcKnown[fcCur]=true;save();fcQueue.shift();addXP(2);nextCard();});
+$("fcAgain").addEventListener("click",function(){
+  if(fcCur===null){FC.forEach(function(c,i){if(deck==="all"||String(c[0])===deck)delete S.fcKnown[i]});save();buildDeck();return;}
+  fcQueue.push(fcQueue.shift());nextCard();});
+document.querySelectorAll("[data-deck]").forEach(function(b){b.addEventListener("click",function(){
+  document.querySelectorAll("[data-deck]").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");deck=b.dataset.deck;buildDeck();});});
+buildDeck();
+
+/* ---------- MCQ bank ---------- */
+function tbl(xs,ys,xl,yl){return '<div class="tablewrap"><table><tr><th>'+(xl||"x")+'</th>'+xs.map(function(v){return"<td>"+v+"</td>"}).join("")+'</tr><tr><th>'+(yl||"f(x)")+'</th>'+ys.map(function(v){return"<td>"+v+"</td>"}).join("")+'</tr></table></div>';}
+var Q=[
+ {u:1,c:0,tp:"1.2",q:"What is the average rate of change of f(x) = x² − 3x over the interval [1, 4]?",o:["2","3","6","−2"],a:0,e:"f(4) = 4 and f(1) = −2. (4 − (−2))/(4 − 1) = 6/3 = 2. Choice C forgets to divide by 3."},
+ {u:1,c:0,tp:"1.3",q:"The table gives values of a function f at selected values of x. Which type of function best models f?"+tbl([0,1,2,3,4],[3,5,9,15,23]),o:["Linear, because the first differences are constant","Quadratic, because the second differences are constant","Exponential, because the ratios of consecutive outputs are constant","Cubic, because the third differences are nonzero"],a:1,e:"First differences: 2, 4, 6, 8 (not constant). Second differences: 2, 2, 2 (constant), so quadratic. Ratios 5/3, 9/5, … aren't constant."},
+ {u:1,c:0,tp:"1.5",q:"Let p(x) = (x − 2)²(x + 1)³(x − 5). Which of the following describes the graph of p at x = 2?",o:["It crosses the x-axis","It touches the x-axis but does not cross it","It has a vertical asymptote","It has a hole"],a:1,e:"x = 2 has multiplicity 2 (even), so the graph touches the axis and turns around."},
+ {u:1,c:0,tp:"1.5",q:"A polynomial function with real coefficients has degree 4. Two of its zeros are 3 and 2 + i. Which of the following must also be a zero?",o:["−3","2 − i","−2 − i","3i"],a:1,e:"Non-real zeros of a real-coefficient polynomial come in conjugate pairs, so 2 − i is a zero."},
+ {u:1,c:0,tp:"1.5",q:"A polynomial function p of degree 5 has real coefficients. Which of the following could NOT be the number of distinct real zeros of p?",o:["0","1","3","5"],a:0,e:"Odd degree means the ends go in opposite directions, so the graph must cross the x-axis at least once. Zero real zeros is impossible."},
+ {u:1,c:0,tp:"1.6",q:"Which of the following describes the end behavior of p(x) = −2x⁵ + 100x² + 7?",o:["lim<sub>x→−∞</sub> p(x) = −∞ and lim<sub>x→∞</sub> p(x) = ∞","lim<sub>x→−∞</sub> p(x) = ∞ and lim<sub>x→∞</sub> p(x) = −∞","lim<sub>x→±∞</sub> p(x) = ∞","lim<sub>x→±∞</sub> p(x) = −∞"],a:1,e:"Leading term −2x⁵: odd degree, negative coefficient. Up on the left, down on the right."},
+ {u:1,c:0,tp:"1.7",q:"What is the horizontal asymptote of r(x) = (3x² − 1)/(x² + 4x)?",o:["y = 0","y = −1/4","y = 3","There is no horizontal asymptote"],a:2,e:"Degrees are equal (2 and 2). The ratio of leading coefficients is 3/1 = 3."},
+ {u:1,c:0,tp:"1.10",q:"The function r is given by r(x) = (x² − 4)/(x² − x − 2). Which of the following is true?",o:["r has vertical asymptotes at x = 2 and x = −1","r has a hole at (2, 4/3) and a vertical asymptote at x = −1","r has a hole at (−1, 0) and a vertical asymptote at x = 2","r has zeros at x = 2 and x = −2"],a:1,e:"r = (x − 2)(x + 2)/((x − 2)(x + 1)). Cancel (x − 2): hole at x = 2 with y = 4/3 from (x + 2)/(x + 1). VA at x = −1. The only zero is −2."},
+ {u:1,c:0,tp:"1.7",q:"Which of the following is lim<sub>x→−∞</sub> (2x³ + x)/(5x² − 7)?",o:["−∞","0","2/5","∞"],a:0,e:"Leading terms: 2x³/5x² = (2/5)x. As x → −∞, (2/5)x → −∞."},
+ {u:1,c:0,tp:"1.11",q:"The function r(x) = (x² + 3x + 5)/(x + 1) has a slant asymptote. What is its equation?",o:["y = x + 3","y = x + 2","y = x","y = x + 4"],a:1,e:"Long division: x² + 3x + 5 = (x + 1)(x + 2) + 3. So r(x) = x + 2 + 3/(x + 1), and the slant asymptote is y = x + 2."},
+ {u:1,c:0,tp:"1.12",q:"The point (4, 5) is on the graph of y = f(x). Which point must be on the graph of g(x) = f(2x) − 3?",o:["(8, 2)","(2, 2)","(2, 8)","(8, 8)"],a:1,e:"Set 2x = 4 ⇒ x = 2. Then g(2) = f(4) − 3 = 2. The inside change works backwards: multiplying x by 2 halves the x-coordinate."},
+ {u:1,c:0,tp:"1.12",q:"The graph of g is obtained from the graph of f by a reflection over the x-axis followed by a horizontal translation 1 unit to the left. Which could be g(x)?",o:["−f(x − 1)","f(−x) + 1","−f(x + 1)","−f(x) − 1"],a:2,e:"Reflect over the x-axis: −f(x). Left 1: replace x with x + 1, giving −f(x + 1)."},
+ {u:1,c:0,tp:"1.3",q:"On an interval, f is increasing and its graph is concave down. Which statement is true on that interval?",o:["The rate of change of f is positive and increasing","The rate of change of f is positive and decreasing","The rate of change of f is negative and increasing","The rate of change of f is negative and decreasing"],a:1,e:"Increasing ⇒ rate of change positive. Concave down ⇒ rate of change decreasing."},
+ {u:1,c:0,tp:"1.11",q:"What is the coefficient of the x² term in the expansion of (x + 2)⁴?",o:["6","12","24","8"],a:2,e:"Pascal's row 4: 1, 4, 6, 4, 1. The x² term is 6·x²·2² = 24x². Choice A forgets to square the 2."},
+ {u:1,c:0,tp:"1.12",q:"Which of the following functions is even?",o:["f(x) = x³ + x²","f(x) = x⁴ − 3x² + 1","f(x) = x⁵ − x","f(x) = 2x + 1"],a:1,e:"Replace x with −x: (−x)⁴ − 3(−x)² + 1 = x⁴ − 3x² + 1. It's unchanged, so even. Choice C is odd."},
+ {u:1,c:0,tp:"1.8",q:"For which values of x is (x + 2)(x − 1)²(x − 5) &lt; 0?",o:["−2 &lt; x &lt; 5","x &lt; −2 or x &gt; 5","−2 &lt; x &lt; 1 or 1 &lt; x &lt; 5","1 &lt; x &lt; 5 only"],a:2,e:"Zeros at −2, 1, 5. (x − 1)² is never negative, and it equals 0 at x = 1, so x = 1 must be excluded. Signs: + on x &lt; −2, − on (−2, 1), − on (1, 5), + on x &gt; 5."},
+ {u:1,c:0,tp:"1.8",q:"What are the zeros of r(x) = (x − 3)(x + 1)/((x − 3)(x + 2))?",o:["x = 3 and x = −1","x = −1 only","x = 3 only","x = −2 only"],a:1,e:"x = 3 cancels, so it's a hole, not a zero. The only zero is x = −1. (x = −2 is a vertical asymptote.)"},
+ {u:1,c:0,tp:"1.13",q:"A company's monthly revenue increased by the same dollar amount each month from January to June. Which type of function best models revenue as a function of month for that period?",o:["Linear","Quadratic","Exponential","Logarithmic"],a:0,e:"Equal additive change over equal intervals = constant rate of change = linear."},
+ {u:1,c:0,tp:"1.9",q:"Let r(x) = (x + 2)/(x − 1). Which of the following is true?",o:["lim<sub>x→1⁺</sub> r(x) = −∞","lim<sub>x→1⁺</sub> r(x) = ∞","lim<sub>x→1⁺</sub> r(x) = 3","lim<sub>x→1⁺</sub> r(x) = 0"],a:1,e:"Just to the right of 1 (say 1.001): numerator ≈ 3 (positive), denominator tiny positive. Positive over tiny positive → ∞."},
+ {u:1,c:1,tp:"1.4",q:"Let f(x) = x³ − 6x² + 9x + 1. What is the relative maximum value of f? (Use a graphing calculator.)",o:["1","3","5","9"],a:2,e:"Graph f; the relative max is at x = 1 and f(1) = 1 − 6 + 9 + 1 = 5. (The relative min is at x = 3, f(3) = 1.)"},
+ {u:1,c:1,tp:"1.14",q:"A cubic regression is used to model data. The model gives h(t) = 0.2t³ − 1.5t² + 3t + 10, where h is in meters and t is in hours. What is the average rate of change of h from t = 1 to t = 4?",o:["−0.3 m/hr","0.2 m/hr","−0.9 m/hr","1.1 m/hr"],a:0,e:"h(4) = 12.8 − 24 + 12 + 10 = 10.8. h(1) = 0.2 − 1.5 + 3 + 10 = 11.7. (10.8 − 11.7)/3 = −0.3 meters per hour."},
+ {u:1,c:1,tp:"1.14",q:"A quadratic function passes through (0, 2), (1, 5), and (2, 12). What is its value at x = 3?",o:["19","23","25","21"],a:1,e:"Solving gives y = 2x² + x + 2. At x = 3: 18 + 3 + 2 = 23. (Or use second differences: 3, 7, then 11, so 12 + 11 = 23.)"},
+ {u:2,c:0,tp:"2.1",q:"In an arithmetic sequence, a₃ = 11 and a₇ = 27. What is a₁₀?",o:["35","39","43","31"],a:1,e:"From a₃ to a₇ is 4 steps: 4d = 16, d = 4. a₁₀ = a₇ + 3d = 27 + 12 = 39."},
+ {u:2,c:0,tp:"2.1",q:"In a geometric sequence, g₂ = 12 and g₅ = 96. What is g₈?",o:["180","384","768","192"],a:2,e:"r³ = 96/12 = 8, so r = 2. g₈ = g₅·r³ = 96·8 = 768."},
+ {u:2,c:0,tp:"2.3",q:"An exponential function f(x) = a·bˣ, with b &gt; 0, satisfies f(0) = 5 and f(2) = 45. What is f(3)?",o:["65","135","405","75"],a:1,e:"a = 5. 5b² = 45 ⇒ b² = 9 ⇒ b = 3. f(3) = 5·27 = 135."},
+ {u:2,c:0,tp:"2.4",q:"Which of the following is equivalent to 8·4^(x+1)?",o:["2^(2x+5)","32^(x+1)","2^(3x+3)","2^(2x+4)"],a:0,e:"8 = 2³ and 4^(x+1) = 2^(2x+2). Multiply by adding exponents: 2^(3 + 2x + 2) = 2^(2x+5)."},
+ {u:2,c:0,tp:"2.4",q:"A population is modeled by P(t) = 200(1.2)ᵗ, where t is in years. Which expression models the population in terms of m, the number of months?",o:["200(1.2)^(m/12)","200(1.2/12)^m","200(1.2)^(12m)","200(0.1)^m"],a:0,e:"t = m/12 years, so P = 200(1.2)^(m/12) = 200(1.2^(1/12))^m."},
+ {u:2,c:0,tp:"2.8",q:"If f(x) = (2x − 3)/5, what is f⁻¹(x)?",o:["(5x − 3)/2","(5x + 3)/2","5/(2x − 3)","(2x + 3)/5"],a:1,e:"Swap: x = (2y − 3)/5 ⇒ 5x = 2y − 3 ⇒ y = (5x + 3)/2."},
+ {u:2,c:0,tp:"2.7",q:"The table gives values of f and g. What is f(g(2))?"+'<div class="tablewrap"><table><tr><th>x</th><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr><th>f(x)</th><td>4</td><td>1</td><td>2</td><td>3</td></tr><tr><th>g(x)</th><td>3</td><td>4</td><td>1</td><td>2</td></tr></table></div>',o:["1","2","3","4"],a:2,e:"g(2) = 4, then f(4) = 3."},
+ {u:2,c:0,tp:"2.9",q:"What is the value of log₂(32) − log₃(1/9)?",o:["3","7","−7","10"],a:1,e:"log₂ 32 = 5 and log₃(1/9) = −2. 5 − (−2) = 7."},
+ {u:2,c:0,tp:"2.12",q:"Which of the following is equal to 2·log₅(10) − log₅(4)?",o:["1","2","log₅(16)","log₅(5/2)"],a:1,e:"2 log₅ 10 = log₅ 100. log₅ 100 − log₅ 4 = log₅ 25 = 2."},
+ {u:2,c:0,tp:"2.13",q:"What value of x satisfies 3^(2x) = 81^(x−1)?",o:["x = 1","x = 2","x = 4","x = −2"],a:1,e:"81 = 3⁴, so 3^(2x) = 3^(4x−4). Then 2x = 4x − 4, so x = 2."},
+ {u:2,c:0,tp:"2.13",q:"What is the solution set of log₂(x) + log₂(x − 2) = 3?",o:["{4}","{−2, 4}","{−2}","{5}"],a:0,e:"x(x − 2) = 2³ = 8 ⇒ x² − 2x − 8 = 0 ⇒ x = 4 or x = −2. log₂(−2) is undefined, so only x = 4 works."},
+ {u:2,c:0,tp:"2.11",q:"What are the domain and vertical asymptote of f(x) = ln(x − 3) + 2?",o:["x &gt; 2; x = 2","x &gt; 3; x = 3","x &gt; −3; x = −3","All reals; x = 3"],a:1,e:"The argument must be positive: x − 3 &gt; 0 ⇒ x &gt; 3. The VA is x = 3. The +2 shifts up, not sideways."},
+ {u:2,c:0,tp:"2.11",q:"The graph of f(x) = log_b(x) passes through the point (9, 2). What is b?",o:["2","3","4.5","81"],a:1,e:"log_b 9 = 2 means b² = 9, so b = 3."},
+ {u:2,c:0,tp:"2.15",q:"Data plotted on a semi-log graph (y-axis logarithmic, base 10) lie on the line log y = 0.3x + 2. Which equation models y?",o:["y = 0.3x + 2","y = 2·10^(0.3x)","y = 100·10^(0.3x)","y = 100x^0.3"],a:2,e:"y = 10^(0.3x + 2) = 10²·10^(0.3x) = 100·10^(0.3x)."},
+ {u:2,c:0,tp:"2.2",q:"For a function f, over equal-length input intervals, the output values are multiplied by the same constant. What type of function is f?",o:["Linear","Quadratic","Exponential","Logarithmic"],a:2,e:"Constant ratios over equal intervals is the definition of exponential change."},
+ {u:2,c:0,tp:"2.13",q:"Which describes all x that satisfy 5·2ˣ &gt; 40?",o:["x &gt; 3","x &gt; 8","x &lt; 3","x &gt; 4"],a:0,e:"Divide by 5: 2ˣ &gt; 8 = 2³. Since 2ˣ is increasing, x &gt; 3."},
+ {u:2,c:0,tp:"2.10",q:"What is the inverse of f(x) = 2eˣ + 1?",o:["f⁻¹(x) = ln(x − 1)/2","f⁻¹(x) = ln((x − 1)/2)","f⁻¹(x) = (ln x − 1)/2","f⁻¹(x) = 2 ln x + 1"],a:1,e:"x = 2eʸ + 1 ⇒ eʸ = (x − 1)/2 ⇒ y = ln((x − 1)/2). Choice A divides the log, not its argument."},
+ {u:2,c:1,tp:"2.5",q:"A culture of 500 bacteria doubles every 3 hours. To the nearest whole number, how many bacteria are there after 7 hours?",o:["1167","2520","3500","1000"],a:1,e:"N(t) = 500·2^(t/3). N(7) = 500·2^(7/3) ≈ 2519.84, about 2520."},
+ {u:2,c:1,tp:"2.13",q:"What value of x satisfies 2ˣ = 10? Give a decimal approximation.",o:["3.322","5.000","2.303","3.000"],a:0,e:"x = log₂ 10 = ln 10 / ln 2 ≈ 3.322. (2.303 is ln 10 by itself.)"},
+ {u:2,c:1,tp:"2.6",q:"An exponential model predicts 412 visitors on day 6. The actual number was 398. What is the residual, and what does it mean?",o:["14; the model underestimates","−14; the model overestimates","−14; the model underestimates","14; the model overestimates"],a:1,e:"Residual = actual − predicted = 398 − 412 = −14. Negative means the prediction was too high."},
+ {u:2,c:1,tp:"2.14",q:"A logarithmic model y = a + b·ln x passes through (1, 12) and (e², 18). What is b?",o:["6","3","12","2"],a:1,e:"At x = 1: a + b·0 = 12 ⇒ a = 12. At x = e²: 12 + 2b = 18 ⇒ b = 3."},
+ {u:2,c:1,tp:"2.5",q:"A 2400-dollar laptop loses 18% of its value each year. To the nearest dollar, what is it worth after 4 years?",o:["$1085","$1272","$672","$1968"],a:0,e:"V = 2400(0.82)⁴ = 2400 × 0.45212 ≈ $1085."}
+];
+// sanity: lengths
+var set="all",pace="chill",order=[],qi=0,answered={},timerId=null,tLeft=0;
+function setOrder(){
+  order=Q.map(function(q,i){return i}).filter(function(i){
+    if(set==="all")return true;if(set==="miss")return !!S.misses[i];return String(Q[i].u)===set;});
+  qi=0;answered={};renderQ();renderDots();
+}
+function startTimer(){clearInterval(timerId);var t=$("timer");if(pace!=="exam"){t.hidden=true;return;}
+  t.hidden=false;var q=Q[order[qi]];tLeft=q?(q.c?180:135):0;tick();timerId=setInterval(tick,1000);
+  function tick(){var m=Math.floor(Math.max(tLeft,0)/60),s=Math.max(tLeft,0)%60;t.textContent=m+":"+(s<10?"0":"")+s+(tLeft<=0?" · move on":"");t.style.background=tLeft<=0?"var(--bad-soft)":"";if(tLeft>0)tLeft--;}}
+function renderQ(){
+  var box=$("qcard");box.innerHTML="";
+  if(!order.length){box.innerHTML='<h3>No missed questions yet.</h3><p>Questions you get wrong show up here so you can retry them. Go answer some in "All 44".</p>';$("timer").hidden=true;return;}
+  var i=order[qi],q=Q[i];
+  var correctCount=Object.keys(answered).filter(function(k){return answered[k]===true}).length;
+  var meta=el("div","qmeta",'<span class="eyebrow">Question '+(qi+1)+' of '+order.length+' · Topic '+q.tp+'</span><span class="calc'+(q.c?"":" no")+'">'+(q.c?"Calculator":"No calculator")+'</span><span class="score" style="margin-left:auto">Score '+correctCount+'/'+Object.keys(answered).length+'</span>');
+  box.appendChild(meta);
+  box.appendChild(el("div","qstem",q.q));
+  var ch=el("div","choices"),why=el("div","why");why.hidden=true;
+  q.o.forEach(function(o,k){
+    var b=el("button","choice",'<span class="L">'+"ABCD"[k]+'</span><span>'+o+'</span>');b.type="button";
+    b.addEventListener("click",function(){
+      if(answered[i]!==undefined)return;
+      var ok=k===q.a;answered[i]=ok;
+      ch.querySelectorAll("button").forEach(function(x,xi){x.disabled=true;if(xi===q.a)x.classList.add("right");});
+      if(!ok){b.classList.add("wrong");S.misses[i]=true;}else{if(S.misses[i]&&set==="miss")toast("Fixed a past mistake");delete S.misses[i];}
+      save();
+      why.innerHTML=(ok?'<b class="ok">Correct.</b> ':'<b class="no">The answer is '+"ABCD"[q.a]+'.</b> ')+q.e;why.hidden=false;
+      if(ok)addXP(q.c?6:5);
+      clearInterval(timerId);renderDots();
+      var sc=box.querySelector(".score");var cc=Object.keys(answered).filter(function(k){return answered[k]===true}).length;sc.textContent="Score "+cc+"/"+Object.keys(answered).length;
+      if(Object.keys(answered).length===order.length){var pct=Math.round(cc/order.length*100);
+        why.innerHTML+='<br><br><b>Set complete: '+cc+'/'+order.length+' ('+pct+'%).</b> '+(pct>=80?"That's A-level work. Keep it up.":pct>=60?"Solid. Hit \"My misses\" to turn those into points.":"Every miss is now in \"My misses\". Redo them tomorrow and watch this number climb.");}
+    });
+    ch.appendChild(b);
+  });
+  if(answered[i]!==undefined){ch.querySelectorAll("button").forEach(function(x,xi){x.disabled=true;if(xi===q.a)x.classList.add("right")});why.innerHTML=q.e;why.hidden=false;}
+  box.appendChild(ch);box.appendChild(why);
+  var nav=el("div","qnav");
+  var prev=el("button","btn","← Previous");prev.type="button";prev.disabled=qi===0;prev.onclick=function(){qi--;renderQ();renderDots();};
+  var next=el("button","btn primary",qi===order.length-1?"Back to first":"Next →");next.type="button";next.onclick=function(){qi=(qi+1)%order.length;renderQ();renderDots();};
+  nav.appendChild(prev);nav.appendChild(next);box.appendChild(nav);
+  if(answered[i]===undefined)startTimer();else{clearInterval(timerId);}
+}
+function renderDots(){var d=$("dots");d.innerHTML="";order.forEach(function(i,k){var b=el("button",(k===qi?"cur ":"")+(answered[i]===true?"r":answered[i]===false?"w":""),String(k+1));b.type="button";b.setAttribute("aria-label","Question "+(k+1));b.onclick=function(){qi=k;renderQ();renderDots();};d.appendChild(b);});}
+document.querySelectorAll("[data-set]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-set]").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");set=b.dataset.set;setOrder();});});
+document.querySelectorAll("[data-pace]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-pace]").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");pace=b.dataset.pace;renderQ();});});
+setOrder();
+
+/* ---------- FRQs ---------- */
+var FRQ=[
+ {id:"f1",name:"Q1 · Function Concepts",calc:"Graphing calculator",
+  intro:"Let f be an increasing function defined for all real x. The table gives values of f(x) at selected x. The function g is given by <span class='m'>g(x) = (x² − 9)/(x² − 2x − 3)</span>."+tbl([0,1,2,3,4],[2,6,18,54,162]),
+  parts:[
+   {p:"A",ask:"(i) Find the value of (g ∘ f)(0). (ii) Find the value of f⁻¹(18), or indicate that it is not defined.",
+    sol:"(i) f(0) = 2, so g(f(0)) = g(2) = (4 − 9)/(4 − 4 − 3) = (−5)/(−3) = <b>5/3</b>.<br>(ii) Because f is increasing, f⁻¹ exists. From the table f(2) = 18, so <b>f⁻¹(18) = 2</b>.",
+    rub:["Correct value of (g ∘ f)(0) = 5/3","Correct value f⁻¹(18) = 2"]},
+   {p:"B",ask:"(i) Find all x-values where g has a vertical asymptote. Find the coordinates of any hole. (ii) Write the end behavior of g as x increases without bound using limit notation.",
+    sol:"(i) g(x) = (x − 3)(x + 3)/((x − 3)(x + 1)). The factor (x − 3) cancels, so there's a hole at x = 3 with y = (3 + 3)/(3 + 1) = 3/2, the point <b>(3, 3/2)</b>. The remaining zero of the denominator gives a <b>vertical asymptote at x = −1</b>.<br>(ii) The degrees are equal and the leading coefficients are both 1, so <b>lim<sub>x→∞</sub> g(x) = 1</b>.",
+    rub:["Vertical asymptote x = −1 only (with the hole identified at x = 3)","Correct limit statement lim g(x) = 1 as x → ∞"]},
+   {p:"C",ask:"(i) Which type of function best models f: linear, quadratic, or exponential? (ii) Give a reason for your answer based on the table.",
+    sol:"(i) <b>Exponential.</b><br>(ii) Over consecutive equal-length input intervals (length 1), the ratios of consecutive outputs are constant: 6/2 = 18/6 = 54/18 = 162/54 = 3. Constant ratios mean an exponential model.",
+    rub:["Answer: exponential","Reason refers to constant ratios of outputs over equal-length input intervals"]}
+  ]},
+ {id:"f2",name:"Q2 · Exponential Growth",calc:"Graphing calculator",
+  intro:"A streaming app tracks its number of subscribers. At the start of 2020 (t = 0) the app had 1.8 million subscribers. At t = 3 it had 4.2 million subscribers. The number of subscribers, in millions, can be modeled by <span class='m'>S(t) = a·bᵗ</span>, where t is years since the start of 2020.",
+  parts:[
+   {p:"A",ask:"(i) Use the given data to write two equations that can be used to find a and b. (ii) Find a and b, with b as a decimal approximation.",
+    sol:"(i) <b>a·b⁰ = 1.8</b> and <b>a·b³ = 4.2</b>.<br>(ii) a = 1.8. Then b³ = 4.2/1.8 = 7/3, so b = (7/3)^(1/3) ≈ <b>1.326</b>. Model: S(t) = 1.8(1.326)ᵗ.",
+    rub:["Two correct equations","Correct values a = 1.8, b ≈ 1.326"]},
+   {p:"B",ask:"(i) Use the model to find the average rate of change of S from t = 1 to t = 3. Show the setup. (ii) Interpret your answer in context, with units.",
+    sol:"(i) (S(3) − S(1))/(3 − 1) = (4.2 − 2.387)/2 ≈ <b>0.906</b>.<br>(ii) From t = 1 to t = 3 years, the number of subscribers <b>increased on average by about 0.906 million subscribers per year</b>.",
+    rub:["Correct average rate of change with setup (≈ 0.906)","Interpretation with \"on average\", the time interval, and units"]},
+   {p:"C",ask:"(i) Write and solve an equation to find when the model predicts 10 million subscribers. (ii) Give one reason the model may not be appropriate for long-term predictions.",
+    sol:"(i) 1.8(1.326)ᵗ = 10 ⇒ t = ln(10/1.8)/ln(1.32635) ≈ <b>6.072 years</b>, so during 2026.<br>(ii) An exponential model grows without bound, but the number of possible subscribers is limited (finite population and competition). Growth must eventually slow, so the model will overestimate for large t.",
+    rub:["Equation and correct t ≈ 6.072","Limitation explained in context (unbounded growth vs. limited population)"]}
+  ]},
+ {id:"f3",name:"Q4 · Symbolic Manipulation",calc:"No calculator",
+  intro:"Answer each part using exact values. Show the algebra that leads to your answers.",
+  parts:[
+   {p:"A",ask:"(i) Solve log₃(x) + log₃(x + 6) = 3 for x. (ii) Solve 2e^(3x) − 5 = 9 for x.",
+    sol:"(i) log₃(x(x + 6)) = 3 ⇒ x² + 6x = 27 ⇒ (x + 9)(x − 3) = 0. x = −9 makes log₃(x) undefined, so <b>x = 3</b>.<br>(ii) 2e^(3x) = 14 ⇒ e^(3x) = 7 ⇒ 3x = ln 7 ⇒ <b>x = (ln 7)/3</b>.",
+    rub:["x = 3 with the extraneous −9 rejected","x = (ln 7)/3 with supporting work"]},
+   {p:"B",ask:"(i) Rewrite h(x) = ln(x²·e⁴) − ln(x) as an expression of the form a·ln(x) + c, for x &gt; 0. (ii) Rewrite k(x) = 9^(x+1)/3ˣ in the form a·3ˣ.",
+    sol:"(i) ln(x²) + ln(e⁴) − ln x = 2 ln x + 4 − ln x = <b>ln(x) + 4</b>.<br>(ii) 9^(x+1) = 3^(2x+2). Divide: 3^(2x+2−x) = 3^(x+2) = <b>9·3ˣ</b>.",
+    rub:["h(x) = ln x + 4","k(x) = 9·3ˣ"]},
+   {p:"C",ask:"(i) Let p(x) = 4 + log₂(x − 1). Find p⁻¹(x). (ii) State the domain of p⁻¹.",
+    sol:"(i) x = 4 + log₂(y − 1) ⇒ x − 4 = log₂(y − 1) ⇒ y − 1 = 2^(x−4) ⇒ <b>p⁻¹(x) = 2^(x−4) + 1</b>.<br>(ii) The range of p is all real numbers, so the domain of p⁻¹ is <b>all real numbers</b>.",
+    rub:["Correct inverse p⁻¹(x) = 2^(x−4) + 1","Domain: all real numbers"]}
+  ]},
+ {id:"f4",name:"Polynomial Detective",calc:"No calculator",
+  intro:"A polynomial function p has degree 3. Its only zeros are x = −2, with multiplicity 2, and x = 3. The graph of p passes through (0, −6).",
+  parts:[
+   {p:"A",ask:"(i) Write an expression for p(x). (ii) Describe the behavior of the graph of p at x = −2 and explain why.",
+    sol:"(i) p(x) = a(x + 2)²(x − 3). p(0) = a(4)(−3) = −12a = −6 ⇒ a = 1/2. <b>p(x) = ½(x + 2)²(x − 3)</b>.<br>(ii) The graph <b>touches the x-axis and turns around</b> at x = −2, because that zero has even multiplicity (2).",
+    rub:["Correct p(x) with a = 1/2","Touches without crossing, because of the even multiplicity"]},
+   {p:"B",ask:"(i) Write the end behavior of p as x → −∞ and x → ∞ using limits. (ii) Find all x for which p(x) &lt; 0.",
+    sol:"(i) Leading term ½x³: <b>lim<sub>x→−∞</sub> p(x) = −∞</b> and <b>lim<sub>x→∞</sub> p(x) = ∞</b>.<br>(ii) (x + 2)² ≥ 0 always, and ½ &gt; 0, so the sign of p comes from (x − 3). p &lt; 0 when x &lt; 3, except x = −2 where p = 0: <b>(−∞, −2) ∪ (−2, 3)</b>.",
+    rub:["Both limits correct","Correct interval, excluding x = −2"]},
+   {p:"C",ask:"(i) Find the average rate of change of p on [−2, 0] and on [0, 3]. (ii) What do the signs of these two values tell you about p between x = −2 and x = 3?",
+    sol:"(i) On [−2, 0]: (p(0) − p(−2))/(0 − (−2)) = (−6 − 0)/2 = <b>−3</b>. On [0, 3]: (0 − (−6))/3 = <b>2</b>.<br>(ii) On average p is decreasing on [−2, 0] and increasing on [0, 3]. Since p goes from decreasing to increasing, p must have a <b>relative minimum</b> somewhere between x = −2 and x = 3.",
+    rub:["Both average rates of change correct (−3 and 2)","Conclusion: p decreases then increases, so there is a relative minimum in (−2, 3)"]}
+  ]}
+];
+var frqCur=0,tabs=$("frqTabs");
+FRQ.forEach(function(f,i){var b=el("button",null,f.name);b.type="button";b.setAttribute("aria-pressed",i===0?"true":"false");b.onclick=function(){tabs.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");frqCur=i;renderFRQ();};tabs.appendChild(b);});
+function renderFRQ(){
+  var f=FRQ[frqCur],box=$("frqBox");box.innerHTML="";
+  var st=S.frq[f.id]||(S.frq[f.id]={pts:{},ans:{},rev:{}});
+  var card=el("div","frq");
+  card.appendChild(el("div","qmeta",'<span class="eyebrow">'+f.name+'</span><span class="calc'+(f.calc==="No calculator"?" no":"")+'">'+f.calc+'</span><span class="frqscore" style="margin-left:auto" id="frqScore"></span>'));
+  card.appendChild(el("div","qstem",f.intro));
+  f.parts.forEach(function(p,pi){
+    var part=el("div","part");
+    part.innerHTML='<p><b>Part '+p.p+'.</b> '+p.ask+'</p>';
+    var ta=el("textarea");ta.id="ans-"+f.id+"-"+pi;ta.placeholder="Write your work here (or on paper), then reveal the solution.";ta.value=st.ans[pi]||"";
+    ta.addEventListener("input",function(){st.ans[pi]=ta.value;save();});
+    part.appendChild(ta);
+    var btn=el("button","mbtn","Reveal model solution");btn.type="button";
+    var sol=el("div","sol");sol.hidden=!st.rev[pi];
+    sol.innerHTML='<div>'+p.sol+'</div><div class="pts">Scoring: tick each point you earned</div>';
+    p.rub.forEach(function(r,ri){var key=pi+"-"+ri;var lab=el("label","rub");lab.innerHTML='<input type="checkbox" id="rub-'+f.id+'-'+key+'"'+(st.pts[key]?" checked":"")+'><span>1 point: '+r+'</span>';
+      lab.querySelector("input").addEventListener("change",function(e){st.pts[key]=e.target.checked;save();score();if(e.target.checked)addXP(5);});sol.appendChild(lab);});
+    btn.onclick=function(){sol.hidden=!sol.hidden;st.rev[pi]=!sol.hidden;btn.textContent=sol.hidden?"Reveal model solution":"Hide solution";save();};
+    if(!sol.hidden)btn.textContent="Hide solution";
+    part.appendChild(btn);part.appendChild(sol);card.appendChild(part);
+  });
+  box.appendChild(card);
+  function score(){var n=0;for(var k in st.pts)if(st.pts[k])n++;$("frqScore").textContent=n+" / 6";}
+  score();
+}
+renderFRQ();
+})();
+</script>
