@@ -1,6 +1,6 @@
 // Mr Marvin, the AI tutor. Vercel serverless function: POST /api/tutor
 // Body: { messages: [{ role: "user" | "assistant", content: string }, ...] } ending on a user turn.
-// Streams the reply back as plain text. Needs ANTHROPIC_API_KEY set in the Vercel project.
+// Streams the reply back as plain text. Uses NVIDIA_API_KEY (Nemotron) if set, otherwise ANTHROPIC_API_KEY.
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
@@ -47,15 +47,121 @@ function cleanMessages(raw) {
   return merged;
 }
 
+// NVIDIA (OpenAI-compatible) endpoint: used when NVIDIA_API_KEY is set.
+const NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions";
+const NVIDIA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b";
+
+async function streamNvidia(messages, res) {
+  const upstream = await fetch(NVIDIA_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.NVIDIA_API_KEY}`,
+      "Content-Type": "application/json",
+      Accept: "text/event-stream",
+    },
+    body: JSON.stringify({
+      model: NVIDIA_MODEL,
+      messages: [{ role: "system", content: SYSTEM }, ...messages],
+      temperature: 1,
+      top_p: 0.95,
+      max_tokens: 16384,
+      chat_template_kwargs: { enable_thinking: true },
+      stream: true,
+    }),
+  });
+
+  if (!upstream.ok || !upstream.body) {
+    const detail = await upstream.text().catch(() => "");
+    console.error("nvidia error", upstream.status, detail.slice(0, 500));
+    const status = upstream.status === 429 ? 429 : upstream.status === 401 || upstream.status === 403 ? 503 : 502;
+    const code = status === 429 ? "rate_limited" : status === 503 ? "not_configured" : "upstream_error";
+    const message =
+      status === 429
+        ? "Mr Marvin is getting a lot of questions. Try again in a minute."
+        : status === 503
+          ? "Mr Marvin's NVIDIA API key was rejected. Check NVIDIA_API_KEY in Vercel."
+          : "Mr Marvin hit a snag. Try again in a moment.";
+    return res.status(status).json({ error: code, message });
+  }
+
+  res.writeHead(200, {
+    "Content-Type": "text/plain; charset=utf-8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+  });
+
+  // Only the final answer goes to the student: reasoning_content is skipped, and any
+  // <think>...</think> block that shows up inside content is filtered out.
+  const decoder = new TextDecoder();
+  const reader = upstream.body.getReader();
+  let buf = "";
+  let inThink = false;
+  let pending = "";
+  let wrote = false;
+  let finish = null;
+  const emit = (text) => {
+    pending += text;
+    let out = "";
+    while (pending) {
+      if (inThink) {
+        const end = pending.indexOf("</think>");
+        if (end < 0) { pending = pending.slice(-8); break; }
+        pending = pending.slice(end + 8);
+        inThink = false;
+      } else {
+        const start = pending.indexOf("<think>");
+        if (start < 0) {
+          // Hold back a possible partial "<think" tag at the end.
+          const keep = pending.lastIndexOf("<");
+          if (keep >= 0 && pending.length - keep < 7) { out += pending.slice(0, keep); pending = pending.slice(keep); }
+          else { out += pending; pending = ""; }
+          break;
+        }
+        out += pending.slice(0, start);
+        pending = pending.slice(start + 7);
+        inThink = true;
+      }
+    }
+    if (out) {
+      if (!wrote) out = out.replace(/^\s+/, "");
+      if (out) { res.write(out); wrote = true; }
+    }
+  };
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    let nl;
+    while ((nl = buf.indexOf("\n")) >= 0) {
+      const line = buf.slice(0, nl).trim();
+      buf = buf.slice(nl + 1);
+      if (!line.startsWith("data:")) continue;
+      const data = line.slice(5).trim();
+      if (data === "[DONE]") continue;
+      let chunk;
+      try { chunk = JSON.parse(data); } catch { continue; }
+      const choice = chunk.choices && chunk.choices[0];
+      if (!choice) continue;
+      if (choice.delta && typeof choice.delta.content === "string") emit(choice.delta.content);
+      if (choice.finish_reason) finish = choice.finish_reason;
+    }
+  }
+  if (!inThink && pending) { res.write(pending); wrote = true; }
+  if (!wrote) res.write("Sorry, I lost my train of thought. Could you ask that again?");
+  if (finish === "length") res.write("\n\n(I ran out of room there. Say \"keep going\" and I'll finish.)");
+  return res.end();
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method_not_allowed", message: "Use POST." });
   }
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.NVIDIA_API_KEY && !process.env.ANTHROPIC_API_KEY) {
     return res.status(503).json({
       error: "not_configured",
-      message: "Mr Marvin isn't connected yet: ANTHROPIC_API_KEY is not set on the server.",
+      message: "Mr Marvin isn't connected yet: set NVIDIA_API_KEY (or ANTHROPIC_API_KEY) on the server.",
     });
   }
 
@@ -73,6 +179,19 @@ export default async function handler(req, res) {
       error: "bad_request",
       message: "Send { messages: [...] } ending with a user message, under 30,000 characters.",
     });
+  }
+
+  if (process.env.NVIDIA_API_KEY) {
+    try {
+      return await streamNvidia(messages, res);
+    } catch (err) {
+      console.error("nvidia stream error", err && err.message);
+      if (!res.headersSent) {
+        return res.status(502).json({ error: "upstream_error", message: "Mr Marvin hit a snag. Try again in a moment." });
+      }
+      res.write("\n\n[Mr Marvin hit a snag. Try again in a moment.]");
+      return res.end();
+    }
   }
 
   let started = false;
