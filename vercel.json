@@ -2,5 +2,5 @@
   "buildCommand": "sh build.sh",
   "outputDirectory": "dist",
   "framework": null,
-  "installCommand": ""
+  "installCommand": "npm install"
 }

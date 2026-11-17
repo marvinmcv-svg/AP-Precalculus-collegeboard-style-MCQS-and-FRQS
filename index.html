@@ -218,20 +218,113 @@ details.topic.mastered .check{background:var(--good);border-color:var(--good);co
 footer{padding-block:48px;color:var(--muted);font-size:.9rem}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-weight:700;transition:transform .35s;z-index:20;max-width:calc(100% - 32px);text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+[hidden]{display:none!important}
+/* ---------- site: pages & nav ---------- */
+.page{display:none}
+.page.on{display:block;animation:pageIn .45s ease both}
+@keyframes pageIn{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tabs a.cur{background:var(--ink);color:var(--paper)}
+.xp.bump{animation:bump .5s}
+@keyframes bump{40%{transform:scale(1.18)}}
+.hero{position:relative;isolation:isolate}
+#heroCv{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.9;pointer-events:none}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:28px}
+.feat{display:grid;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.feat:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--blue)}
+.feat svg{width:42px;height:42px}
+.feat b{font-family:var(--display);font-size:1.1rem}
+.feat span{color:var(--muted);font-size:.92rem}
+.ring{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.ring figure{margin:0;display:flex;gap:10px;align-items:center}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--line)} .ring .fg{stroke:var(--good);stroke-linecap:round;transition:stroke-dashoffset .8s}
+.ring figcaption{font-size:.9rem;color:var(--muted)} .ring figcaption b{display:block;color:var(--ink);font-family:var(--display);font-size:1.2rem}
+.askbtn{justify-self:start;display:inline-flex;gap:8px;align-items:center;background:var(--blue-soft);color:var(--blue);border:1.5px solid var(--blue);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.9rem}
+.askbtn svg{width:20px;height:20px}
+.seebtn{justify-self:start;background:none;border:0;color:var(--blue);font-weight:700;padding:0;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- visual lab ---------- */
+.viztabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.viztabs button{background:var(--card);border:1.5px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:.9rem}
+.viztabs button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.viz{display:none}
+.viz.on{display:grid}
+.vizhead{grid-column:1/-1;display:grid;gap:4px;margin-bottom:4px}
+.vizhead p{color:var(--muted);max-width:70ch}
+.readout{font-family:var(--mono);font-size:.95rem;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto}
+.readout b{color:var(--blue)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mini{font-size:.85rem;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.85rem}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.vtable{border-collapse:collapse;font-family:var(--mono);font-size:.85rem;width:100%}
+.vtable td,.vtable th{border:1px solid var(--line);padding:4px 8px;text-align:right}
+
+/* ---------- Mr Marvin ---------- */
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:8px 16px 8px 8px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);font-weight:700}
+.fab svg{width:40px;height:40px}
+.fab .dot{width:9px;height:9px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px rgba(29,138,85,.25)}
+.drawer{position:fixed;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:16;width:min(420px,calc(100% - 24px));height:min(640px,calc(100% - 90px - env(safe-area-inset-top,0px)));background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px -15px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;animation:pop .25s ease}
+@keyframes pop{from{opacity:.001;transform:scale(.92)}}
+.drawer header{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.drawer header svg{width:38px;height:38px}
+.drawer header b{font-family:var(--display);font-size:1.05rem;display:block}
+.drawer header small{color:var(--muted)}
+.drawer header button{margin-left:auto;background:none;border:0;color:var(--muted);font-size:1.4rem;line-height:1;padding:6px}
+.chat{display:flex;flex-direction:column;min-height:0;flex:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;font-size:.96rem;line-height:1.5;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--blue);color:var(--card);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--paper);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.bot p+p,.msg.bot p+ul,.msg.bot ul+p,.msg.bot p+ol,.msg.bot ol+p{margin-top:8px}
+.msg.bot ul,.msg.bot ol{margin:4px 0 0;padding-left:20px}
+.msg.note{align-self:center;background:var(--marker);color:var(--marker-ink);font-size:.82rem;border-radius:10px;max-width:100%}
+.typing span{display:inline-block;width:7px;height:7px;margin-right:3px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.2;transform:translateY(-3px)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 10px}
+.chips button{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 11px;font-size:.82rem}
+.chips button:hover{border-color:var(--blue)}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--card)}
+.composer textarea{flex:1;min-width:0;resize:none;font:inherit;font-size:.95rem;border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:var(--paper);color:var(--ink);max-height:120px}
+.composer button{background:var(--blue);color:var(--card);border:0;border-radius:12px;padding:0 16px;font-weight:700}
+.composer button:disabled{opacity:.5}
+.tutorpage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:18px;align-items:start}
+@media (max-width:820px){.tutorpage{grid-template-columns:1fr}.tutorbox{order:-1;height:72vh}.marvinhero svg.big{width:72px;height:72px}}
+.tutorbox{background:var(--card);border:1px solid var(--line);border-radius:18px;height:min(680px,78vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow)}
+.marvinhero{display:grid;gap:12px}
+.marvinhero svg.big{width:120px;height:120px;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px) rotate(-2deg)}}
+
+/* ---------- resources ---------- */
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.res a.note{text-decoration:none;color:var(--ink);display:grid;gap:6px;transition:transform .2s,border-color .2s}
+.res a.note:hover{transform:translateY(-2px);border-color:var(--blue)}
+.res a.note b{font-family:var(--display)}
+.res a.note span{color:var(--muted);font-size:.92rem}
+.res a.note em{font-style:normal;font-family:var(--mono);font-size:.75rem;color:var(--blue)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+.gloss div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.93rem}
+.gloss b{display:block;font-family:var(--display)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30;width:100%;height:100%}
+@media (prefers-reduced-motion: reduce){.marvinhero svg.big{animation:none}.page.on{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Sections">
   <div class="wrap">
     <span class="brand">f(Santiago)</span>
-    <div class="tabs">
-      <a href="#plan">Game plan</a>
-      <a href="#unit1">Unit 1</a>
-      <a href="#unit2">Unit 2</a>
-      <a href="#lab">Graph Lab</a>
-      <a href="#cards">Flashcards</a>
-      <a href="#arena">MCQ Arena</a>
-      <a href="#gym">FRQ Gym</a>
-      <a href="#sheet">Cheat sheet</a>
+    <div class="tabs" id="navTabs">
+      <a href="#home" data-to="home">Home</a>
+      <a href="#unit1" data-to="unit1">Unit 1</a>
+      <a href="#unit2" data-to="unit2">Unit 2</a>
+      <a href="#visuals" data-to="visuals">Visual Lab</a>
+      <a href="#flashcards" data-to="flashcards">Flashcards</a>
+      <a href="#practice" data-to="practice">MCQ Arena</a>
+      <a href="#frq" data-to="frq">FRQ Gym</a>
+      <a href="#resources" data-to="resources">Resources</a>
+      <a href="#tutor" data-to="tutor">Mr Marvin</a>
     </div>
     <span class="xp" id="xp" title="XP earned on this device">0 XP</span>
   </div>
@@ -239,7 +332,9 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
 
 <main class="wrap">
 
+<div class="page" data-page="home">
 <header class="hero">
+  <canvas id="heroCv" aria-hidden="true"></canvas>
   <p class="eyebrow">AP Precalculus · Units 1 &amp; 2 · built for Santiago A.</p>
   <h1><span class="fx">lim<sub>study→∞</sub> score = A</span>The Precalc Playbook</h1>
   <p class="lede">Every topic from the College Board's Unit 1 (Polynomial &amp; Rational Functions) and Unit 2 (Exponential &amp; Logarithmic Functions), broken into short levels. Read a level, try its quick check, then go win points in the MCQ Arena and FRQ Gym. Your progress saves on this device.</p>
@@ -253,7 +348,18 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
 
   <div class="note letter">
     <p><b>Hey Santiago.</b> I know there's a lot going on right now, and this course looks like a mountain. Here's the truth: Units 1 and 2 boil down to about <span class="hl">10 big ideas</span> that keep coming back in different outfits. You don't need to study for hours. You need short, focused sessions and a lot of practice questions.</p>
-    <p>The rule for this guide: <b>25 minutes on, 5 minutes off.</b> One level at a time. If a day is rough, do one quick check and call it a win. Small and steady beats huge and stressed.</p>
+    <p>The rule for this guide: <b>25 minutes on, 5 minutes off.</b> One level at a time. If a day is rough, do one quick check and call it a win. Small and steady beats huge and stressed. And if you get stuck, ask Mr Marvin, your AI tutor. He's in the bottom corner of every page.</p>
+  </div>
+
+  <div class="ring" id="rings" aria-label="Your progress"></div>
+
+  <div class="features">
+    <a class="feat" href="#unit1"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--blue-soft)"/><path d="M10 34 C16 6, 22 6, 26 24 S36 40, 40 14" fill="none" stroke="var(--u1)" stroke-width="3" stroke-linecap="round"/></svg><b>Unit 1 levels</b><span>14 bite-size lessons on polynomial and rational functions.</span></a>
+    <a class="feat" href="#unit2"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--u2-soft)"/><path d="M8 38 Q28 37, 40 8" fill="none" stroke="var(--u2)" stroke-width="3" stroke-linecap="round"/></svg><b>Unit 2 levels</b><span>15 lessons on exponentials, logs and their inverses.</span></a>
+    <a class="feat" href="#visuals"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--blue-soft)"/><circle cx="16" cy="30" r="4" fill="var(--blue)"/><circle cx="34" cy="16" r="4" fill="var(--blue)"/><path d="M8 36 L40 10" stroke="var(--bad)" stroke-width="2.5" stroke-dasharray="4 3"/></svg><b>Visual Lab</b><span>7 interactive graphs you can drag, play and break.</span></a>
+    <a class="feat" href="#practice"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--good-soft)"/><path d="M14 25 l7 7 l13 -15" fill="none" stroke="var(--good)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><b>MCQ Arena</b><span>90 College Board style questions with explanations.</span></a>
+    <a class="feat" href="#frq"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="10" fill="var(--marker)"/><path d="M14 14 h20 M14 22 h20 M14 30 h12" stroke="var(--marker-ink)" stroke-width="3" stroke-linecap="round"/></svg><b>FRQ Gym</b><span>11 scored free-response questions, 5 per unit plus a mixed one.</span></a>
+    <a class="feat" href="#tutor"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg><b>Ask Mr Marvin</b><span>An AI tutor for any Unit 1 or Unit 2 question, day or night.</span></a>
   </div>
 </header>
 
@@ -265,8 +371,9 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   </div>
   <div class="plan" id="planList"></div>
 </section>
+</div>
 
-<section id="unit1" class="unit1">
+<section id="unit1" class="unit1 page" data-page="unit1">
   <div class="sec-head">
     <p class="eyebrow">Unit 1 · about 30–40% of the AP exam</p>
     <h2>Polynomial &amp; Rational Functions</h2>
@@ -276,7 +383,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   <div class="topics" id="topics1"></div>
 </section>
 
-<section id="unit2" class="unit2">
+<section id="unit2" class="unit2 page" data-page="unit2">
   <div class="sec-head">
     <p class="eyebrow">Unit 2 · about 27–40% of the AP exam</p>
     <h2>Exponential &amp; Logarithmic Functions</h2>
@@ -286,13 +393,64 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   <div class="topics" id="topics2"></div>
 </section>
 
-<section id="lab">
+<section id="lab" class="page" data-page="visuals">
   <div class="sec-head">
-    <p class="eyebrow">Topic 1.12 in action</p>
-    <h2>Graph Lab</h2>
-    <p>Every transformation question is the same pattern: <span class="m">g(x) = a·f(b(x − h)) + k</span>. Drag the sliders and watch what each letter does. Then the MCQs about shifts and stretches become free points.</p>
+    <p class="eyebrow">See it, then you get it</p>
+    <h2>Visual Lab</h2>
+    <p>Seven interactive graphs, one for each idea that trips people up. Drag the sliders, press Play, and watch the math move.</p>
   </div>
-  <div class="lab">
+  <div class="viztabs" id="vizTabs" role="group" aria-label="Choose a visual">
+    <button type="button" data-viz="v-secant" aria-pressed="true">Secant lines · 1.2</button>
+    <button type="button" data-viz="v-poly" aria-pressed="false">Polynomial builder · 1.5–1.6</button>
+    <button type="button" data-viz="v-rat" aria-pressed="false">Rational anatomy · 1.7–1.10</button>
+    <button type="button" data-viz="v-trans" aria-pressed="false">Transformations · 1.12</button>
+    <button type="button" data-viz="v-race" aria-pressed="false">Linear vs exponential · 2.2</button>
+    <button type="button" data-viz="v-mirror" aria-pressed="false">Inverse mirror · 2.8–2.10</button>
+    <button type="button" data-viz="v-semilog" aria-pressed="false">Semi-log plot · 2.15</button>
+  </div>
+
+  <div class="viz lab on" id="v-secant">
+    <div class="vizhead"><h3>Average rate of change is a slope</h3><p>The red line is the secant through (a, f(a)) and (b, f(b)). Its slope is the average rate of change. Press "Shrink" to slide b toward a: the secant turns into the tangent, which gives the rate of change at a single point.</p></div>
+    <div class="canvasbox"><canvas id="cvSec" aria-label="Secant line graph"></canvas></div>
+    <div class="ctrls">
+      <p class="mini">f(x) = 0.25x³ − 2x + 1</p>
+      <div class="slider"><b>a</b><input id="secA" type="range" min="-4" max="4" step="0.1" value="-2"><output id="secAo"></output></div>
+      <div class="slider"><b>b</b><input id="secB" type="range" min="-4" max="4" step="0.1" value="3"><output id="secBo"></output></div>
+      <div class="readout" id="secOut"></div>
+      <div class="row"><button class="btn primary" id="secPlay" type="button">Shrink b → a</button><button class="btn" id="secReset" type="button">Reset</button></div>
+      <button class="askbtn" type="button" data-ask="Explain average rate of change and secant lines like I'm brand new to it, with one quick example."><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Ask Mr Marvin</button>
+    </div>
+  </div>
+
+  <div class="viz lab" id="v-poly">
+    <div class="vizhead"><h3>Build a polynomial from its zeros</h3><p>Pick three zeros and their multiplicities. Odd multiplicity crosses the x-axis; even multiplicity bounces. Flip the sign of the leading coefficient and watch the end behavior flip.</p></div>
+    <div class="canvasbox"><canvas id="cvPoly" aria-label="Polynomial graph"></canvas></div>
+    <div class="ctrls">
+      <div class="slider"><b>r₁</b><input id="pr1" type="range" min="-4" max="4" step="0.5" value="-3"><output id="pr1o"></output></div>
+      <div class="row"><span class="mini">multiplicity</span><select id="pm1"><option>1</option><option selected>2</option><option>3</option></select></div>
+      <div class="slider"><b>r₂</b><input id="pr2" type="range" min="-4" max="4" step="0.5" value="0"><output id="pr2o"></output></div>
+      <div class="row"><span class="mini">multiplicity</span><select id="pm2"><option selected>1</option><option>2</option><option>3</option></select></div>
+      <div class="slider"><b>r₃</b><input id="pr3" type="range" min="-4" max="4" step="0.5" value="3"><output id="pr3o"></output></div>
+      <div class="row"><span class="mini">multiplicity</span><select id="pm3"><option selected>1</option><option>2</option><option>3</option></select></div>
+      <div class="row"><button class="btn" id="pSign" type="button">Leading coefficient: +</button></div>
+      <div class="readout" id="polyOut"></div>
+    </div>
+  </div>
+
+  <div class="viz lab" id="v-rat">
+    <div class="vizhead"><h3>Anatomy of a rational function</h3><p>Pick a function. Red dashed lines are asymptotes, the hollow circle is a hole, and dots are zeros. Press Trace to send a point along the curve and watch it chase the asymptotes.</p></div>
+    <div class="canvasbox"><canvas id="cvRat" aria-label="Rational function graph"></canvas></div>
+    <div class="ctrls">
+      <label class="eyebrow" for="ratSel">Function</label>
+      <select id="ratSel"></select>
+      <div class="readout" id="ratOut"></div>
+      <div class="row"><button class="btn primary" id="ratPlay" type="button">Trace</button></div>
+      <div class="legend"><span><i style="background:var(--blue)"></i>graph</span><span><i style="background:var(--bad)"></i>asymptote</span></div>
+    </div>
+  </div>
+
+  <div class="viz lab" id="v-trans">
+    <div class="vizhead"><h3>Transformations: g(x) = a·f(b(x − h)) + k</h3><p>Every transformation question is this pattern. Drag the sliders and watch what each letter does. The dashed curve is the parent function.</p></div>
     <div class="canvasbox"><canvas id="cv" width="600" height="600" aria-label="Graph of the transformed function"></canvas></div>
     <div class="ctrls">
       <label for="parent" class="eyebrow">Parent function f(x)</label>
@@ -312,9 +470,44 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
       <button class="btn" id="labReset" type="button">Reset sliders</button>
     </div>
   </div>
+
+  <div class="viz lab" id="v-race">
+    <div class="vizhead"><h3>Linear vs exponential: the race</h3><p>Both start at 10. The linear function <b>adds</b> d each step; the exponential function <b>multiplies</b> by r. Press Play. The exponential looks slow at first, then always wins.</p></div>
+    <div class="canvasbox"><canvas id="cvRace" aria-label="Linear versus exponential race"></canvas></div>
+    <div class="ctrls">
+      <div class="slider"><b>d</b><input id="raceD" type="range" min="2" max="30" step="1" value="15"><output id="raceDo"></output></div>
+      <div class="slider"><b>r</b><input id="raceR" type="range" min="1.1" max="2" step="0.05" value="1.4"><output id="raceRo"></output></div>
+      <div class="row"><button class="btn primary" id="racePlay" type="button">Play</button></div>
+      <div class="legend"><span><i style="background:var(--u1)"></i>L(t) = 10 + d·t</span><span><i style="background:var(--u2)"></i>E(t) = 10·rᵗ</span></div>
+      <div class="tablewrap"><table class="vtable" id="raceTbl"></table></div>
+      <div class="readout" id="raceOut"></div>
+    </div>
+  </div>
+
+  <div class="viz lab" id="v-mirror">
+    <div class="vizhead"><h3>The inverse mirror</h3><p>bˣ and log_b x are reflections of each other over the line y = x. Slide t: the point (t, bᵗ) on the exponential and the point (bᵗ, t) on the log are always mirror images.</p></div>
+    <div class="canvasbox"><canvas id="cvMir" aria-label="Exponential and logarithm reflection"></canvas></div>
+    <div class="ctrls">
+      <div class="slider"><b>b</b><input id="mirB" type="range" min="1.5" max="4" step="0.1" value="2"><output id="mirBo"></output></div>
+      <div class="slider"><b>t</b><input id="mirT" type="range" min="-2" max="2.5" step="0.05" value="1"><output id="mirTo"></output></div>
+      <div class="row"><button class="btn primary" id="mirPlay" type="button">Play</button></div>
+      <div class="legend"><span><i style="background:var(--u2)"></i>y = bˣ</span><span><i style="background:var(--good)"></i>y = log_b x</span><span><i style="background:var(--muted)"></i>y = x</span></div>
+      <div class="readout" id="mirOut"></div>
+    </div>
+  </div>
+
+  <div class="viz lab" id="v-semilog">
+    <div class="vizhead"><h3>Straightening a curve with a semi-log plot</h3><p>The dots are exponential data, y = 3·(1.6)ˣ. Switch the y-axis to a log scale and watch the curve straighten into a line. The slope and intercept of that line give you the model back.</p></div>
+    <div class="canvasbox"><canvas id="cvSemi" aria-label="Semi-log plot"></canvas></div>
+    <div class="ctrls">
+      <div class="row"><button class="btn primary" id="semiToggle" type="button">Switch to log scale</button></div>
+      <div class="readout" id="semiOut"></div>
+      <button class="askbtn" type="button" data-ask="How do I get an exponential model from a semi-log plot? Walk me through one example."><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Ask Mr Marvin</button>
+    </div>
+  </div>
 </section>
 
-<section id="cards">
+<section id="cards" class="page" data-page="flashcards">
   <div class="sec-head">
     <p class="eyebrow">Memory reps</p>
     <h2>Flashcards</h2>
@@ -337,7 +530,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   </div>
 </section>
 
-<section id="arena">
+<section id="arena" class="page" data-page="practice">
   <div class="sec-head">
     <p class="eyebrow">College Board style · 4 choices · one best answer</p>
     <h2>MCQ Arena</h2>
@@ -360,20 +553,69 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   <div class="dots" id="dots" aria-label="Question map"></div>
 </section>
 
-<section id="gym">
+<section id="gym" class="page" data-page="frq">
   <div class="sec-head">
     <p class="eyebrow">Free response · show your work</p>
     <h2>FRQ Gym</h2>
-    <p>These follow the official AP task models. Write your answer in the box (or on paper), then reveal the model solution and tick each rubric point you earned. Each question is worth 6 points, like on the real exam.</p>
+    <p>Five FRQs per unit plus one mixed, following the official AP task models. Write your answer in the box (or on paper), then reveal the model solution and tick each rubric point you earned. Stuck or unsure? Have Mr Marvin check your work. Each question is worth 6 points, like on the real exam.</p>
   </div>
-  <div class="frqtabs seg" role="group" aria-label="FRQ" id="frqTabs"></div>
+  <div class="arena-top"><div class="seg" role="group" aria-label="FRQ unit" id="frqUnits">
+    <button type="button" data-fu="1" aria-pressed="true">Unit 1</button>
+    <button type="button" data-fu="2" aria-pressed="false">Unit 2</button>
+    <button type="button" data-fu="m" aria-pressed="false">Mixed</button>
+  </div></div>
+  <div class="frqtabs viztabs" role="group" aria-label="FRQ" id="frqTabs"></div>
   <div id="frqBox"></div>
 </section>
 
-<section id="sheet">
+<section id="sheet" class="page" data-page="resources">
   <div class="sec-head">
+    <p class="eyebrow">Everything else you need</p>
+    <h2>Resources</h2>
+    <p>Official College Board material, free practice sites, the calculator skills the exam expects, a glossary, and a one-page cheat sheet to read the night before.</p>
+  </div>
+
+  <h3 style="margin-bottom:12px">Trusted links</h3>
+  <div class="res">
+    <a class="note" href="https://apstudents.collegeboard.org/courses/ap-precalculus" target="_blank" rel="noopener"><em>College Board</em><b>AP Students: AP Precalculus</b><span>Official course overview, exam date and format, and exam tips.</span></a>
+    <a class="note" href="https://apcentral.collegeboard.org/courses/ap-precalculus" target="_blank" rel="noopener"><em>College Board</em><b>AP Central: Course &amp; Exam Description</b><span>The full CED this guide is built on, with every learning objective.</span></a>
+    <a class="note" href="https://apcentral.collegeboard.org/courses/ap-precalculus/exam/past-exam-questions" target="_blank" rel="noopener"><em>College Board</em><b>Past exam FRQs</b><span>Real free-response questions with scoring guidelines. The best FRQ practice there is.</span></a>
+    <a class="note" href="https://myap.collegeboard.org/" target="_blank" rel="noopener"><em>College Board</em><b>AP Classroom</b><span>Topic questions and progress checks your teacher assigns.</span></a>
+    <a class="note" href="https://www.khanacademy.org/math/ap-precalculus" target="_blank" rel="noopener"><em>Khan Academy</em><b>AP Precalculus course</b><span>Free videos and practice for every Unit 1 and Unit 2 topic.</span></a>
+    <a class="note" href="https://www.desmos.com/calculator" target="_blank" rel="noopener"><em>Desmos</em><b>Graphing calculator</b><span>Graph anything instantly to check your answers and build intuition.</span></a>
+  </div>
+
+  <h3 style="margin:32px 0 12px">Calculator skills the exam expects</h3>
+  <div class="sheet">
+    <div class="note"><h3>On your graphing calculator, practice:</h3><ul>
+      <li>Graphing a function in a window you choose</li>
+      <li>Finding zeros (calc → zero)</li>
+      <li>Finding intersections of two graphs (calc → intersect)</li>
+      <li>Finding relative max and min</li>
+      <li>Regressions: linear, quadratic, cubic, quartic, exponential, logarithmic</li>
+      <li>Evaluating a function at a value and using a table</li>
+    </ul></div>
+    <div class="note"><h3>Calculator habits that save points</h3><ul>
+      <li>Radian mode for the AP exam</li>
+      <li>Store values (STO→) instead of retyping rounded numbers</li>
+      <li>Round to 3 decimal places only in the final answer</li>
+      <li>Write the setup on paper before pressing buttons: the setup earns points</li>
+    </ul></div>
+    <div class="note"><h3>Study methods that actually work</h3><ul>
+      <li><b>Active recall:</b> say the answer before flipping a flashcard</li>
+      <li><b>Spacing:</b> short sessions over several days beat one long cram</li>
+      <li><b>Mixing:</b> shuffle topics in practice (the "All 90" set does this)</li>
+      <li><b>Mistake log:</b> redo "My misses" until it's empty</li>
+      <li><b>Teach it:</b> explain a topic to Mr Marvin and ask him to check you</li>
+    </ul></div>
+  </div>
+
+  <h3 style="margin:32px 0 12px">Glossary</h3>
+  <div class="gloss" id="gloss"></div>
+
+  <div class="sec-head" style="margin-top:40px">
     <p class="eyebrow">Read this the night before</p>
-    <h2>One-page cheat sheet</h2>
+    <h3 style="font-size:1.6rem">One-page cheat sheet</h3>
   </div>
   <div class="sheet">
     <div class="note"><h3 class="u1">Rates of change</h3><ul>
@@ -453,7 +695,55 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   </div>
 </section>
 
+<section id="tutorSec" class="page" data-page="tutor">
+  <div class="tutorpage">
+    <div class="marvinhero">
+      <svg class="big" viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>
+      <p class="eyebrow">Your AI tutor</p>
+      <h2>Meet Mr Marvin</h2>
+      <p>Mr Marvin knows every topic in Units 1 and 2. Ask him to explain a level in simpler words, walk through a problem step by step, give you a hint without the answer, quiz you, or check your FRQ work.</p>
+      <div class="note"><b>Tips for great answers</b><ul style="margin:6px 0 0;padding-left:18px">
+        <li>Paste the whole problem, including the answer choices.</li>
+        <li>Say where you got stuck: "I got x = −2 but the answer is 4."</li>
+        <li>Ask "Can you give me a hint first?" if you want to try it yourself.</li>
+        <li>Ask "Quiz me on 2.12" for practice questions.</li>
+      </ul></div>
+      <p class="mini" id="tutorMode"></p>
+    </div>
+    <div class="tutorbox" id="tutorHome"></div>
+  </div>
+</section>
+
 </main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="marvinFace" viewBox="0 0 48 48">
+    <rect x="3" y="5" width="42" height="40" rx="14" fill="#1f5fbf"/>
+    <rect x="9" y="13" width="30" height="24" rx="10" fill="#ffe7c7"/>
+    <path d="M9 17 Q24 2 39 17 L39 13 Q24 0 9 13 Z" fill="#14232e"/>
+    <circle cx="18" cy="24" r="4.6" fill="#fff" stroke="#14232e" stroke-width="1.8"/>
+    <circle cx="30" cy="24" r="4.6" fill="#fff" stroke="#14232e" stroke-width="1.8"/>
+    <path d="M22.6 24 h2.8" stroke="#14232e" stroke-width="1.8"/>
+    <circle cx="18.6" cy="24.4" r="1.7" fill="#14232e"/><circle cx="30.6" cy="24.4" r="1.7" fill="#14232e"/>
+    <path d="M18 31 Q24 35.5 30 31" fill="none" stroke="#14232e" stroke-width="2" stroke-linecap="round"/>
+    <path d="M17 41 l7 -3 l7 3 l-7 3 z" fill="#ffe066" stroke="#14232e" stroke-width="1.2"/>
+  </symbol>
+</svg>
+
+<button class="fab" id="fab" type="button" aria-label="Ask Mr Marvin, your AI tutor"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Ask Mr Marvin<span class="dot" aria-hidden="true"></span></button>
+<div class="drawer" id="drawer" role="dialog" aria-label="Mr Marvin chat" hidden>
+  <header><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg><div><b>Mr Marvin</b><small>AP Precalc tutor · Units 1 &amp; 2</small></div><button type="button" id="drawerClose" aria-label="Close chat">×</button></header>
+  <div id="drawerHome" style="display:flex;flex-direction:column;flex:1;min-height:0"></div>
+</div>
+<div class="chat" id="chat">
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form class="composer" id="composer">
+    <textarea id="chatIn" rows="1" placeholder="Ask Mr Marvin anything about Units 1–2…" aria-label="Your question"></textarea>
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
 <footer class="wrap">Topic list and exam format follow the College Board AP Precalculus Course and Exam Description. Practice questions are original, written in the College Board style. Progress is saved only in this browser.</footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -467,8 +757,24 @@ try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 var toastEl=document.getElementById("toast"),toastT;
 function toast(msg){toastEl.textContent=msg;toastEl.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove("show")},2200);}
-function addXP(n,msg){S.xp+=n;save();renderXP();if(msg)toast(msg+"  +"+n+" XP");}
+function addXP(n,msg){S.xp+=n;save();renderXP();var x=document.getElementById("xp");x.classList.remove("bump");void x.offsetWidth;x.classList.add("bump");if(msg)toast(msg+"  +"+n+" XP");if(window.__rings)window.__rings();}
 function renderXP(){document.getElementById("xp").textContent=S.xp+" XP";}
+var reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* confetti */
+var cfCv=document.getElementById("confetti"),cfCtx=cfCv.getContext("2d"),cfParts=[],cfRun=false;
+function confetti(){
+  if(reduceMotion)return;
+  cfCv.width=innerWidth;cfCv.height=innerHeight;
+  var cols=["#1f5fbf","#ffe066","#1d8a55","#7a3fc2","#c23b3b"];
+  for(var i=0;i<120;i++)cfParts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,r:Math.random()*6+3,c:cols[i%5],a:Math.random()*6,life:0});
+  if(!cfRun){cfRun=true;requestAnimationFrame(cfStep);}
+}
+function cfStep(){
+  cfCtx.clearRect(0,0,cfCv.width,cfCv.height);
+  cfParts=cfParts.filter(function(p){return p.life<160&&p.y<cfCv.height+20});
+  cfParts.forEach(function(p){p.life++;p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=.2;cfCtx.save();cfCtx.translate(p.x,p.y);cfCtx.rotate(p.a);cfCtx.fillStyle=p.c;cfCtx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cfCtx.restore();});
+  if(cfParts.length)requestAnimationFrame(cfStep);else{cfRun=false;cfCtx.clearRect(0,0,cfCv.width,cfCv.height);}
+}
 renderXP();
 function $(id){return document.getElementById(id);}
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
@@ -671,6 +977,8 @@ var T2=[
   q:"Data looks linear on a semi-log plot. The original data is:",o:["Exponential","Linear","Logarithmic"],a:0,w:"Taking the log of exponential data makes it linear."}
 ];
 
+var VIZMAP={"1.2":"v-secant","1.3":"v-secant","1.4":"v-poly","1.5":"v-poly","1.6":"v-poly","1.7":"v-rat","1.8":"v-rat","1.9":"v-rat","1.10":"v-rat","1.11":"v-rat","1.12":"v-trans","2.2":"v-race","2.3":"v-race","2.5":"v-race","2.8":"v-mirror","2.9":"v-mirror","2.10":"v-mirror","2.11":"v-mirror","2.15":"v-semilog"};
+function plain(html){var d=document.createElement("div");d.innerHTML=String(html).replace(/<\/(td|th)>/g," | ").replace(/<\/tr>/g,"\n").replace(/<sub>/g,"_").replace(/<br\s*\/?>/g,"\n");return d.textContent.replace(/[ \t]+\n/g,"\n").trim();}
 function shuffleIdx(n,seed){var a=[];for(var i=0;i<n;i++)a.push(i);var s=seed;for(var j=n-1;j>0;j--){s=(s*9301+49297)%233280;var r=Math.floor(s/233280*(j+1));var t=a[j];a[j]=a[r];a[r]=t;}return a;}
 function buildTopics(list,box,unit){
   var c=$(box);
@@ -693,7 +1001,7 @@ function buildTopics(list,box,unit){
       btn.addEventListener("click",function(){
         if(oi===t.a){btn.classList.add("right");fb.innerHTML="<b style='color:var(--good)'>Correct.</b> "+t.w;
           opts.querySelectorAll("button").forEach(function(x){x.disabled=true});
-          if(!S.mastered[t.n]){S.mastered[t.n]=true;d.classList.add("mastered");addXP(10,"Level "+t.n+" mastered");updateProg();}
+          if(!S.mastered[t.n]){S.mastered[t.n]=true;d.classList.add("mastered");addXP(10,"Level "+t.n+" mastered");updateProg();confetti();}
         } else {btn.classList.add("wrong");btn.disabled=true;fb.innerHTML="<b style='color:var(--bad)'>Not quite.</b> Reread the rules above and try again.";}
       });
       opts.appendChild(btn);
@@ -701,6 +1009,12 @@ function buildTopics(list,box,unit){
     qc.appendChild(opts);qc.appendChild(fb);
     if(S.mastered[t.n]){fb.innerHTML="<b style='color:var(--good)'>Mastered.</b> "+t.w;}
     b.appendChild(qc);
+    var acts=el("div","row");
+    var ask=el("button","askbtn",'<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Ask Mr Marvin about '+t.n);ask.type="button";
+    ask.addEventListener("click",function(){askMarvin("Can you explain topic "+t.n+" ("+t.t.replace(/&amp;/g,"&")+") in simple words, with one new example I can try myself?");});
+    acts.appendChild(ask);
+    if(VIZMAP[t.n]){var see=el("button","seebtn","See it in the Visual Lab →");see.type="button";see.addEventListener("click",function(){openViz(VIZMAP[t.n]);});acts.appendChild(see);}
+    b.appendChild(acts);
     d.appendChild(b);
     c.appendChild(d);
   });
@@ -952,6 +1266,11 @@ function renderQ(){
   box.appendChild(meta);
   box.appendChild(el("div","qstem",q.q));
   var ch=el("div","choices"),why=el("div","why");why.hidden=true;
+  var askQ=el("button","askbtn",'<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Explain it another way');askQ.type="button";askQ.hidden=true;
+  askQ.addEventListener("click",function(){
+    var mine=answered[i]===true?"I got it right, but I want to understand it better.":"I picked a wrong answer.";
+    askMarvin("Help me understand this AP Precalc multiple-choice question (topic "+q.tp+").\n\nQuestion: "+plain(q.q)+"\n\nChoices:\n"+q.o.map(function(o,k){return "ABCD"[k]+") "+plain(o)}).join("\n")+"\n\nCorrect answer: "+"ABCD"[q.a]+". "+mine+" Explain it a different way than: "+plain(q.e));
+  });
   q.o.forEach(function(o,k){
     var b=el("button","choice",'<span class="L">'+"ABCD"[k]+'</span><span>'+o+'</span>');b.type="button";
     b.addEventListener("click",function(){
@@ -962,15 +1281,17 @@ function renderQ(){
       save();
       why.innerHTML=(ok?'<b class="ok">Correct.</b> ':'<b class="no">The answer is '+"ABCD"[q.a]+'.</b> ')+q.e;why.hidden=false;
       if(ok)addXP(q.c?6:5);
+      askQ.hidden=false;
       clearInterval(timerId);renderDots();
       var sc=box.querySelector(".score");var cc=Object.keys(answered).filter(function(k){return answered[k]===true}).length;sc.textContent="Score "+cc+"/"+Object.keys(answered).length;
       if(Object.keys(answered).length===order.length){var pct=Math.round(cc/order.length*100);
+        if(pct>=80)confetti();
         why.innerHTML+='<br><br><b>Set complete: '+cc+'/'+order.length+' ('+pct+'%).</b> '+(pct>=80?"That's A-level work. Keep it up.":pct>=60?"Solid. Hit \"My misses\" to turn those into points.":"Every miss is now in \"My misses\". Redo them tomorrow and watch this number climb.");}
     });
     ch.appendChild(b);
   });
-  if(answered[i]!==undefined){ch.querySelectorAll("button").forEach(function(x,xi){x.disabled=true;if(xi===q.a)x.classList.add("right")});why.innerHTML=q.e;why.hidden=false;}
-  box.appendChild(ch);box.appendChild(why);
+  if(answered[i]!==undefined){ch.querySelectorAll("button").forEach(function(x,xi){x.disabled=true;if(xi===q.a)x.classList.add("right")});why.innerHTML=q.e;why.hidden=false;askQ.hidden=false;}
+  box.appendChild(ch);box.appendChild(why);box.appendChild(askQ);
   var nav=el("div","qnav");
   var prev=el("button","btn","← Previous");prev.type="button";prev.disabled=qi===0;prev.onclick=function(){qi--;renderQ();renderDots();};
   var next=el("button","btn primary",qi===order.length-1?"Back to first":"Next →");next.type="button";next.onclick=function(){qi=(qi+1)%order.length;renderQ();renderDots();};
@@ -984,7 +1305,7 @@ setOrder();
 
 /* ---------- FRQs ---------- */
 var FRQ=[
- {id:"f1",name:"Q1 · Function Concepts",calc:"Graphing calculator",
+ {id:"f1",u:"m",name:"Q1 · Function Concepts",calc:"Graphing calculator",
   intro:"Let f be an increasing function defined for all real x. The table gives values of f(x) at selected x. The function g is given by <span class='m'>g(x) = (x² − 9)/(x² − 2x − 3)</span>."+tbl([0,1,2,3,4],[2,6,18,54,162]),
   parts:[
    {p:"A",ask:"(i) Find the value of (g ∘ f)(0). (ii) Find the value of f⁻¹(18), or indicate that it is not defined.",
@@ -997,7 +1318,7 @@ var FRQ=[
     sol:"(i) <b>Exponential.</b><br>(ii) Over consecutive equal-length input intervals (length 1), the ratios of consecutive outputs are constant: 6/2 = 18/6 = 54/18 = 162/54 = 3. Constant ratios mean an exponential model.",
     rub:["Answer: exponential","Reason refers to constant ratios of outputs over equal-length input intervals"]}
   ]},
- {id:"f2",name:"Q2 · Exponential Growth",calc:"Graphing calculator",
+ {id:"f2",u:"2",name:"Q2 · Exponential Growth",calc:"Graphing calculator",
   intro:"A streaming app tracks its number of subscribers. At the start of 2020 (t = 0) the app had 1.8 million subscribers. At t = 3 it had 4.2 million subscribers. The number of subscribers, in millions, can be modeled by <span class='m'>S(t) = a·bᵗ</span>, where t is years since the start of 2020.",
   parts:[
    {p:"A",ask:"(i) Use the given data to write two equations that can be used to find a and b. (ii) Find a and b, with b as a decimal approximation.",
@@ -1010,7 +1331,7 @@ var FRQ=[
     sol:"(i) 1.8(1.326)ᵗ = 10 ⇒ t = ln(10/1.8)/ln(1.32635) ≈ <b>6.072 years</b>, so during 2026.<br>(ii) An exponential model grows without bound, but the number of possible subscribers is limited (finite population and competition). Growth must eventually slow, so the model will overestimate for large t.",
     rub:["Equation and correct t ≈ 6.072","Limitation explained in context (unbounded growth vs. limited population)"]}
   ]},
- {id:"f3",name:"Q4 · Symbolic Manipulation",calc:"No calculator",
+ {id:"f3",u:"2",name:"Q4 · Symbolic Manipulation",calc:"No calculator",
   intro:"Answer each part using exact values. Show the algebra that leads to your answers.",
   parts:[
    {p:"A",ask:"(i) Solve log₃(x) + log₃(x + 6) = 3 for x. (ii) Solve 2e^(3x) − 5 = 9 for x.",
@@ -1023,7 +1344,7 @@ var FRQ=[
     sol:"(i) x = 4 + log₂(y − 1) ⇒ x − 4 = log₂(y − 1) ⇒ y − 1 = 2^(x−4) ⇒ <b>p⁻¹(x) = 2^(x−4) + 1</b>.<br>(ii) The range of p is all real numbers, so the domain of p⁻¹ is <b>all real numbers</b>.",
     rub:["Correct inverse p⁻¹(x) = 2^(x−4) + 1","Domain: all real numbers"]}
   ]},
- {id:"f4",name:"Polynomial Detective",calc:"No calculator",
+ {id:"f4",u:"1",name:"Polynomial Detective",calc:"No calculator",
   intro:"A polynomial function p has degree 3. Its only zeros are x = −2, with multiplicity 2, and x = 3. The graph of p passes through (0, −6).",
   parts:[
    {p:"A",ask:"(i) Write an expression for p(x). (ii) Describe the behavior of the graph of p at x = −2 and explain why.",
@@ -1035,10 +1356,107 @@ var FRQ=[
    {p:"C",ask:"(i) Find the average rate of change of p on [−2, 0] and on [0, 3]. (ii) What do the signs of these two values tell you about p between x = −2 and x = 3?",
     sol:"(i) On [−2, 0]: (p(0) − p(−2))/(0 − (−2)) = (−6 − 0)/2 = <b>−3</b>. On [0, 3]: (0 − (−6))/3 = <b>2</b>.<br>(ii) On average p is decreasing on [−2, 0] and increasing on [0, 3]. Since p goes from decreasing to increasing, p must have a <b>relative minimum</b> somewhere between x = −2 and x = 3.",
     rub:["Both average rates of change correct (−3 and 2)","Conclusion: p decreases then increases, so there is a relative minimum in (−2, 3)"]}
+  ]},
+ {id:"f5",u:"1",name:"Rational Anatomy",calc:"No calculator",
+  intro:"The function r is given by <span class='m'>r(x) = (2x² − 8)/(x² + x − 6)</span>.",
+  parts:[
+   {p:"A",ask:"(i) State the domain of r. (ii) Find all zeros of r. Justify your answer.",
+    sol:"Factor: r(x) = 2(x − 2)(x + 2)/((x + 3)(x − 2)).<br>(i) The denominator is 0 at x = −3 and x = 2, so the domain is <b>all real x except x = −3 and x = 2</b>.<br>(ii) The numerator is 0 at x = 2 and x = −2, but x = 2 is not in the domain. The only zero is <b>x = −2</b>.",
+    rub:["Domain excludes exactly −3 and 2","Zero x = −2 only, with x = 2 rejected because it's not in the domain"]},
+   {p:"B",ask:"(i) Find the coordinates of any hole in the graph of r. (ii) Find lim<sub>x→−3⁺</sub> r(x). Explain your reasoning.",
+    sol:"(i) (x − 2) cancels, so there's a hole at x = 2. Simplified r(x) = 2(x + 2)/(x + 3), and 2(4)/5 = 8/5. Hole: <b>(2, 8/5)</b>.<br>(ii) Just right of −3 (say x = −2.9), the numerator 2(x + 2) ≈ −1.8 is negative and the denominator x + 3 is a small positive number. Negative over tiny positive gives <b>lim<sub>x→−3⁺</sub> r(x) = −∞</b>.",
+    rub:["Hole at (2, 8/5)","Limit −∞ with a sign argument"]},
+   {p:"C",ask:"(i) Find lim<sub>x→∞</sub> r(x). (ii) Does the graph of r ever cross its horizontal asymptote? Show the work that supports your answer.",
+    sol:"(i) Degrees are equal: leading coefficients 2/1, so <b>lim<sub>x→∞</sub> r(x) = 2</b>.<br>(ii) Solve 2(x + 2)/(x + 3) = 2 ⇒ 2x + 4 = 2x + 6 ⇒ 4 = 6, which is impossible. <b>No</b>, the graph never crosses y = 2.",
+    rub:["Limit equals 2","Equation set up and shown to have no solution"]}
+  ]},
+ {id:"f6",u:"1",name:"Transformation Trail",calc:"No calculator",
+  intro:"The graph of f is made of two line segments: from (−2, 0) to (0, 4), and from (0, 4) to (3, 1). So f has domain [−2, 3] and range [0, 4]. Let <span class='m'>g(x) = −2f(x − 1) + 3</span>.",
+  parts:[
+   {p:"A",ask:"(i) The point (0, 4) is on the graph of f. Find the corresponding point on the graph of g. (ii) Find the domain of g.",
+    sol:"(i) Inside: x − 1 = 0 ⇒ x = 1. Outside: −2(4) + 3 = −5. Point: <b>(1, −5)</b>.<br>(ii) x − 1 must be in [−2, 3], so x is in <b>[−1, 4]</b>.",
+    rub:["Point (1, −5)","Domain [−1, 4]"]},
+   {p:"B",ask:"(i) Find the range of g. (ii) Describe, in words, the transformations that take the graph of f to the graph of g.",
+    sol:"(i) f ranges over [0, 4], so −2f ranges over [−8, 0], and −2f + 3 ranges over <b>[−5, 3]</b>.<br>(ii) Shift right 1; vertical dilation by a factor of 2 with a reflection over the x-axis; shift up 3.",
+    rub:["Range [−5, 3]","All three transformations named correctly (shift right 1, reflect and stretch by 2, up 3)"]},
+   {p:"C",ask:"Let h(x) = f(2x). (i) The point (3, 1) is on f. Find the corresponding point on h. (ii) Find the domain of h.",
+    sol:"(i) 2x = 3 ⇒ x = 1.5. Point: <b>(1.5, 1)</b>.<br>(ii) 2x must be in [−2, 3], so x is in <b>[−1, 1.5]</b>. A horizontal compression by a factor of 1/2.",
+    rub:["Point (1.5, 1)","Domain [−1, 1.5]"]}
+  ]},
+ {id:"f7",u:"1",name:"Q2 · Pricing Model",calc:"Graphing calculator",
+  intro:"A food truck tests different prices for its tacos. When the price is x dollars per order, the truck's weekly profit is P(x) hundred dollars. At x = 10, P = 30. At x = 20, P = 50. At x = 30, P = 40. The profit is modeled by a quadratic function <span class='m'>P(x) = ax² + bx + c</span>.",
+  parts:[
+   {p:"A",ask:"(i) Write a system of three equations that can be used to find a, b, and c. (ii) Find a, b, and c.",
+    sol:"(i) <b>100a + 10b + c = 30</b>, <b>400a + 20b + c = 50</b>, <b>900a + 30b + c = 40</b>.<br>(ii) Solving (matrix or calculator regression): <b>a = −0.15, b = 6.5, c = −20</b>. P(x) = −0.15x² + 6.5x − 20.",
+    rub:["Three correct equations","Correct values of a, b, c"]},
+   {p:"B",ask:"(i) Find the average rate of change of P from x = 10 to x = 20. (ii) Interpret your answer in context, with units.",
+    sol:"(i) (50 − 30)/(20 − 10) = <b>2</b>.<br>(ii) As the price increases from $10 to $20, the weekly profit increases <b>on average by 2 hundred dollars per $1 increase in price</b>.",
+    rub:["AROC = 2","Interpretation with \"on average\", the interval, and units"]},
+   {p:"C",ask:"(i) Use the model to find the price that gives the maximum profit, and the maximum profit. (ii) For what prices does the model predict a positive profit? Explain why the model should not be trusted far outside the tested prices.",
+    sol:"(i) Vertex x = −b/(2a) = 6.5/0.3 ≈ <b>$21.667</b>. P(21.667) ≈ <b>50.417 hundred dollars</b> (about $5,041.67).<br>(ii) P(x) = 0 at x ≈ 3.333 and x = 40, so P &gt; 0 for <b>3.333 &lt; x &lt; 40</b>. The model was built from prices between $10 and $30; outside that range customer behavior could change, so predictions are extrapolation.",
+    rub:["Maximum at x ≈ 21.667 with P ≈ 50.417","Positive-profit interval and a reason tied to the context (extrapolation)"]}
+  ]},
+ {id:"f8",u:"1",name:"Q1 · Cubic Behavior",calc:"Graphing calculator",
+  intro:"Let <span class='m'>f(x) = x³ − 6x² + 9x + 2</span>.",
+  parts:[
+   {p:"A",ask:"(i) Use a graphing calculator to find all relative extrema of f. (ii) On what intervals is f increasing?",
+    sol:"(i) Relative maximum <b>f(1) = 6</b>; relative minimum <b>f(3) = 2</b>.<br>(ii) f is increasing on <b>(−∞, 1) and (3, ∞)</b>.",
+    rub:["Both extrema correct","Increasing intervals correct"]},
+   {p:"B",ask:"(i) Find the average rates of change of f over [3, 4] and [4, 5]. (ii) Is the graph of f concave up or concave down on (3, 5)? Use part (i) to justify.",
+    sol:"(i) f(3) = 2, f(4) = 6, f(5) = 22. AROC on [3, 4] = <b>4</b>; on [4, 5] = <b>16</b>.<br>(ii) Over consecutive equal-length intervals the average rates of change are increasing (4 &lt; 16), so the graph is <b>concave up</b>.",
+    rub:["Both AROCs correct","Concave up, justified by increasing rates of change"]},
+   {p:"C",ask:"(i) Write the end behavior of f using limit notation. (ii) How many real zeros does f have? How many non-real zeros? Explain.",
+    sol:"(i) <b>lim<sub>x→−∞</sub> f(x) = −∞</b> and <b>lim<sub>x→∞</sub> f(x) = ∞</b>.<br>(ii) f's relative minimum value is 2 &gt; 0, so f never touches the x-axis for x &gt; 0. It crosses once for x &lt; 0 (f(−1) = −14, f(0) = 2). So <b>1 real zero</b> (x ≈ −0.196) and, since degree 3 means 3 complex zeros, <b>2 non-real zeros</b> (a conjugate pair).",
+    rub:["Both limits correct","1 real and 2 non-real zeros with a reason"]}
+  ]},
+ {id:"f9",u:"2",name:"Q2 · Plant Growth (log)",calc:"Graphing calculator",
+  intro:"A seedling's height H(t), in centimeters, t days after planting is modeled by <span class='m'>H(t) = a + b·ln(t)</span> for t ≥ 1. On day 1 the seedling is 2 cm tall. On day 8 it is 9.5 cm tall.",
+  parts:[
+   {p:"A",ask:"(i) Write two equations that can be used to find a and b. (ii) Find a and b.",
+    sol:"(i) <b>a + b·ln(1) = 2</b> and <b>a + b·ln(8) = 9.5</b>.<br>(ii) ln 1 = 0, so <b>a = 2</b>. Then b = 7.5/ln 8 ≈ <b>3.607</b>.",
+    rub:["Two correct equations","a = 2 and b ≈ 3.607"]},
+   {p:"B",ask:"(i) Find the average rate of change of H from t = 1 to t = 8, and from t = 8 to t = 15. (ii) What do these values show about how the seedling grows?",
+    sol:"(i) [1, 8]: 7.5/7 ≈ <b>1.071 cm per day</b>. H(15) ≈ 11.767, so [8, 15]: (11.767 − 9.5)/7 ≈ <b>0.324 cm per day</b>.<br>(ii) The average rate of change is decreasing: the seedling grows quickly at first and then more slowly, which matches a logarithmic model (concave down).",
+    rub:["Both AROCs correct with units","Conclusion: growth slows over time"]},
+   {p:"C",ask:"(i) Write and solve an equation to find when the model predicts a height of 14 cm. (ii) Give one limitation of this model for large t.",
+    sol:"(i) 2 + 3.607·ln(t) = 14 ⇒ ln t = 12/3.6067 ⇒ t = e^(3.3272) ≈ <b>27.858 days</b>.<br>(ii) ln(t) increases without bound, so the model predicts the plant keeps growing forever. Real plants reach a maximum height, so the model will overestimate for large t.",
+    rub:["Equation and t ≈ 27.858","Limitation in context (no maximum height)"]}
+  ]},
+ {id:"f10",u:"2",name:"Q1 · Compose & Invert",calc:"No calculator",
+  intro:"Let <span class='m'>f(x) = 3·2ˣ − 4</span> and <span class='m'>g(x) = log₂(x + 4)</span>.",
+  parts:[
+   {p:"A",ask:"(i) Find the value of f(g(4)). (ii) Write an expression for g(f(x)) and simplify it.",
+    sol:"(i) g(4) = log₂ 8 = 3, then f(3) = 3·8 − 4 = <b>20</b>.<br>(ii) g(f(x)) = log₂(3·2ˣ − 4 + 4) = log₂(3·2ˣ) = <b>log₂ 3 + x</b>.",
+    rub:["f(g(4)) = 20","g(f(x)) = x + log₂ 3"]},
+   {p:"B",ask:"(i) Find f⁻¹(x). (ii) State the domain of f⁻¹ and explain how you know.",
+    sol:"(i) x = 3·2ʸ − 4 ⇒ 2ʸ = (x + 4)/3 ⇒ <b>f⁻¹(x) = log₂((x + 4)/3)</b>.<br>(ii) Domain of f⁻¹ = range of f. 3·2ˣ &gt; 0, so f(x) &gt; −4. Domain: <b>x &gt; −4</b>.",
+    rub:["Correct inverse","Domain x &gt; −4 with reason"]},
+   {p:"C",ask:"(i) Solve f(x) = 44. (ii) Solve the inequality g(x) ≤ 3.",
+    sol:"(i) 3·2ˣ = 48 ⇒ 2ˣ = 16 ⇒ <b>x = 4</b>.<br>(ii) log₂(x + 4) ≤ 3 ⇒ 0 &lt; x + 4 ≤ 8 (log is only defined for positive inputs and is increasing) ⇒ <b>−4 &lt; x ≤ 4</b>.",
+    rub:["x = 4","−4 &lt; x ≤ 4, including the domain condition"]}
+  ]},
+ {id:"f11",u:"2",name:"Bacteria & Semi-log",calc:"Graphing calculator",
+  intro:"A lab counts bacteria every hour. The table shows the count N at t hours."+tbl([0,1,2,3],[500,650,845,"1098.5"],"t (hr)","N"),
+  parts:[
+   {p:"A",ask:"(i) Show that N can be modeled by an exponential function. (ii) Write an expression for N(t).",
+    sol:"(i) Ratios of consecutive outputs over equal intervals: 650/500 = 845/650 = 1098.5/845 = <b>1.3</b>, a constant ratio, so exponential.<br>(ii) <b>N(t) = 500(1.3)ᵗ</b>. (The counts form a geometric sequence with g₀ = 500 and r = 1.3.)",
+    rub:["Constant ratio 1.3 shown","N(t) = 500(1.3)ᵗ"]},
+   {p:"B",ask:"(i) If the data are graphed as (t, ln N), what are the slope and the vertical intercept of the resulting line? (ii) Explain why the semi-log graph is linear.",
+    sol:"(i) ln N = ln 500 + t·ln 1.3, so slope = ln 1.3 ≈ <b>0.262</b> and intercept = ln 500 ≈ <b>6.215</b>.<br>(ii) Taking ln of an exponential turns the multiplication by 1.3 each hour into adding ln 1.3 each hour, so ln N changes by a constant amount: a linear relationship.",
+    rub:["Slope ≈ 0.262 and intercept ≈ 6.215","Explanation: log turns constant ratios into constant differences"]},
+   {p:"C",ask:"(i) When does the model predict 10,000 bacteria? (ii) A student instead uses the linear model L(t) = 500 + 150t. Compare L(3) with the actual count and explain which model fits better.",
+    sol:"(i) 500(1.3)ᵗ = 10000 ⇒ t = ln 20/ln 1.3 ≈ <b>11.418 hours</b>.<br>(ii) L(3) = 950, but the actual count is 1098.5. The linear model underestimates because the counts increase by a growing amount each hour (150, 195, 253.5). Constant ratios mean the <b>exponential model fits better</b>.",
+    rub:["t ≈ 11.418 hours","Comparison with L(3) = 950 and a reason based on ratios vs differences"]}
   ]}
 ];
-var frqCur=0,tabs=$("frqTabs");
-FRQ.forEach(function(f,i){var b=el("button",null,f.name);b.type="button";b.setAttribute("aria-pressed",i===0?"true":"false");b.onclick=function(){tabs.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");frqCur=i;renderFRQ();};tabs.appendChild(b);});
+var frqCur=0,frqUnit="1",tabs=$("frqTabs");
+function buildFrqTabs(){
+  tabs.innerHTML="";var list=FRQ.map(function(f,i){return i}).filter(function(i){return FRQ[i].u===frqUnit});
+  if(list.indexOf(frqCur)<0)frqCur=list[0];
+  list.forEach(function(i){var f=FRQ[i];var b=el("button",null,f.name);b.type="button";b.setAttribute("aria-pressed",i===frqCur?"true":"false");b.onclick=function(){tabs.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");frqCur=i;renderFRQ();};tabs.appendChild(b);});
+  renderFRQ();
+}
+document.querySelectorAll("[data-fu]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-fu]").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");frqUnit=b.dataset.fu;buildFrqTabs();});});
 function renderFRQ(){
   var f=FRQ[frqCur],box=$("frqBox");box.innerHTML="";
   var st=S.frq[f.id]||(S.frq[f.id]={pts:{},ans:{},rev:{}});
@@ -1058,12 +1476,346 @@ function renderFRQ(){
       lab.querySelector("input").addEventListener("change",function(e){st.pts[key]=e.target.checked;save();score();if(e.target.checked)addXP(5);});sol.appendChild(lab);});
     btn.onclick=function(){sol.hidden=!sol.hidden;st.rev[pi]=!sol.hidden;btn.textContent=sol.hidden?"Reveal model solution":"Hide solution";save();};
     if(!sol.hidden)btn.textContent="Hide solution";
-    part.appendChild(btn);part.appendChild(sol);card.appendChild(part);
+    var chk=el("button","askbtn",'<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#marvinFace"/></svg>Have Mr Marvin check my work');chk.type="button";
+    chk.addEventListener("click",function(){
+      var mine=(ta.value||"").trim();
+      if(!mine){toast("Write your work in the box first");ta.focus();return;}
+      askMarvin("Please check my work on this AP Precalc FRQ part like an AP grader. Tell me which rubric points I earned, what's missing, and one tip. Don't just rewrite the full solution.\n\nSetup: "+plain(f.intro)+"\n\nPart "+p.p+": "+plain(p.ask)+"\n\nMy work: "+mine+"\n\nRubric (1 point each): "+p.rub.map(plain).join(" ; ")+"\n\nModel solution (for your reference): "+plain(p.sol));
+    });
+    var row=el("div","row");row.appendChild(btn);row.appendChild(chk);
+    part.appendChild(row);part.appendChild(sol);card.appendChild(part);
   });
   box.appendChild(card);
-  function score(){var n=0;for(var k in st.pts)if(st.pts[k])n++;$("frqScore").textContent=n+" / 6";}
+  function score(){var n=0;for(var k in st.pts)if(st.pts[k])n++;$("frqScore").textContent=n+" / 6";if(n===6&&!st.cele){st.cele=true;save();confetti();}}
   score();
 }
-renderFRQ();
+buildFrqTabs();
+
+/* =========================================================
+   SITE: router, hero animation, progress rings, glossary
+   ========================================================= */
+var PAGES=["home","unit1","unit2","visuals","flashcards","practice","frq","resources","tutor"];
+var LEGACY={plan:"home",lab:"visuals",cards:"flashcards",arena:"practice",gym:"frq",sheet:"resources"};
+var curPage=null;
+function route(){
+  var h=(location.hash||"").replace("#","");if(LEGACY[h])h=LEGACY[h];
+  if(PAGES.indexOf(h)<0)h="home";
+  if(h===curPage)return;curPage=h;
+  document.querySelectorAll(".page").forEach(function(p){p.classList.toggle("on",p.dataset.page===h)});
+  document.querySelectorAll("#navTabs a").forEach(function(a){a.classList.toggle("cur",a.dataset.to===h);if(a.dataset.to===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+  var cur=document.querySelector('#navTabs a.cur');if(cur&&cur.scrollIntoView)try{cur.scrollIntoView({block:"nearest",inline:"center"})}catch(e){}
+  window.scrollTo(0,0);
+  placeChat();
+  if(h==="visuals")redrawViz();
+  if(h==="home")startHero();else stopHero();
+  if(h==="tutor")setTimeout(function(){$("chatIn").focus({preventScroll:true})},50);
+}
+window.addEventListener("hashchange",route);
+function go(page){if(location.hash==="#"+page)route();else location.hash=page;}
+
+/* hero canvas: drifting function curves */
+var hcv=$("heroCv"),hctx=hcv.getContext("2d"),heroT=0,heroRAF=null;
+function drawHero(){
+  var r=hcv.getBoundingClientRect(),dpr=window.devicePixelRatio||1,W=r.width,H=r.height;if(!W||!H)return;
+  if(hcv.width!==Math.round(W*dpr)){hcv.width=Math.round(W*dpr);hcv.height=Math.round(H*dpr);}
+  hctx.setTransform(dpr,0,0,dpr,0,0);hctx.clearRect(0,0,W,H);
+  var t=heroT,cols=[css("--u1"),css("--u2"),css("--good")];
+  var fns=[function(x){return Math.sin(x*1.3+t)*0.6+0.25*Math.sin(x*3.1-t*1.4)},function(x){return Math.pow(1.6,x-2+Math.sin(t*.5)*.6)-1.4},function(x){return x>-3?Math.log(x+3.2)*0.9-1.2+Math.sin(t*.7)*.15:NaN}];
+  hctx.globalAlpha=.22;hctx.lineWidth=2.5;
+  fns.forEach(function(f,k){hctx.strokeStyle=cols[k];hctx.beginPath();var pen=false;for(var px=0;px<=W;px+=4){var x=(px/W)*8-4,y=f(x);if(!isFinite(y)){pen=false;continue}var py=H*0.55-y*H*0.18;if(!pen){hctx.moveTo(px,py);pen=true}else hctx.lineTo(px,py);}hctx.stroke();});
+  hctx.globalAlpha=1;
+}
+function heroLoop(){heroT+=0.008;drawHero();heroRAF=requestAnimationFrame(heroLoop);}
+function startHero(){if(reduceMotion){drawHero();return;}if(!heroRAF)heroRAF=requestAnimationFrame(heroLoop);}
+function stopHero(){if(heroRAF){cancelAnimationFrame(heroRAF);heroRAF=null;}}
+
+/* progress rings on home */
+function rings(){
+  var m1=T1.filter(function(t){return S.mastered[t.n]}).length,m2=T2.filter(function(t){return S.mastered[t.n]}).length;
+  var frqPts=0;for(var k in S.frq){var p=S.frq[k].pts||{};for(var j in p)if(p[j])frqPts++;}
+  var data=[["Unit 1 levels",m1,T1.length],["Unit 2 levels",m2,T2.length],["Flashcards known",Object.keys(S.fcKnown).length,FC.length],["FRQ points",frqPts,FRQ.length*6]];
+  var C=2*Math.PI*26;
+  $("rings").innerHTML=data.map(function(d){var f=d[2]?d[1]/d[2]:0;return '<figure><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="bg" cx="32" cy="32" r="26"/><circle class="fg" cx="32" cy="32" r="26" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+(C*(1-f)).toFixed(1)+'"/></svg><figcaption><b>'+d[1]+' / '+d[2]+'</b>'+d[0]+'</figcaption></figure>'}).join("");
+}
+window.__rings=rings;rings();
+
+/* glossary */
+var GLOSS=[["Average rate of change","(f(b) − f(a))/(b − a): the slope of the secant line on [a, b]."],["Concave up / down","The rate of change is increasing / decreasing; the graph bends like a cup / a frown."],["Point of inflection","Where the graph changes concavity."],["Multiplicity","How many times a factor (x − a) repeats. Even: bounce. Odd: cross."],["Complex conjugates","a + bi and a − bi. Non-real zeros of real polynomials come in these pairs."],["End behavior","What f(x) does as x → ∞ or x → −∞. Set by the leading term."],["Horizontal asymptote","A line y = c that the graph approaches as x → ±∞."],["Slant asymptote","A non-horizontal line the graph approaches; happens when the top degree is one more than the bottom."],["Vertical asymptote","A line x = a where outputs blow up to ±∞."],["Hole","A single missing point where a factor cancels in a rational function."],["Even / odd function","Even: f(−x) = f(x), y-axis symmetry. Odd: f(−x) = −f(x), origin symmetry."],["Arithmetic sequence","Add the same number d each step: aₙ = a₀ + dn."],["Geometric sequence","Multiply by the same ratio r each step: gₙ = g₀·rⁿ."],["Growth / decay factor","The base b of a·bˣ. b &gt; 1 growth, 0 &lt; b &lt; 1 decay."],["Residual","Actual value minus predicted value."],["Composition","f(g(x)): put the output of g into f."],["Inverse function","Swaps inputs and outputs; graph reflected over y = x."],["Logarithm","log_b(c) is the exponent you put on b to get c."],["Extraneous solution","A solution from the algebra that doesn't work in the original equation."],["Semi-log plot","A graph with a logarithmic y-axis; exponential data looks linear on it."]];
+$("gloss").innerHTML=GLOSS.map(function(g){return "<div><b>"+g[0]+"</b>"+g[1]+"</div>"}).join("");
+
+/* =========================================================
+   VISUAL LAB widgets
+   ========================================================= */
+var VIZDRAW={"v-trans":drawLab};
+function openViz(id){go("visuals");selectViz(id);}
+function selectViz(id){
+  document.querySelectorAll("#vizTabs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.viz===id?"true":"false")});
+  document.querySelectorAll(".viz").forEach(function(v){v.classList.toggle("on",v.id===id)});
+  if(VIZDRAW[id])requestAnimationFrame(VIZDRAW[id]);
+}
+function redrawViz(){var on=document.querySelector(".viz.on");if(on&&VIZDRAW[on.id])requestAnimationFrame(VIZDRAW[on.id]);}
+document.querySelectorAll("#vizTabs button").forEach(function(b){b.addEventListener("click",function(){selectViz(b.dataset.viz)})});
+window.addEventListener("resize",redrawViz);
+
+/* shared plotting helper */
+function Plot(canvas,xmin,xmax,ymin,ymax){
+  var r=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1,W=Math.max(220,Math.round(r.width)),H=Math.max(220,Math.round(r.height));
+  canvas.width=W*dpr;canvas.height=H*dpr;var c=canvas.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);
+  var P={c:c,W:W,H:H,X:function(x){return (x-xmin)/(xmax-xmin)*W},Y:function(y){return H-(y-ymin)/(ymax-ymin)*H}};
+  P.grid=function(step,ystep){ystep=ystep||step;c.lineWidth=1;c.strokeStyle=css("--grid");
+    for(var x=Math.ceil(xmin/step)*step;x<=xmax;x+=step){c.beginPath();c.moveTo(P.X(x),0);c.lineTo(P.X(x),H);c.stroke();}
+    for(var y=Math.ceil(ymin/ystep)*ystep;y<=ymax;y+=ystep){c.beginPath();c.moveTo(0,P.Y(y));c.lineTo(W,P.Y(y));c.stroke();}
+    c.strokeStyle=css("--muted");c.lineWidth=1.5;
+    if(ymin<=0&&ymax>=0){c.beginPath();c.moveTo(0,P.Y(0));c.lineTo(W,P.Y(0));c.stroke();}
+    if(xmin<=0&&xmax>=0){c.beginPath();c.moveTo(P.X(0),0);c.lineTo(P.X(0),H);c.stroke();}
+    c.fillStyle=css("--muted");c.font="11px "+css("--mono");
+    for(x=Math.ceil(xmin/step)*step;x<xmax;x+=step){if(Math.abs(x)<1e-9||x===xmin)continue;c.fillText(+x.toFixed(2),P.X(x)+3,Math.min(H-4,Math.max(12,P.Y(0)+13)));}
+    for(y=Math.ceil(ymin/ystep)*ystep;y<ymax;y+=ystep){if(Math.abs(y)<1e-9||y===ymin)continue;c.fillText(+y.toFixed(2),Math.min(W-30,Math.max(3,P.X(0)+4)),P.Y(y)-3);}
+  };
+  P.curve=function(f,color,w,dash,x0,x1){c.strokeStyle=color;c.lineWidth=w||3;c.setLineDash(dash||[]);c.beginPath();var pen=false,prev=null;x0=x0==null?xmin:x0;x1=x1==null?xmax:x1;
+    for(var px=P.X(x0);px<=P.X(x1);px+=1){var x=xmin+px/W*(xmax-xmin),y=f(x);
+      if(!isFinite(y)||y>ymax+(ymax-ymin)*3||y<ymin-(ymax-ymin)*3||(prev!==null&&Math.abs(y-prev)>(ymax-ymin))){pen=false;prev=isFinite(y)?y:null;continue;}
+      if(!pen){c.moveTo(px,P.Y(y));pen=true}else c.lineTo(px,P.Y(y));prev=y;}
+    c.stroke();c.setLineDash([]);};
+  P.line=function(x0,y0,x1,y1,color,w,dash){c.strokeStyle=color;c.lineWidth=w||2;c.setLineDash(dash||[]);c.beginPath();c.moveTo(P.X(x0),P.Y(y0));c.lineTo(P.X(x1),P.Y(y1));c.stroke();c.setLineDash([]);};
+  P.vline=function(x,color){P.line(x,ymin,x,ymax,color,1.8,[7,5]);};
+  P.hline=function(y,color){P.line(xmin,y,xmax,y,color,1.8,[7,5]);};
+  P.dot=function(x,y,color,r,hollow){c.beginPath();c.arc(P.X(x),P.Y(y),r||6,0,7);if(hollow){c.fillStyle=css("--card");c.fill();c.lineWidth=2.5;c.strokeStyle=color;c.stroke();}else{c.fillStyle=color;c.fill();c.lineWidth=2;c.strokeStyle=css("--card");c.stroke();}};
+  P.text=function(s,x,y,color,align){c.fillStyle=color||css("--ink");c.font="600 13px "+css("--body");c.textAlign=align||"left";c.fillText(s,P.X(x),P.Y(y));c.textAlign="left";};
+  return P;
+}
+function f2(n){return (Math.round(n*1000)/1000).toString().replace("-","−");}
+
+/* 1) secant */
+(function(){
+  var f=function(x){return 0.25*x*x*x-2*x+1},anim=null;
+  function draw(){
+    var a=+$("secA").value,b=+$("secB").value;$("secAo").textContent=f2(a);$("secBo").textContent=f2(b);
+    var P=Plot($("cvSec"),-5,5,-8,8);P.grid(1,2);
+    P.curve(f,css("--blue"),3);
+    if(Math.abs(b-a)>1e-6){var m=(f(b)-f(a))/(b-a);P.curve(function(x){return f(a)+m*(x-a)},css("--bad"),2.2);
+      $("secOut").innerHTML="f(a) = "+f2(f(a))+", f(b) = "+f2(f(b))+"<br>AROC = (f(b) − f(a))/(b − a)<br>= ("+f2(f(b))+" − "+f2(f(a))+")/("+f2(b)+" − "+f2(a)+") = <b>"+f2(m)+"</b>";}
+    else{var mt=0.75*a*a-2;P.curve(function(x){return f(a)+mt*(x-a)},css("--bad"),2.2);$("secOut").innerHTML="b = a: the secant became the <b>tangent line</b>.<br>Rate of change at x = "+f2(a)+" ≈ <b>"+f2(mt)+"</b>";}
+    P.dot(a,f(a),css("--ink"));P.dot(b,f(b),css("--ink"));P.text("a",a,f(a)+0.9,css("--ink"),"center");P.text("b",b,f(b)+0.9,css("--ink"),"center");
+  }
+  VIZDRAW["v-secant"]=draw;
+  ["secA","secB"].forEach(function(id){$(id).addEventListener("input",function(){cancelAnimationFrame(anim);draw();})});
+  $("secPlay").addEventListener("click",function(){cancelAnimationFrame(anim);var a=+$("secA").value,b0=+$("secB").value,t0=null;
+    function step(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/(reduceMotion?1:2200));var e=1-Math.pow(1-p,3);$("secB").value=b0+(a-b0)*e;draw();if(p<1)anim=requestAnimationFrame(step);else{$("secB").value=a;draw();}}
+    anim=requestAnimationFrame(step);});
+  $("secReset").addEventListener("click",function(){cancelAnimationFrame(anim);$("secA").value=-2;$("secB").value=3;draw();});
+})();
+
+/* 2) polynomial builder */
+(function(){
+  var sign=1;
+  function draw(){
+    var rs=[+$("pr1").value,+$("pr2").value,+$("pr3").value],ms=[+$("pm1").value,+$("pm2").value,+$("pm3").value];
+    rs.forEach(function(r,i){$("pr"+(i+1)+"o").textContent=f2(r)});
+    var raw=function(x){var v=sign;for(var i=0;i<3;i++)v*=Math.pow(x-rs[i],ms[i]);return v};
+    var mx=0;for(var x=-5;x<=5;x+=0.05)mx=Math.max(mx,Math.abs(raw(x)));
+    var k=mx>0?7/mx*1.6:1;var p=function(x){return k*raw(x)};
+    var P=Plot($("cvPoly"),-5,5,-8,8);P.grid(1,2);P.curve(p,css("--blue"),3);
+    var deg=ms[0]+ms[1]+ms[2],lines=[];var seen={};
+    rs.forEach(function(r,i){var key=r.toFixed(2);seen[key]=(seen[key]||0)+ms[i];});
+    Object.keys(seen).forEach(function(key){var r=+key,m=seen[key];P.dot(r,0,m%2?css("--good"):css("--u2"),7);lines.push("x = "+f2(r)+": multiplicity "+m+" → "+(m%2?"<b>crosses</b>":"<b>bounces</b>"));});
+    var left=(deg%2===0)?sign:-sign,right=sign;
+    $("polyOut").innerHTML="p(x) = "+(sign<0?"−":"")+"k"+rs.map(function(r,i){return "(x "+(r>=0?"− "+f2(r):"+ "+f2(-r))+")"+(ms[i]>1?"<sup>"+ms[i]+"</sup>":"")}).join("")+"<br>Degree <b>"+deg+"</b> ("+(deg%2?"odd":"even")+"), leading coefficient "+(sign>0?"positive":"negative")+"<br>"+lines.join("<br>")+"<br>End behavior: x → −∞, p → "+(left>0?"∞":"−∞")+"; x → ∞, p → "+(right>0?"∞":"−∞");
+  }
+  VIZDRAW["v-poly"]=draw;
+  ["pr1","pr2","pr3","pm1","pm2","pm3"].forEach(function(id){$(id).addEventListener("input",draw)});
+  $("pSign").addEventListener("click",function(){sign=-sign;this.textContent="Leading coefficient: "+(sign>0?"+":"−");draw();});
+  ["pm1","pm2","pm3"].forEach(function(id){var s=$(id);s.style.cssText="font:inherit;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)";});
+})();
+
+/* 3) rational anatomy */
+(function(){
+  var R=[
+   {n:"(x² − 4)/(x² − x − 2)",f:function(x){return (x*x-4)/(x*x-x-2)},s:function(x){return (x+2)/(x+1)},va:[-1],ha:1,holes:[[2,4/3]],zeros:[-2],y:[-6,6],
+    t:"Factor: (x − 2)(x + 2) / ((x − 2)(x + 1)).<br>Hole at <b>(2, 4/3)</b> because (x − 2) cancels.<br>VA <b>x = −1</b>. Zero <b>x = −2</b>.<br>Degrees equal ⇒ HA <b>y = 1</b>."},
+   {n:"(2x² − 8)/(x² + x − 6)",f:function(x){return (2*x*x-8)/(x*x+x-6)},s:function(x){return 2*(x+2)/(x+3)},va:[-3],ha:2,holes:[[2,1.6]],zeros:[-2],y:[-8,10],
+    t:"Factor: 2(x − 2)(x + 2) / ((x + 3)(x − 2)).<br>Hole at <b>(2, 8/5)</b>. VA <b>x = −3</b>. Zero <b>x = −2</b>.<br>HA <b>y = 2</b> (ratio of leading coefficients 2/1)."},
+   {n:"(x² + 3x + 5)/(x + 1)",f:function(x){return (x*x+3*x+5)/(x+1)},s:null,va:[-1],slant:[1,2],holes:[],zeros:[],y:[-12,12],
+    t:"Top degree is one more than bottom ⇒ <b>slant asymptote</b>.<br>Long division: x + 2 remainder 3 ⇒ <b>y = x + 2</b>.<br>VA <b>x = −1</b>. No real zeros (x² + 3x + 5 has a negative discriminant)."},
+   {n:"x/(x² − 9)",f:function(x){return x/(x*x-9)},s:null,va:[-3,3],ha:0,holes:[],zeros:[0],y:[-5,5],
+    t:"Factor bottom: (x − 3)(x + 3).<br>VAs <b>x = −3</b> and <b>x = 3</b>. Zero <b>x = 0</b>.<br>Top degree &lt; bottom degree ⇒ HA <b>y = 0</b>. The graph crosses its HA at the origin, which is allowed!"},
+   {n:"(3x² − 1)/(x² + 4x)",f:function(x){return (3*x*x-1)/(x*x+4*x)},s:null,va:[-4,0],ha:3,holes:[],zeros:[-1/Math.sqrt(3),1/Math.sqrt(3)],y:[-12,15],
+    t:"Bottom: x(x + 4) ⇒ VAs <b>x = 0</b> and <b>x = −4</b>.<br>Zeros where 3x² = 1: <b>x = ±1/√3 ≈ ±0.577</b>.<br>HA <b>y = 3</b>."}
+  ],tr=null,anim=null;
+  var sel=$("ratSel");R.forEach(function(r,i){var o=document.createElement("option");o.value=i;o.textContent="r(x) = "+r.n;sel.appendChild(o);});
+  function draw(){
+    var r=R[+sel.value],P=Plot($("cvRat"),-8,8,r.y[0],r.y[1]);P.grid(1,r.y[1]-r.y[0]>16?4:2);
+    r.va.forEach(function(v){P.vline(v,css("--bad"))});
+    if(r.ha!=null)P.hline(r.ha,css("--bad"));
+    if(r.slant)P.curve(function(x){return r.slant[0]*x+r.slant[1]},css("--bad"),1.8,[7,5]);
+    P.curve(r.s||r.f,css("--blue"),3);
+    r.zeros.forEach(function(z){P.dot(z,0,css("--good"))});
+    r.holes.forEach(function(h){P.dot(h[0],h[1],css("--blue"),6,true)});
+    if(tr!=null){var y=r.f(tr);if(isFinite(y)&&y>r.y[0]&&y<r.y[1]){P.dot(tr,y,css("--marker"),8);P.text("("+f2(tr)+", "+f2(y)+")",tr,y+(r.y[1]-r.y[0])*0.05,css("--ink"),"center");}}
+    $("ratOut").innerHTML=r.t;
+  }
+  VIZDRAW["v-rat"]=draw;
+  sel.addEventListener("change",function(){cancelAnimationFrame(anim);tr=null;draw();});
+  $("ratPlay").addEventListener("click",function(){cancelAnimationFrame(anim);var t0=null;
+    function step(ts){if(t0===null)t0=ts;var p=(ts-t0)/7000;if(p>=1||reduceMotion){tr=null;draw();return;}tr=-7.9+15.8*p;draw();anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);});
+})();
+
+/* 4) linear vs exponential race */
+(function(){
+  var prog=1,anim=null,T=10;
+  function draw(){
+    var d=+$("raceD").value,r=+$("raceR").value;$("raceDo").textContent=d;$("raceRo").textContent=f2(r);
+    var L=function(t){return 10+d*t},E=function(t){return 10*Math.pow(r,t)};
+    var ymax=Math.max(L(T),Math.min(E(T),L(T)*3))*1.1;
+    var P=Plot($("cvRace"),-0.5,T+0.5,-ymax*0.06,ymax);
+    var ys=Math.pow(10,Math.floor(Math.log10(ymax/4)));P.grid(1,ys*Math.ceil(ymax/5/ys));
+    var tEnd=prog*T;P.curve(L,css("--u1"),3,null,0,tEnd);P.curve(E,css("--u2"),3,null,0,tEnd);
+    for(var t=0;t<=Math.floor(tEnd+1e-9);t++){P.dot(t,L(t),css("--u1"),4);if(E(t)<ymax)P.dot(t,E(t),css("--u2"),4);}
+    var cross=null;for(var s=0.01;s<=T;s+=0.01){if(E(s)>L(s)&&E(s-0.01)<=L(s-0.01)){cross=s;break;}}
+    if(cross!==null&&cross<=tEnd){P.line(cross,0,cross,ymax,css("--good"),1.5,[4,4]);P.text("E passes L at t ≈ "+cross.toFixed(2),cross,ymax*0.92,css("--good"),cross>T*0.6?"right":"left");}
+    var rows="<tr><th>t</th><th>L(t)</th><th>diff</th><th>E(t)</th><th>ratio</th></tr>";
+    for(t=0;t<=5;t++){rows+="<tr><td>"+t+"</td><td>"+f2(L(t))+"</td><td>"+(t?"+"+d:"")+"</td><td>"+f2(E(t))+"</td><td>"+(t?"×"+f2(r):"")+"</td></tr>";}
+    $("raceTbl").innerHTML=rows;
+    $("raceOut").innerHTML="Linear: equal <b>differences</b> (+"+d+").<br>Exponential: equal <b>ratios</b> (×"+f2(r)+").<br>"+(cross!==null?"The exponential overtakes at t ≈ <b>"+cross.toFixed(2)+"</b>.":"Not yet within t ≤ 10, but it always wins eventually.");
+  }
+  VIZDRAW["v-race"]=draw;
+  ["raceD","raceR"].forEach(function(id){$(id).addEventListener("input",function(){cancelAnimationFrame(anim);prog=1;draw();})});
+  $("racePlay").addEventListener("click",function(){cancelAnimationFrame(anim);var t0=null;
+    function step(ts){if(t0===null)t0=ts;prog=Math.min(1,(ts-t0)/(reduceMotion?1:4000));draw();if(prog<1)anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);});
+})();
+
+/* 5) inverse mirror */
+(function(){
+  var anim=null;
+  function draw(){
+    var b=+$("mirB").value,t=+$("mirT").value;$("mirBo").textContent=f2(b);$("mirTo").textContent=f2(t);
+    var P=Plot($("cvMir"),-4,8,-4,8);P.grid(1,1);
+    P.curve(function(x){return x},css("--muted"),1.5,[5,5]);
+    P.curve(function(x){return Math.pow(b,x)},css("--u2"),3);
+    P.curve(function(x){return x>0?Math.log(x)/Math.log(b):NaN},css("--good"),3);
+    P.hline(0,css("--bad"));P.vline(0,css("--bad"));
+    var y=Math.pow(b,t);
+    if(y<8){P.line(t,y,y,t,css("--ink"),1.5,[3,4]);P.dot(t,y,css("--u2"),7);P.dot(y,t,css("--good"),7);}
+    $("mirOut").innerHTML="On y = bˣ: (<b>"+f2(t)+"</b>, "+f2(y)+")<br>On y = log_b x: ("+f2(y)+", <b>"+f2(t)+"</b>)<br>Inputs and outputs swap. The HA y = 0 of bˣ becomes the VA x = 0 of log_b x.";
+  }
+  VIZDRAW["v-mirror"]=draw;
+  ["mirB","mirT"].forEach(function(id){$(id).addEventListener("input",function(){cancelAnimationFrame(anim);draw();})});
+  $("mirPlay").addEventListener("click",function(){cancelAnimationFrame(anim);var t0=null;
+    function step(ts){if(t0===null)t0=ts;var p=(ts-t0)/5000;if(p>=1||reduceMotion){return;}$("mirT").value=-2+4.5*(0.5-0.5*Math.cos(p*2*Math.PI));draw();anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);});
+})();
+
+/* 6) semi-log */
+(function(){
+  var mode=0,prog=0,anim=null,xs=[0,1,2,3,4,5,6,7,8],a=3,b=1.6;
+  function draw(){
+    var ys=xs.map(function(x){return a*Math.pow(b,x)}),ymaxLin=ys[8]*1.08,lmin=0,lmax=Math.log10(ys[8])*1.08;
+    var P=Plot($("cvSemi"),-0.7,8.7,-0.06,1.06);var c=P.c;
+    var map=function(y){var lin=y/ymaxLin,lg=(Math.log10(y)-lmin)/(lmax-lmin);return lin*(1-prog)+lg*prog;};
+    c.strokeStyle=css("--grid");c.lineWidth=1;
+    var ticksLin=[0,50,100,150,200],ticksLog=[1,10,100];
+    c.fillStyle=css("--muted");c.font="11px "+css("--mono");
+    (prog<0.5?ticksLin:ticksLog).forEach(function(v){var yy=v===0?0:map(v);P.line(-0.7,yy,8.7,yy,css("--grid"),1);c.fillText(String(v),P.X(-0.6),P.Y(yy)-3);});
+    for(var x=0;x<=8;x++){c.fillText(String(x),P.X(x)-3,P.H-4);}
+    c.strokeStyle=css("--u2");c.lineWidth=2.5;c.beginPath();
+    for(var px=P.X(0);px<=P.X(8);px++){var xx=(px/P.W)*9.4-0.7,yv=map(a*Math.pow(b,xx));if(px===Math.ceil(P.X(0)))c.moveTo(px,P.Y(yv));else c.lineTo(px,P.Y(yv));}
+    c.stroke();
+    xs.forEach(function(x,i){P.dot(x,map(ys[i]),css("--blue"),6)});
+    var m=Math.log10(b),k=Math.log10(a);
+    $("semiOut").innerHTML=prog<0.99?"Linear y-axis: the data curves upward. Each step multiplies y by "+b+".":"Log y-axis: the points lie on a line!<br>log y = <b>"+m.toFixed(3)+"</b>x + <b>"+k.toFixed(3)+"</b><br>b = 10^"+m.toFixed(3)+" = <b>"+b+"</b>, a = 10^"+k.toFixed(3)+" = <b>"+a+"</b><br>So y = 3·(1.6)ˣ.";
+  }
+  VIZDRAW["v-semilog"]=draw;
+  $("semiToggle").addEventListener("click",function(){cancelAnimationFrame(anim);mode=1-mode;this.textContent=mode?"Switch to linear scale":"Switch to log scale";var start=prog,t0=null;
+    function step(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/(reduceMotion?1:1400));var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;prog=start+(mode-start)*e;draw();if(p<1)anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);});
+})();
+
+/* =========================================================
+   MR MARVIN — AI tutor
+   ========================================================= */
+var MARVIN_SYSTEM="You are Mr Marvin, a warm, patient AP Precalculus tutor on a study site built for a high-school junior named Santiago. Santiago is preparing for a class test on Unit 1 (Polynomial and Rational Functions: change in tandem, average rates of change, linear and quadratic rates, polynomial zeros, multiplicity and complex conjugate zeros, end behavior, rational functions and their zeros, vertical asymptotes, holes, horizontal and slant asymptotes, equivalent forms and the binomial theorem, transformations, model selection, model construction) and Unit 2 (Exponential and Logarithmic Functions: arithmetic and geometric sequences, linear vs exponential change, exponential functions and their manipulation, exponential modeling, residuals and competing models, composition, inverse functions, logarithmic expressions, logs as inverses of exponentials, log graphs, log rules, exponential and logarithmic equations and inequalities, log modeling, semi-log plots), following the College Board AP Precalculus course. Santiago is going through a lot right now, so be calm and encouraging and never make them feel bad for not knowing something.\n\nHow you teach:\n- Keep answers short and clear, usually under 180 words. Use short paragraphs or numbered steps.\n- Write math in plain text with Unicode symbols (x², √, ≠, ≤, →, ∞, log₂, f⁻¹). Never use LaTeX or dollar-sign math.\n- When asked how to solve a problem, go step by step and say why each step works. When asked for a hint, give only the next step.\n- End most answers with one short question that checks understanding, or point to a matching part of the site: the Unit 1 or Unit 2 levels, the Visual Lab, the MCQ Arena, the FRQ Gym, or Flashcards.\n- For FRQ work, name what earns rubric points: equations written before numbers, units, the words \"on average\" with the interval, 3 decimal places on calculator answers, and justifications in context.\n- Check your arithmetic carefully before answering. If a question is ambiguous, say what you assumed.\n- If asked about something outside AP Precalculus, answer briefly if it's school-related, then steer back to the units.\n- If Santiago says something that suggests they are in crisis or unsafe, respond with care, encourage them to talk with a trusted adult or school counselor, and mention they can call or text 988 (the Suicide & Crisis Lifeline in the US).";
+var chatLog=[],busy=false,sampleP=null,backend=null;
+function getSample(){
+  if(!sampleP){sampleP=(window.claude&&typeof window.claude.use==="function")?Promise.resolve(window.claude.use("sample")).catch(function(){return null}):Promise.resolve(null);}
+  return sampleP;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fmtMsg(t){
+  var lines=esc(t).replace(/\$([^$\n]+)\$/g,"$1").split(/\n/),out=[],list=null;
+  function inline(s){return s.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<span class='m'>$1</span>").replace(/^#+\s*/,"");}
+  lines.forEach(function(l){var mU=l.match(/^\s*[-*•]\s+(.*)/),mO=l.match(/^\s*\d+[.)]\s+(.*)/);
+    if(mU||mO){var tag=mU?"ul":"ol";if(!list||list.tag!==tag){list={tag:tag,items:[]};out.push(list);}list.items.push(inline((mU||mO)[1]));}
+    else if(l.trim()===""){list=null;}
+    else{list=null;out.push("<p>"+inline(l)+"</p>");}});
+  return out.map(function(o){return typeof o==="string"?o:"<"+o.tag+">"+o.items.map(function(i){return"<li>"+i+"</li>"}).join("")+"</"+o.tag+">"}).join("");
+}
+function addMsg(role,text){var m=el("div","msg "+(role==="user"?"me":role==="note"?"note":"bot"));if(role==="user"||role==="note")m.textContent=text;else m.innerHTML=fmtMsg(text);$("msgs").appendChild(m);$("msgs").scrollTop=$("msgs").scrollHeight;return m;}
+var CHIPS=["Explain end behavior simply","Holes vs vertical asymptotes?","How do I solve log equations?","Quiz me on Unit 2","What's a semi-log plot?","Give me a hint-only practice problem"];
+function renderChips(){$("chips").innerHTML="";if(chatLog.length>2)return;CHIPS.forEach(function(c){var b=el("button",null,c);b.type="button";b.onclick=function(){sendChat(c)};$("chips").appendChild(b);});}
+function greet(){addMsg("bot","Hey Santiago! I'm **Mr Marvin**. Ask me anything about Units 1 and 2: a topic you don't get, a problem you're stuck on, or \"quiz me\". What are we working on?");renderChips();}
+function offlineAnswer(q){
+  var words=q.toLowerCase().replace(/[^a-z0-9.\s]/g," ").split(/\s+/).filter(function(w){return w.length>2});
+  var best=null,bs=0;T1.concat(T2).forEach(function(t){var hay=(t.n+" "+t.t+" "+t.s+" "+t.idea+" "+t.rules.join(" ")).toLowerCase();var s=0;words.forEach(function(w){if(hay.indexOf(w)>=0)s+=(t.t.toLowerCase().indexOf(w)>=0?3:1)});var tm=q.match(/\b([12])\.(\d{1,2})\b/);if(tm&&t.n===tm[0])s+=50;if(s>bs){bs=s;best=t;}});
+  if(!best||bs<2)return "I can't reach my live brain right now, so I can only answer from this guide. Try naming a topic, like **rational holes**, **log rules**, or **2.13**.";
+  return "I can't reach my live brain right now, so here's what the guide says about **"+best.n+" "+plain(best.t)+"**:\n\n"+plain(best.idea)+"\n\n"+best.rules.map(function(r){return "- "+plain(r)}).join("\n")+"\n\n**Example:** "+plain(best.ex.replace(/<li>/g,"\n- ").replace(/<ol>/g,"\n"))+"\n\n**Watch out:** "+plain(best.trap);
+}
+async function callApi(msgs,onText){
+  var res=await fetch("/api/tutor",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:msgs})});
+  if(!res.ok){var info={};try{info=await res.json()}catch(e){}var err=new Error(info.message||("HTTP "+res.status));err.code=info.error||"http_"+res.status;throw err;}
+  if(!res.body||!res.body.getReader){var all=await res.text();onText(all);return all;}
+  var rd=res.body.getReader(),dec=new TextDecoder(),txt="";
+  while(true){var r=await rd.read();if(r.done)break;txt+=dec.decode(r.value,{stream:true});onText(txt);}
+  return txt;
+}
+async function sendChat(text){
+  text=(text||"").trim();if(!text||busy)return;
+  busy=true;$("chatSend").disabled=true;$("chips").innerHTML="";
+  addMsg("user",text);chatLog.push({role:"user",content:text});
+  var bubble=addMsg("bot","");bubble.innerHTML='<span class="typing" aria-label="Mr Marvin is typing"><span></span><span></span><span></span></span>';
+  var hist=chatLog.slice(-16);while(hist.length&&hist[0].role!=="user")hist.shift();
+  var onText=function(t){bubble.innerHTML=fmtMsg(t)||bubble.innerHTML;$("msgs").scrollTop=$("msgs").scrollHeight;};
+  var answer="";
+  try{
+    var sample=await getSample();
+    if(sample){
+      backend="sample";
+      var conv=hist.map(function(m,i){return {role:m.role,content:i===0?MARVIN_SYSTEM+"\n\n---\nSantiago says:\n"+m.content:m.content}});
+      var out=await sample(conv,{onText:function(o){onText(o.text)},cache:false});
+      answer=out.text;onText(answer);
+    }else{
+      backend="api";
+      answer=await callApi(hist,onText);
+    }
+  }catch(e){
+    var code=e&&e.code;
+    if(code==="not_granted"){answer="";bubble.remove();addMsg("note","Mr Marvin needs permission to answer. Allow it when the page asks, or use the guide's offline answers.");answer=offlineAnswer(text);bubble=addMsg("bot",answer);}
+    else if(code==="rate_limited"){answer="I'm getting a lot of questions right now. Give me a minute and ask again!";onText(answer);}
+    else{backend="offline";answer=offlineAnswer(text);onText(answer);}
+  }
+  if(!answer){answer="Hmm, I didn't get an answer through. Try asking again in a moment.";onText(answer);}
+  chatLog.push({role:"assistant",content:answer});
+  busy=false;$("chatSend").disabled=false;updateMode();
+  if(chatLog.length===2)addXP(3,"First question to Mr Marvin");
+}
+function updateMode(){$("tutorMode").textContent=backend==="offline"?"Mr Marvin is in offline mode: answers come from this guide only.":backend?"Mr Marvin is online.":"";}
+function askMarvin(q){openDrawer();sendChat(q);}
+function placeChat(){
+  var chat=$("chat");
+  if(curPage==="tutor"){$("tutorHome").appendChild(chat);$("drawer").hidden=true;$("fab").hidden=true;}
+  else{$("drawerHome").appendChild(chat);$("fab").hidden=!$("drawer").hidden;}
+}
+function openDrawer(){if(curPage==="tutor")return;$("drawer").hidden=false;$("fab").hidden=true;placeChat();setTimeout(function(){$("chatIn").focus({preventScroll:true})},30);}
+function closeDrawer(){$("drawer").hidden=true;$("fab").hidden=false;$("fab").focus();}
+$("fab").addEventListener("click",openDrawer);
+$("drawerClose").addEventListener("click",closeDrawer);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("drawer").hidden)closeDrawer();});
+$("composer").addEventListener("submit",function(e){e.preventDefault();var v=$("chatIn").value;$("chatIn").value="";$("chatIn").style.height="";sendChat(v);});
+$("chatIn").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("composer").requestSubmit?$("composer").requestSubmit():$("composer").dispatchEvent(new Event("submit"));}});
+$("chatIn").addEventListener("input",function(){this.style.height="";this.style.height=Math.min(120,this.scrollHeight)+"px";});
+document.querySelectorAll("[data-ask]").forEach(function(b){b.addEventListener("click",function(){askMarvin(b.dataset.ask)})});
+greet();
+route();
 })();
 </script>
