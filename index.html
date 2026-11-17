@@ -345,7 +345,7 @@ footer{padding-block:48px;color:var(--muted);font-size:.9rem}
   </div>
   <div class="arena-top">
     <div class="seg" role="group" aria-label="Question set">
-      <button type="button" data-set="all" aria-pressed="true">All 44</button>
+      <button type="button" data-set="all" aria-pressed="true">All 90</button>
       <button type="button" data-set="1" aria-pressed="false">Unit 1</button>
       <button type="button" data-set="2" aria-pressed="false">Unit 2</button>
       <button type="button" data-set="miss" aria-pressed="false">My misses</button>
@@ -481,7 +481,7 @@ var PLAN=[
  ["Day 4","Sequences &amp; exponentials","Levels 2.1–2.6. Flashcards (Unit 2 deck) for 10 minutes."],
  ["Day 5","Composition, inverses, logs","Levels 2.7–2.12. Do the log quick checks twice."],
  ["Day 6","Equations, modeling, semi-log","Levels 2.13–2.15, FRQ: Exponential Growth and FRQ: Symbolic Manipulation."],
- ["Day 7","Mock exam","All 44 MCQs on Exam pace, then redo \"My misses\". Read the cheat sheet. Sleep well."]
+ ["Day 7","Mock exam","All 90 MCQs on Exam pace, then redo \"My misses\". Read the cheat sheet. Sleep well."]
 ];
 var planList=$("planList");
 PLAN.forEach(function(p,i){
@@ -883,7 +883,55 @@ var Q=[
  {u:2,c:1,tp:"2.13",q:"What value of x satisfies 2ˣ = 10? Give a decimal approximation.",o:["3.322","5.000","2.303","3.000"],a:0,e:"x = log₂ 10 = ln 10 / ln 2 ≈ 3.322. (2.303 is ln 10 by itself.)"},
  {u:2,c:1,tp:"2.6",q:"An exponential model predicts 412 visitors on day 6. The actual number was 398. What is the residual, and what does it mean?",o:["14; the model underestimates","−14; the model overestimates","−14; the model underestimates","14; the model overestimates"],a:1,e:"Residual = actual − predicted = 398 − 412 = −14. Negative means the prediction was too high."},
  {u:2,c:1,tp:"2.14",q:"A logarithmic model y = a + b·ln x passes through (1, 12) and (e², 18). What is b?",o:["6","3","12","2"],a:1,e:"At x = 1: a + b·0 = 12 ⇒ a = 12. At x = e²: 12 + 2b = 18 ⇒ b = 3."},
- {u:2,c:1,tp:"2.5",q:"A 2400-dollar laptop loses 18% of its value each year. To the nearest dollar, what is it worth after 4 years?",o:["$1085","$1272","$672","$1968"],a:0,e:"V = 2400(0.82)⁴ = 2400 × 0.45212 ≈ $1085."}
+ {u:2,c:1,tp:"2.5",q:"A 2400-dollar laptop loses 18% of its value each year. To the nearest dollar, what is it worth after 4 years?",o:["$1085","$1272","$672","$1968"],a:0,e:"V = 2400(0.82)⁴ = 2400 × 0.45212 ≈ $1085."},
+ /* ---- extra Unit 1 set ---- */
+ {u:1,c:0,tp:"1.1",q:"The function f is positive and decreasing on the interval (2, 5). Which of the following could be the values of f(3) and f(4)?",o:["f(3) = 2 and f(4) = 6","f(3) = −1 and f(4) = −3","f(3) = 6 and f(4) = 2","f(3) = 4 and f(4) = −1"],a:2,e:"Positive means both outputs are above 0. Decreasing means f(4) &lt; f(3). Only 6 then 2 satisfies both."},
+ {u:1,c:0,tp:"1.2",q:"The table shows the distance d, in meters, a cyclist has traveled t seconds after starting. What is the average rate of change of d from t = 2 to t = 9?"+tbl([0,2,5,9],[0,14,35,63],"t (sec)","d (m)"),o:["49 meters per second","7 meters per second","6.3 meters per second","7.5 meters per second"],a:1,e:"(63 − 14)/(9 − 2) = 49/7 = 7 meters per second. Choice A forgets to divide by the change in time."},
+ {u:1,c:0,tp:"1.3",q:"Let f(x) = −2x² + 8x + 1. What are the average rates of change of f over [0, 1], [1, 2], and [2, 3], in that order?",o:["6, 6, 6","6, 2, −2","2, 6, 10","−6, −2, 2"],a:1,e:"f(0) = 1, f(1) = 7, f(2) = 9, f(3) = 7. The rates are 6, 2, −2. They decrease by a constant 4 each step because f is quadratic and concave down."},
+ {u:1,c:0,tp:"1.4",q:"A polynomial function p has degree 6 and a positive leading coefficient. Which of the following must be true?",o:["p has an absolute maximum","p has exactly 5 relative extrema","p has an absolute minimum","p has at least one real zero"],a:2,e:"Even degree with positive leading coefficient means both ends go up, so there is a lowest point (absolute minimum). It could have fewer than 5 extrema, and it might never cross the x-axis (like x⁶ + 1)."},
+ {u:1,c:0,tp:"1.5",q:"What are the zeros of p(x) = x³ − 4x² + 4x, and their multiplicities?",o:["0 (multiplicity 1) and 2 (multiplicity 2)","0, 2 and −2, each multiplicity 1","2 (multiplicity 3)","0 (multiplicity 2) and 4 (multiplicity 1)"],a:0,e:"Factor out x: x(x² − 4x + 4) = x(x − 2)². So 0 has multiplicity 1 and 2 has multiplicity 2."},
+ {u:1,c:0,tp:"1.5",q:"A polynomial p with real coefficients has a zero of multiplicity 3 at x = 1, a zero of multiplicity 2 at x = −2, and a zero at x = i. What is the least possible degree of p?",o:["5","6","8","7"],a:3,e:"3 + 2 = 5 from the real zeros. Because i is a zero and the coefficients are real, −i must also be a zero. 5 + 2 = 7."},
+ {u:1,c:0,tp:"1.6",q:"A polynomial p satisfies lim<sub>x→−∞</sub> p(x) = −∞ and lim<sub>x→∞</sub> p(x) = −∞. Which of the following could define p?",o:["p(x) = x⁴ − 3x","p(x) = −x³ + 2","p(x) = 2x⁵ − x⁴","p(x) = −x⁴ + 3x³"],a:3,e:"Both ends down needs even degree and a negative leading coefficient. Only −x⁴ + 3x³ qualifies."},
+ {u:1,c:0,tp:"1.7",q:"What is lim<sub>x→∞</sub> (4x − 1)/(2x + 7)?",o:["2","0","−1/7","∞"],a:0,e:"The degrees are equal, so the limit is the ratio of leading coefficients: 4/2 = 2."},
+ {u:1,c:0,tp:"1.7",q:"Let r(x) = (x³ + 1)/(x − 2). What is lim<sub>x→−∞</sub> r(x)?",o:["−∞","0","1","∞"],a:3,e:"The leading terms give x³/x = x². As x → −∞, x² → ∞. Watch out: it's tempting to pick −∞ just because x goes to −∞."},
+ {u:1,c:0,tp:"1.8",q:"What is the solution set of (x − 1)/(x + 3) ≥ 0?",o:["x &lt; −3 or x ≥ 1","x ≤ −3 or x ≥ 1","−3 &lt; x ≤ 1","x ≥ 1 only"],a:0,e:"Critical values −3 and 1. Testing intervals gives positive for x &lt; −3 and x &gt; 1. x = 1 makes the expression 0 (included), but x = −3 makes it undefined (excluded)."},
+ {u:1,c:0,tp:"1.9",q:"Let r(x) = x/(x² − 9). What is lim<sub>x→3⁻</sub> r(x)?",o:["∞","−∞","1/2","0"],a:1,e:"Try x = 2.9: numerator is positive, denominator 8.41 − 9 is a small negative number. Positive divided by tiny negative goes to −∞."},
+ {u:1,c:0,tp:"1.10",q:"Which describes the graph of r(x) = (x² − x − 6)/(x − 3)?",o:["The line y = x + 2 with a hole at (3, 5)","The line y = x + 2 with a vertical asymptote at x = 3","The line y = x − 3 with a hole at (3, 0)","A parabola with a vertical asymptote at x = 3"],a:0,e:"x² − x − 6 = (x − 3)(x + 2). Cancel (x − 3) to get x + 2, with a hole at x = 3 where y = 3 + 2 = 5."},
+ {u:1,c:0,tp:"1.11",q:"What is the remainder when p(x) = x³ − 2x² + 3 is divided by (x − 1)?",o:["0","3","2","−2"],a:2,e:"Remainder theorem: the remainder is p(1) = 1 − 2 + 3 = 2."},
+ {u:1,c:0,tp:"1.11",q:"In the expansion of (2x − 1)³, what is the coefficient of the x term?",o:["6","−6","3","12"],a:0,e:"(2x − 1)³ = 8x³ − 12x² + 6x − 1. The x term is 3·(2x)¹·(−1)² = 6x."},
+ {u:1,c:0,tp:"1.12",q:"The point (−2, 4) is on the graph of y = f(x). Which point must be on the graph of g(x) = ½·f(x − 3) + 1?",o:["(−5, 3)","(1, 3)","(1, 9)","(−5, 9)"],a:1,e:"Inside: x − 3 = −2 gives x = 1. Outside: ½·4 + 1 = 3. The point is (1, 3)."},
+ {u:1,c:0,tp:"1.12",q:"A function f has domain [0, 6] and range [−2, 4]. What are the domain and range of g(x) = f(x + 2) − 1?",o:["Domain [2, 8], range [−3, 3]","Domain [−2, 4], range [−1, 5]","Domain [2, 8], range [−1, 5]","Domain [−2, 4], range [−3, 3]"],a:3,e:"x + 2 shifts left 2, so the domain becomes [−2, 4]. The −1 shifts down 1, so the range becomes [−3, 3]."},
+ {u:1,c:0,tp:"1.13",q:"For a data set with equally spaced inputs, the first and second differences of the outputs are not constant, but the third differences are constant and nonzero. Which type of function best models the data?",o:["Quadratic","Exponential","Linear","Cubic"],a:3,e:"Constant nth differences mean a degree-n polynomial. Constant third differences mean cubic."},
+ {u:1,c:0,tp:"1.14",q:"The function f is defined by f(x) = 2x + 1 for x &lt; 3, and f(x) = x² − 2 for x ≥ 3. What is f(1) + f(3)?",o:["10","6","14","−1"],a:0,e:"f(1) uses the first piece: 3. f(3) uses the second piece (x ≥ 3): 9 − 2 = 7. 3 + 7 = 10."},
+ {u:1,c:1,tp:"1.4",q:"What is the absolute minimum value of f(x) = x⁴ − 4x² + 1? (Use a graphing calculator.)",o:["1","−3","−4","0"],a:1,e:"The minimums are at x = ±√2 ≈ ±1.414. f(√2) = 4 − 8 + 1 = −3."},
+ {u:1,c:1,tp:"1.5",q:"How many real zeros does p(x) = x³ − 5x + 1 have? (Use a graphing calculator.)",o:["1","2","0","3"],a:3,e:"The graph crosses the x-axis at about x ≈ −2.330, 0.202, and 2.128. That's 3 real zeros."},
+ {u:1,c:1,tp:"1.14",q:"The table shows data for x and y. A quadratic regression is used to model y as a function of x. According to the model, what is the predicted value of y when x = 6?"+tbl([1,2,3,4,5],["3.1","6.8","13.2","21.1","31.0"],"x","y"),o:["41.300","40.900","43.020","45.170"],a:2,e:"QuadReg gives y ≈ 0.99286x² + 1.05286x + 0.96. At x = 6 that's about 43.020."},
+ {u:1,c:1,tp:"1.2",q:"Use the average rate of change of f(x) = x³ over [2, 2.01] to estimate the rate of change of f at x = 2.",o:["8.121","12.060","4.020","6.030"],a:1,e:"(2.01³ − 2³)/(2.01 − 2) = (8.120601 − 8)/0.01 ≈ 12.060. A short interval gives a good estimate of the rate at a point."},
+ /* ---- extra Unit 2 set ---- */
+ {u:2,c:0,tp:"2.1",q:"An arithmetic sequence has a₀ = 7 and common difference d = −3. What is a₁₂?",o:["−29","−36","−26","43"],a:0,e:"a₁₂ = 7 + 12(−3) = 7 − 36 = −29."},
+ {u:2,c:0,tp:"2.1",q:"The first term of a geometric sequence is 3 and the second term is −6. What is the 6th term?",o:["−192","96","−96","192"],a:2,e:"r = −6/3 = −2. The 6th term is 5 steps from the first: 3·(−2)⁵ = 3·(−32) = −96."},
+ {u:2,c:0,tp:"2.2",q:"The exponential function g(x) = a·bˣ, with b &gt; 0, satisfies g(1) = 4 and g(3) = 36. What is g(4)?",o:["52","108","64","144"],a:1,e:"From x = 1 to x = 3, outputs multiply by b² = 9, so b = 3. g(4) = g(3)·3 = 108. Choice A treats it as linear."},
+ {u:2,c:0,tp:"2.3",q:"What is the range of f(x) = −3·2ˣ + 5?",o:["y &gt; 5","y &lt; 5","y &gt; −3","All real numbers"],a:1,e:"2ˣ &gt; 0, so −3·2ˣ &lt; 0, so −3·2ˣ + 5 &lt; 5. The horizontal asymptote is y = 5 and the graph stays below it."},
+ {u:2,c:0,tp:"2.3",q:"Let f(x) = 4(0.5)ˣ. What is lim<sub>x→−∞</sub> f(x)?",o:["0","4","−∞","∞"],a:3,e:"(0.5)ˣ = 2^(−x). As x → −∞, −x → ∞, so 2^(−x) → ∞. A decay function grows without bound to the left."},
+ {u:2,c:0,tp:"2.4",q:"Which of the following is equivalent to (1/8)ˣ?",o:["2^(−3x)","2^(3x)","−2^(3x)","8^(−1/x)"],a:0,e:"1/8 = 2⁻³, so (1/8)ˣ = (2⁻³)ˣ = 2^(−3x)."},
+ {u:2,c:0,tp:"2.4",q:"Which of the following is equivalent to e^(2x + 3)?",o:["e⁵ˣ","(e²)ˣ + e³","e³·(e²)ˣ","3e²ˣ"],a:2,e:"e^(2x + 3) = e³·e^(2x) = e³·(e²)ˣ. Adding exponents means multiplying the powers, not adding them."},
+ {u:2,c:0,tp:"2.5",q:"$1000 is invested at 5% interest compounded once per year. Which expression gives the value after 10 years?",o:["1000(1.5)¹⁰","1000 + 50·10","1000(0.05)¹⁰","1000(1.05)¹⁰"],a:3,e:"Growing 5% per year means multiplying by 1.05 each year, so 1000(1.05)¹⁰. Choice B is simple interest, which is linear."},
+ {u:2,c:0,tp:"2.6",q:"The residual plot for a linear model shows a clear U-shaped pattern. What is the best conclusion?",o:["The linear model is appropriate because residuals are positive and negative","A nonlinear model would likely be more appropriate","The data must have an error","The model is perfect because the residuals average to zero"],a:1,e:"A pattern in the residuals means the model is missing the curve in the data. A good model has residuals scattered randomly."},
+ {u:2,c:0,tp:"2.7",q:"Let f(x) = x² − 1 and g(x) = √(x + 3). For x ≥ −3, which expression is equal to f(g(x))?",o:["x + 2","x + 4","√(x² + 2)","x² + 2"],a:0,e:"f(g(x)) = (√(x + 3))² − 1 = x + 3 − 1 = x + 2."},
+ {u:2,c:0,tp:"2.7",q:"h(x) = (3x − 1)². If h(x) = f(g(x)), which of the following could be f and g?",o:["f(x) = 3x − 1, g(x) = x²","f(x) = x², g(x) = 3x − 1","f(x) = 3x², g(x) = x − 1","f(x) = x − 1, g(x) = 9x²"],a:1,e:"The inside function g is done first: 3x − 1. Then f squares it."},
+ {u:2,c:0,tp:"2.8",q:"Let f(x) = x³ + 2. What is f⁻¹(29)?",o:["24391","27","3","1/29"],a:2,e:"Solve f(x) = 29: x³ = 27, so x = 3."},
+ {u:2,c:0,tp:"2.8",q:"Which of the following functions does NOT have an inverse function over all real numbers?",o:["f(x) = 2x − 5","f(x) = x³","f(x) = eˣ","f(x) = x² + 1"],a:3,e:"x² + 1 is not one-to-one: f(2) = f(−2) = 5. It would need a restricted domain like x ≥ 0."},
+ {u:2,c:0,tp:"2.9",q:"What is the value of log(1000) + ln(e⁵)?",o:["8","15","5000","3e⁵"],a:0,e:"log 1000 = 3 because 10³ = 1000. ln(e⁵) = 5. 3 + 5 = 8."},
+ {u:2,c:0,tp:"2.12",q:"What is the value of log₆(2) + log₆(18)?",o:["log₆ 20","3","2","36"],a:2,e:"Product rule: log₆(2·18) = log₆ 36 = 2."},
+ {u:2,c:0,tp:"2.10",q:"Let f(x) = 3ˣ. What is f⁻¹(1/27)?",o:["−3","1/3","3","−1/3"],a:0,e:"f⁻¹(x) = log₃ x. log₃(1/27) = −3 because 3⁻³ = 1/27."},
+ {u:2,c:0,tp:"2.11",q:"Which statement about g(x) = −log₂(x + 1) is true?",o:["g is increasing with a vertical asymptote at x = 1","g is decreasing with a vertical asymptote at x = −1","g is decreasing with a horizontal asymptote at y = −1","g is increasing with a vertical asymptote at x = −1"],a:1,e:"x + 1 shifts left 1, so the VA is x = −1. The negative sign reflects the increasing log over the x-axis, so g decreases."},
+ {u:2,c:0,tp:"2.12",q:"If log_b(x) = 2.5 and log_b(y) = 1.5, what is log_b(x²/y)?",o:["1","3.5","4","2.5"],a:1,e:"log_b(x²/y) = 2·log_b x − log_b y = 5 − 1.5 = 3.5."},
+ {u:2,c:0,tp:"2.13",q:"What are all solutions to e^(2x) − 5eˣ + 6 = 0?",o:["x = 2 and x = 3","x = e² and x = e³","x = ln 2 and x = ln 3","x = ln 6"],a:2,e:"Let u = eˣ: u² − 5u + 6 = 0, so u = 2 or 3. Then eˣ = 2 or 3, giving x = ln 2 or ln 3."},
+ {u:2,c:0,tp:"2.13",q:"What value of x satisfies log₃(2x + 1) = 2?",o:["x = 4","x = 2.5","x = 1/2","x = 8"],a:0,e:"Rewrite as 3² = 2x + 1, so 9 = 2x + 1 and x = 4. Check: log₃ 9 = 2. ✓"},
+ {u:2,c:0,tp:"2.15",q:"On a semi-log plot with a base-10 logarithmic y-axis, the data lie on a line with negative slope. What kind of model fits the data?",o:["Linear decreasing","Exponential growth","Logarithmic","Exponential decay"],a:3,e:"A line on a semi-log plot means exponential. Negative slope means the base 10ᵐ is between 0 and 1, so it's decay."},
+ {u:2,c:1,tp:"2.5",q:"A substance has a half-life of 8 days. A sample starts at 200 grams. To the nearest hundredth of a day, how long until 30 grams remain?",o:["21.90 days","26.67 days","18.75 days","24.00 days"],a:0,e:"200(1/2)^(t/8) = 30 ⇒ (1/2)^(t/8) = 0.15 ⇒ t = 8·ln(0.15)/ln(0.5) ≈ 21.90 days."},
+ {u:2,c:1,tp:"2.14",q:"A student's learning score is modeled by L(t) = 12 + 8·ln(t + 1), where t is hours of practice. To the nearest thousandth, for what t is L(t) = 30?",o:["2.250","9.488","1.250","8.488"],a:3,e:"8·ln(t + 1) = 18 ⇒ ln(t + 1) = 2.25 ⇒ t = e^2.25 − 1 ≈ 8.488. Choice B forgets to subtract 1."},
+ {u:2,c:1,tp:"2.15",q:"Data are plotted as (x, ln y), and the points lie on the line through (0, 2) and (4, 3). Which exponential model fits the original data?",o:["y ≈ 2(1.25)ˣ","y ≈ 7.389(0.25)ˣ","y ≈ 7.389(1.284)ˣ","y ≈ 2(1.284)ˣ"],a:2,e:"The line is ln y = 0.25x + 2, so y = e²·(e^0.25)ˣ ≈ 7.389(1.284)ˣ."}
 ];
 // sanity: lengths
 var set="all",pace="chill",order=[],qi=0,answered={},timerId=null,tLeft=0;
@@ -897,7 +945,7 @@ function startTimer(){clearInterval(timerId);var t=$("timer");if(pace!=="exam"){
   function tick(){var m=Math.floor(Math.max(tLeft,0)/60),s=Math.max(tLeft,0)%60;t.textContent=m+":"+(s<10?"0":"")+s+(tLeft<=0?" · move on":"");t.style.background=tLeft<=0?"var(--bad-soft)":"";if(tLeft>0)tLeft--;}}
 function renderQ(){
   var box=$("qcard");box.innerHTML="";
-  if(!order.length){box.innerHTML='<h3>No missed questions yet.</h3><p>Questions you get wrong show up here so you can retry them. Go answer some in "All 44".</p>';$("timer").hidden=true;return;}
+  if(!order.length){box.innerHTML='<h3>No missed questions yet.</h3><p>Questions you get wrong show up here so you can retry them. Go answer some in "All 90".</p>';$("timer").hidden=true;return;}
   var i=order[qi],q=Q[i];
   var correctCount=Object.keys(answered).filter(function(k){return answered[k]===true}).length;
   var meta=el("div","qmeta",'<span class="eyebrow">Question '+(qi+1)+' of '+order.length+' · Topic '+q.tp+'</span><span class="calc'+(q.c?"":" no")+'">'+(q.c?"Calculator":"No calculator")+'</span><span class="score" style="margin-left:auto">Score '+correctCount+'/'+Object.keys(answered).length+'</span>');
